@@ -1,57 +1,8 @@
 #Author: Gilberto Berttolini Alvarado
 
 import ply.lex as lex
+from tokens import tokens
 
-
-# Definición de tokens
-tokens = (
-    'NEWLINE',
-    'SEMICOLON',
-    'PAR_LEFT',
-    'PAR_RIGHT',
-    'PERIOD',
-    'COLON',
-    'PLUS',
-    'MINUS',
-    'MULT',
-    'DIAG',
-    'PERC',
-    'LESS_THAN',
-    'GREATER_THAN',
-    'AND',
-    'OR',
-    'EQUAL',
-    'NOT_EQUAL',
-    'LESS_EQUAL',
-    'GREATER_EQUAL',
-    'ID',
-    'DIGIT_INTEGER',
-    'DIGIT_DECIMAL'
-)
-
-# Definición de reglas para tokens
-t_NEWLINE = r'\\n'
-t_SEMICOLON = r';'
-t_PAR_LEFT = r'\('
-t_PAR_RIGHT = r'\)'
-t_PERIOD = r'\.'
-t_COLON = r':'
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_MULT = r'\*'
-t_DIAG = r'/'
-t_PERC = r'%'
-t_LESS_THAN = r'<'
-t_GREATER_THAN = r'>'
-t_AND = r'&'
-t_OR = r'\|'
-t_EQUAL = r'='
-t_NOT_EQUAL = r'!='
-t_LESS_EQUAL = r'<='
-t_GREATER_EQUAL = r'>='
-t_ID = r'[a-zA-Z][a-zA-Z0-9]*'
-t_DIGIT_INTEGER = r'[0-9]+'
-t_DIGIT_DECIMAL = r'[0-9]+\.[0-9]+'
 
 #Definicion de reglas para algunos tokens especificos
 #para el ID
@@ -84,9 +35,9 @@ def t_error(t):
     print("Error léxico: Carácter no válido '%s'" % t.value[0])
     t.lexer.skip(1)  # Omitir el carácter no válido
 
-# Regla para comentarios con "%"
+# Regla para comentarios con "%%"
 def t_COMMENT(t):
-    r'%.*'
+    r'%%.*'
     pass  # Los comentarios se omiten y no se devuelven como tokens
 
 # Regla para manejar el final del archivo (EOF)

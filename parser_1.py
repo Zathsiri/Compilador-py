@@ -1,6 +1,6 @@
 # parser.py
 import ply.yacc as yacc
-from lexer import tokens
+from tokens import tokens
 
 
 # Definir las reglas del analisis sintactico 
@@ -20,7 +20,7 @@ def p_expression_term(p):
 def p_term_mult(p):
     'term : term MULT factor'
     p[0] = p[1] * p[3]
-#
+
 def p_term_div(p):
     'term : term DIAG factor'
     p[0] = p[1] / p[3]
@@ -47,6 +47,23 @@ def p_comparison_expression(p):
     elif p[2] == '>':
         p[0] = p[1] > p[3]
 
+#declaracion de funciones
+def p_function_declaration(p):
+    '''
+    declaration : FUNCTION type ID LPAREN parameter_list RPAREN
+               | FUNCTION VOID ID LPAREN parameter_list RPAREN
+    '''
+#Se define los tipos de funciones que puede utilizar
+def p_type(p): 
+    '''
+    type : INT
+         | FLOAT
+         | VOID 
+    
+    '''
+
+
+     
 
 
 
