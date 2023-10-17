@@ -4,6 +4,8 @@ tokens = (
     'SEMICOLON',
     'PAR_LEFT',
     'PAR_RIGHT',
+    'BRACKET_LEFT',
+    'BRACKET_RIGHT',
     'PERIOD',
     'COLON',
     'PLUS',
@@ -16,6 +18,7 @@ tokens = (
     'AND',
     'OR',
     'EQUAL',
+    'DOUBLE_EQUAL',
     'NOT_EQUAL',
     'LESS_EQUAL',
     'GREATER_EQUAL',
@@ -24,7 +27,8 @@ tokens = (
     'DIGIT_DECIMAL',
     'INT',
     'FLOAT',
-    'VOID'
+    'VOID',
+    'CHAR'
 )
 
 # Definición de reglas para tokens
@@ -39,6 +43,7 @@ t_MINUS = r'-'
 t_MULT = r'\*'
 t_DIAG = r'/'
 t_PERC = r'%'
+t_COMMA = r','
 t_LESS_THAN = r'<'
 t_GREATER_THAN = r'>'
 t_AND = r'&'
@@ -47,6 +52,9 @@ t_EQUAL = r'='
 t_NOT_EQUAL = r'!='
 t_LESS_EQUAL = r'<='
 t_GREATER_EQUAL = r'>='
+t_DOUBLE_EQUAL = r'=='
+t_BRACKET_LEFT = r'\['  # Corchete izquierdo
+t_RBRACKET_RIGHT = r'\]'  # Corchete derecho
 t_ID = r'[a-zA-Z][a-zA-Z0-9]*'
 t_DIGIT_INTEGER = r'[0-9]+'
 t_DIGIT_DECIMAL = r'[0-9]+\.[0-9]+'
@@ -55,5 +63,7 @@ t_DIGIT_DECIMAL = r'[0-9]+\.[0-9]+'
 t_INT = r'int'
 t_FLOAT = r'float'
 t_VOID = r'void'
+t_CHAR = r'char'
 #Token para la funcion 
 t_FUNCTION = r'function'
+

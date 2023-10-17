@@ -41,18 +41,48 @@ def p_comparison_expression(p):
     '''
     comparison_expression : expression LESS_THAN expression
                          | expression GREATER_THAN expression
+                         | expression LESS_EQUAL expression
+                         | expression GREATER_EQUAL expression
+                         | expression DOUBLE_EQUAL expression
+                         | expression NOT_EQUAL expression
     '''
     if p[2] == '<':
         p[0] = p[1] < p[3]
     elif p[2] == '>':
         p[0] = p[1] > p[3]
+    elif p[2] == '<=':
+        p[0] = p[1] <= p[3]
+    elif p[2] == '>=':
+        p[0] = p[1] >= p[3]
+    elif p[2] == '==':
+        p[0] = p[1] == p[3]
+    elif p[2] == '!=':
+        p[0] = p[1] != p[3]
 
-#declaracion de funciones
-def p_function_declaration(p):
-    '''
-    declaration : FUNCTION type ID LPAREN parameter_list RPAREN
-               | FUNCTION VOID ID LPAREN parameter_list RPAREN
-    '''
+def p_function_call(p):
+    'function_call : ID t_PAR_LEFT argument_list t_PAR_RIGHT'
+    # Realiza acciones semánticas para manejar llamadas a funciones con argumentos variables
+    # p[0] podría contener el resultado de la función llamada
+
+def p_argument_list(p):
+    'argument_list : argument_list t_COMMA expression'
+    # Realiza acciones semánticas para manejar una lista de argumentos separados por comas
+    # p[0] podría contener información sobre la lista de argumentos
+
+def p_argument_list_single(p):
+    'argument_list : expression'
+    # Realiza acciones semánticas para manejar un solo argumento
+    # p[0] podría contener información sobre el argumento
+
+def p_function_call_with_array(p):
+    'function_call : ID t_PAR_LEFT array_argument t_PAR_RIGHT'
+    # Realiza acciones semánticas para manejar llamadas a funciones con argumentos de arreglo
+    # p[0] podría contener el resultado de la función llamada
+
+def p_array_argument(p):
+    'array_argument : t_BRACKET_LEFT expression t_BRACKET_RIGHT'
+    # Realiza acciones semánticas para manejar un argumento de arreglo
+    # p[0] podría contener información sobre el argumento de arreglo
 #Se define los tipos de funciones que puede utilizar
 def p_type(p): 
     '''
@@ -61,8 +91,11 @@ def p_type(p):
          | VOID 
     
     '''
-
-
+#par ala declaracion de arreglos
+def p_array_declaration(p):
+    '''
+    array_declaration : ID '[' NUMBER ']'
+    '''
      
 
 
