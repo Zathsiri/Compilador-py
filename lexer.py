@@ -45,6 +45,13 @@ def t_eof(t):
     # Realizar alguna acción si es necesario al llegar al final del archivo
     return None
 
+#Regla para el vars
+def t_VARS(t):
+    r'vars'
+    return t
+
+
+
 # Creación del analizador léxico
 lexer = lex.lex()
 

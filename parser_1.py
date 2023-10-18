@@ -4,6 +4,10 @@ from tokens import tokens
 
 
 # Definir las reglas del analisis sintactico 
+def p_program_declaration(p):
+    'program_declaration : PROGRAM ID SEMICOLON'
+    # Realiza acciones semánticas para manejar la declaración del programa
+    # p[0] podría contener información sobre el programa
 
 def p_expression_plus(p):
     'expression : expression PLUS term'
@@ -96,10 +100,46 @@ def p_array_declaration(p):
     '''
     array_declaration : ID '[' NUMBER ']'
     '''
-     
+def p_vars_section(p):
+    'vars_section : VARS var_declaration_list'
+    # Realiza acciones semánticas para manejar la sección de declaraciones globales
+    # p[0] podría contener información sobre las declaraciones globales
 
+def p_var_declaration_list(p):
+    'var_declaration_list : var_declaration_list var_declaration'
+    # Realiza acciones semánticas para manejar una lista de declaraciones globales
+    # p[0] podría contener información sobre la lista de declaraciones
 
+def p_var_declaration_list_single(p):
+    'var_declaration_list : var_declaration'
+    # Realiza acciones semánticas para manejar una sola declaración global
+    # p[0] podría contener información sobre la declaración global
 
+def p_var_declaration(p):
+    'var_declaration : type ID SEMICOLON'
+    # Realiza acciones semánticas para manejar una declaración global
+    # p[0] podría contener información sobre la declaración global
+
+def p_if_statement(p):
+    '''
+    if_statement : IF condition_statement block
+    '''
+    # Realiza acciones semánticas para manejar la estructura "if"
+    # p[0] podría contener información sobre la estructura
+
+def p_else_statement(p):
+    '''
+    else_statement : ELSE block
+    '''
+    # Realiza acciones semánticas para manejar la estructura "else"
+    # p[0] podría contener información sobre la estructura
+
+def p_write_statement(p):
+    '''
+    write_statement : WRITE LPAREN argument_list RPAREN SEMICOLON
+    '''
+    # Realiza acciones semánticas para manejar la estructura "write"
+    # p[0] podría contener información sobre la estructura
 
 # Crea el analizador sintáctico
 parser = yacc.yacc()

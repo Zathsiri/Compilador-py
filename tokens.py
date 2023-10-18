@@ -28,7 +28,16 @@ tokens = (
     'INT',
     'FLOAT',
     'VOID',
-    'CHAR'
+    'CHAR',
+    'PROGRAM',
+    'VARS',
+    'LEFT_BRACE',
+    'RIGHT_BRACE',
+    'IF',
+    'ELSE',
+    'WRITE'
+
+
 )
 
 # Definición de reglas para tokens
@@ -58,6 +67,8 @@ t_RBRACKET_RIGHT = r'\]'  # Corchete derecho
 t_ID = r'[a-zA-Z][a-zA-Z0-9]*'
 t_DIGIT_INTEGER = r'[0-9]+'
 t_DIGIT_DECIMAL = r'[0-9]+\.[0-9]+'
+t_LEFT_BRACE = r'\{'
+t_RIGHT_BRACE = r'\}'
 
 # Tokens para tipos de datos
 t_INT = r'int'
@@ -66,4 +77,12 @@ t_VOID = r'void'
 t_CHAR = r'char'
 #Token para la funcion 
 t_FUNCTION = r'function'
-
+#token del programa 
+t_PROGRAM = r'program'
+#token de la declariacion de las variables
+t_VARS = r'vars'
+# Expresiones regulares para los tokens
+t_IF = r'if'
+t_ELSE = r'else'
+#Token del write 
+t_WRITE = r'write'
