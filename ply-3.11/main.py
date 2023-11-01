@@ -118,3 +118,22 @@ def t_error(t):
     t.lexer.skip(1)
     lexer = lex.lex()
 
+
+
+def p_programa(p):
+        '''
+        programa : PROGRAM ID SEMICOLON addP programa1 
+        '''
+        global programId
+        programId = p[2]
+        p[0] = 'PROGRAMA COMPILADO'
+
+def p_addP(p):
+    'addP :'
+    #tipo de programa
+    global actual_funTipo, fid
+    actual_funTipo = 'programa'
+    fid = 'programa'
+    
+
+        
