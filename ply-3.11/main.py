@@ -128,12 +128,34 @@ def p_programa(p):
         programId = p[2]
         p[0] = 'PROGRAMA COMPILADO'
 
+#Aqui si identeficia el tipo de programa
 def p_addP(p):
     'addP :'
-    #tipo de programa
     global actual_funTipo, fid
     actual_funTipo = 'programa'
     fid = 'programa'
     
+def p_programa1(p):
+    '''
+	programa1 : vars quadMain modules main_end programa2
+	programa1 : vars quadMain modules
+	          | programa2
+	'''
 
+def p_programa2(p):
+    '''
+	programa2 :  main 
+	''' 
         
+def p_main(p):
+    '''
+	main : MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
+	'''
+    global actual_funTipo
+    actual_funTipo = p[1]
+    # asigna nombre del programa
+    global fid
+    fid = p[1]
+    #print('_________', fid)
+    global tablaFun
+   #aqui abra una funcion que agregue la funcion a la tabla de variables
