@@ -25,7 +25,7 @@ reserved ={
     
 
 }
-
+#toknes del lenguaje 
 tokens = [
     'ID',  #ID
     'CTEI',#CONSTANTE ENTERA
@@ -47,14 +47,14 @@ tokens = [
     'LPAREN', #(
     'RPAREN', #)
     'COMMA', #,
-    'SEMICOLON', 
+    'SEMICOLON',#;
     'NE', #NOT EQUAL
     'LBRACKET', #[
     'RBRACKET', #]
     'LCURLY', #{
     'RCURLY',#}
-    'TRANSPUESTA', 
-    'INVERSA',
+    'TRANSPUESTA', #Estos venian dentro del parser pero no creo
+    'INVERSA', #Utilizarles
     'DETERMINANTE', 
     'COMILLA' # ''
 ] + list(reserved.values())
@@ -89,21 +89,17 @@ t_ignore = ' \t\n'
 #Identificador de ID's
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    #if t.value in reserved:
-    #t.type = reserved[t.value]
     t.type = reserved.get(t.value, 'ID')
     return t
 
 #identificador de INT
 def t_CTEI(t):
-    #r'\d+'
     r'0|[-+]?[1-9][0-9]*'
     t.value = int(t.value)
     return t
 
 #Identificador de FLOAT
 def t_CTEF(t):
-    #r'\d+\.\d+'
     r'[-+]?\d*\.\d+'
     t.value = float(t.value)
     return t
@@ -146,16 +142,25 @@ def p_programa2(p):
     '''
 	programa2 :  main 
 	''' 
-        
+
+# asigna nombre del programa       
 def p_main(p):
     '''
 	main : MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
 	'''
     global actual_funTipo
     actual_funTipo = p[1]
-    # asigna nombre del programa
     global fid
     fid = p[1]
-    #print('_________', fid)
     global tablaFun
    #aqui abra una funcion que agregue la funcion a la tabla de variables
+
+
+#Varibles aceptadas
+def p_tipo(p):
+    '''
+    tipo : INT guardaTipoVar
+         | FLOAT guardaTipoVar
+         | CHAR guardaTipoVar 
+    ''' 
+
