@@ -21,7 +21,9 @@ reserved ={
     'read'      :   'READ',
     'write'     :   'WRITE',
     'for'       :   'FOR',
+    'from'      :   'FROM',
     'while'     :   'WHILE',
+    'to'        :   'TO'
     
 
 }
@@ -56,7 +58,7 @@ tokens = [
     'TRANSPUESTA', #Estos venian dentro del parser pero no creo
     'INVERSA', #Utilizarles
     'DETERMINANTE', 
-    'COMILLA' # ''
+    'COMILLA' # '',
 ] + list(reserved.values())
 
 t_SEMICOLON = r'\;'
@@ -80,7 +82,7 @@ t_GTE = r'\>='
 t_LTE = r'\<='
 t_NE = r'\!=' 
 t_AND = r'\&&'
-t_OR = r'\|'
+t_OR = r'\||'
 t_TRANSPUESTA = r'\¡'
 t_DETERMINANTE = r'\$'
 t_INVERSA = r'\?'
