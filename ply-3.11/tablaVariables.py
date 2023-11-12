@@ -1,4 +1,4 @@
-class tabVariable:
+class tabVar:
     def __init__(self):
         self.var_list ={}
              
@@ -16,3 +16,5 @@ class tabVariable:
 
     def get_Tipo(self, id):
         return self.var_list[id]['tipo']
+
+#crear aqui la tabla de Funciones y agregar ? 

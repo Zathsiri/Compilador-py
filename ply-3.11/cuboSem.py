@@ -196,7 +196,7 @@ class CuboSem:
                     self.operators[13]: self.types[2],  # float = int
                     self.operators[14]: self.types[9],  # float == int = bool
                 },
-                #com´patibilidad de FLOAT con FLOAT
+                #compatibilidad de FLOAT con FLOAT
                 self.types[2]:{
                     self.operators[1]: self.types[2],  # float + float = float
                     self.operators[2]: self.types[2],  # float - float = float
@@ -232,8 +232,8 @@ class CuboSem:
                     self.operators[14]: self.types[9],  # float == char = bool 
                 },
             
-            #compatibilidad de FLOAT con BOOL
-            self.types[4]:{
+                #compatibilidad de FLOAT con BOOL
+                self.types[4]:{
                     self.operators[1]: self.types[9],  # bool + bool = ERROR
                     self.operators[2]: self.types[9],  # bool - bool = ERROR
                     self.operators[3]: self.types[9],  # bool * bool = ERROR
@@ -249,10 +249,298 @@ class CuboSem:
                     self.operators[13]: self.types[9],  # bool = bool
                     self.operators[14]: self.types[9],  # bool == bool = bool
                 },
-
-
-            
            
+                #compatibilidad dfe FLOAT con CTEI
+                self.types[5]:{
+                    self.operators[1]: self.types[2],  # float + CTEI = float
+                    self.operators[2]: self.types[2],  # float - CTEI = float
+                    self.operators[3]: self.types[2],  # float * CTEI = float
+                    self.operators[4]: self.types[2],  # float / CTEI = float
+                    self.operators[5]: self.types[4],  # float < CTEI = bool
+                    self.operators[6]: self.types[4],  # float > CTEI = bool
+                    self.operators[7]: self.types[4],  # float <= CTEI = bool
+                    self.operators[8]: self.types[4],  # float >= CTEI = bool
+                    self.operators[9]: self.types[4],  # float == CTEI = bool
+                    self.operators[10]: self.types[4],  # float != CTEI = bool
+                    self.operators[11]: self.types[4],  # float && CTEI = bool
+                    self.operators[12]: self.types[4],  # float || CTEI = bool
+                    self.operators[13]: self.types[2],  # float = CTEI
+                    self.operators[14]: self.types[9],  # float == CTEI = bool
+                 },
 
-            }
+                #compatibilidad de FLOAT con CTEF
+                self.types[6]:{
+                    self.operators[1]: self.types[2],  # float + CTEF = float
+                    self.operators[2]: self.types[2],  # float - CTEF = float
+                    self.operators[3]: self.types[2],  # float * CTEF = float
+                    self.operators[4]: self.types[2],  # float / CTEF = float
+                    self.operators[5]: self.types[4],  # float < CTEF = bool
+                    self.operators[6]: self.types[4],  # float > CTEF = bool
+                    self.operators[7]: self.types[4],  # float <= CTEF = bool
+                    self.operators[8]: self.types[4],  # float >= CTEF = bool
+                    self.operators[9]: self.types[4],  # float == CTEF = bool
+                    self.operators[10]: self.types[4],  # float != CTEF = bool
+                    self.operators[11]: self.types[4],  # float && CTEF = bool
+                    self.operators[12]: self.types[4],  # float || CTEF = bool
+                    self.operators[13]: self.types[2],  # float = CTEF
+                    self.operators[14]: self.types[4],  # float == CTEF = bool
+                },
+                #compatibilidad de FLOAT con CTEC
+                self.types[7]:{
+                    self.operators[1]: self.types[9],  # float + CTEC = ERROR
+                    self.operators[2]: self.types[9],  # float - CTEC = ERROR
+                    self.operators[3]: self.types[9],  # float * CTEC = ERROR
+                    self.operators[4]: self.types[9],  # float / CTEC = ERROR
+                    self.operators[5]: self.types[9],  # float < CTEC = ERROR
+                    self.operators[6]: self.types[9],  # float > CTEC = ERROR
+                    self.operators[7]: self.types[9],  # float <= CTEC = ERROR
+                    self.operators[8]: self.types[9],  # float >= CTEC = ERROR
+                    self.operators[9]: self.types[9],  # float == CTEC = ERROR
+                    self.operators[10]: self.types[9],  # float != CTEC = ERROR
+                    self.operators[11]: self.types[4],  # float && CTEC = bool
+                    self.operators[12]: self.types[4],  # float || CTEC = bool
+                    self.operators[13]: self.types[9],  # float = CTEC
+                    self.operators[14]: self.types[9],  # float == CTEC = bool
+                },
+            #compatibilidad de FLOAT con CSTERING
+                self.types[8]:{
+                    self.operators[1]: self.types[9],  # float + CTESTRING = ERROR
+                    self.operators[2]: self.types[9],  # float - CTESTRING = ERROR
+                    self.operators[3]: self.types[9],  # float * CTESTRING = ERROR
+                    self.operators[4]: self.types[9],  # float / CTESTRING = ERROR
+                    self.operators[5]: self.types[9],  # float < CTESTRING = ERROR
+                    self.operators[6]: self.types[9],  # float > CTESTRING = ERROR
+                    self.operators[7]: self.types[9],  # float <= CTESTRING = ERROR
+                    self.operators[8]: self.types[9],  # float >= CTESTRING = ERROR
+                    self.operators[9]: self.types[9],  # float == CTESTRING = ERROR
+                    self.operators[10]: self.types[9],  # float != CTESTRING = ERROR
+                    self.operators[11]: self.types[4],  # float && CTESTRING = bool
+                    self.operators[12]: self.types[4],  # float || CTESTRING = bool
+                    self.operators[13]: self.types[9],  # float = CTESTRING
+                    self.operators[14]: self.types[9],  # float == CTESTRING = bool 
+                }
+            },
+            #3 CHAR
+            self.types[3]:{
+                
+                #compatibilidad de CHAR con INT
+                self.types[1]:{
+                    self.operators[1]: self.types[9],  # char + int = ERROR
+                    self.operators[2]: self.types[9],  # char - int = ERROR
+                    self.operators[3]: self.types[9],  # char * int = ERROR
+                    self.operators[4]: self.types[9],  # char / int = ERROR
+                    self.operators[5]: self.types[9],  # char < int = ERROR
+                    self.operators[6]: self.types[9],  # char > int = ERROR
+                    self.operators[7]: self.types[9],  # char <= int = ERROR
+                    self.operators[8]: self.types[9],  # char >= int = ERROR
+                    self.operators[9]: self.types[9],  # char == int = ERROR
+                    self.operators[10]: self.types[9],  # char != int = ERROR
+                    self.operators[11]: self.types[4],  # char && int = bool
+                    self.operators[12]: self.types[4],  # char || int = bool
+                    self.operators[13]: self.types[9],  # char = int
+                    self.operators[14]: self.types[9],  # char == int = bool
+                },
+
+                #compatiblidad de CHAR con FLOAT
+                self.types[2]:{
+                    self.operators[1]: self.types[9],  # char + float = ERROR
+                    self.operators[2]: self.types[9],  # char - float = ERROR
+                    self.operators[3]: self.types[9],  # char * float = ERROR
+                    self.operators[4]: self.types[9],  # char / float = ERROR
+                    self.operators[5]: self.types[9],  # char < float = ERROR
+                    self.operators[6]: self.types[9],  # char > float = ERROR
+                    self.operators[7]: self.types[9],  # char <= float = ERROR
+                    self.operators[8]: self.types[9],  # char >= float = ERROR
+                    self.operators[9]: self.types[9],  # char == float = ERROR
+                    self.operators[10]: self.types[9],  # char != float = ERROR
+                    self.operators[11]: self.types[4],  # char && float = bool
+                    self.operators[12]: self.types[4],  # char || float = bool
+                    self.operators[13]: self.types[9],  # char = float
+                    self.operators[14]: self.types[9],  # char == float = bool
+                },
+
+                #compatiblidad de CHAR con CHAR
+                self.types[3]:{
+                    self.operators[1]: self.types[9],  # char + char = ERROR
+                    self.operators[2]: self.types[9],  # char - char = ERROR
+                    self.operators[3]: self.types[9],  # char * char = ERROR
+                    self.operators[4]: self.types[9],  # char / char = ERROR
+                    self.operators[5]: self.types[9],  # char < char = ERROR
+                    self.operators[6]: self.types[9],  # char > char = ERROR
+                    self.operators[7]: self.types[9],  # char <= char = ERROR
+                    self.operators[8]: self.types[9],  # char >= char = ERROR
+                    self.operators[9]: self.types[4],  # char == char = bool
+                    self.operators[10]: self.types[4],  # char != char = bool
+                    self.operators[11]: self.types[4],  # char && char = bool
+                    self.operators[12]: self.types[4],  # char || char = bool
+                    self.operators[13]: self.types[3],  # char = char
+                    self.operators[14]: self.types[4],  # char == char = bool
+                },
+
+                #compatibilidad de CHAR con BOOL
+                self.types[4]:{
+                    self.operators[1]: self.types[9],  # char + bool = ERROR
+                    self.operators[2]: self.types[9],  # char - bool = ERROR
+                    self.operators[3]: self.types[9],  # char * bool = ERROR
+                    self.operators[4]: self.types[9],  # char / bool = ERROR
+                    self.operators[5]: self.types[9],  # char < bool = ERROR
+                    self.operators[6]: self.types[9],  # char > bool = ERROR
+                    self.operators[7]: self.types[9],  # char <= bool = ERROR
+                    self.operators[8]: self.types[9],  # char >= bool = ERROR
+                    self.operators[9]: self.types[9],  # char == bool = ERROR
+                    self.operators[10]: self.types[9],  # char != bool = ERROR
+                    self.operators[11]: self.types[9],  # char && bool = ERROR
+                    self.operators[12]: self.types[9],  # char || bool = ERROR
+                    self.operators[13]: self.types[9],  # char = bool
+                    self.operators[14]: self.types[9],  # char == bool = ERROR  
+                },
+                
+                #compatibilidad de CHAR con CTEI
+                self.types[5]:{
+                    self.operators[1]: self.types[9],  # char + ctei = ERROR
+                    self.operators[2]: self.types[9],  # char - ctei = ERROR
+                    self.operators[3]: self.types[9],  # char * ctei = ERROR
+                    self.operators[4]: self.types[9],  # char / ctei = ERROR
+                    self.operators[5]: self.types[9],  # char < ctei = ERROR
+                    self.operators[6]: self.types[9],  # char > ctei = ERROR
+                    self.operators[7]: self.types[9],  # char <= ctei = ERROR
+                    self.operators[8]: self.types[9],  # char >= ctei = ERROR
+                    self.operators[9]: self.types[9],  # char == ctei = ERROR
+                    self.operators[10]: self.types[9],  # char != ctei = ERROR
+                    self.operators[11]: self.types[4],  # char && ctei = bool
+                    self.operators[12]: self.types[4],  # char || ctei = bool
+                    self.operators[13]: self.types[9],  # char = ctei
+                    self.operators[14]: self.types[9],  # char == ctei = bool
+                },
+                
+                #compatibildiad de CHAR con CTEF
+                self.types[6]:{
+                    self.operators[1]: self.types[9],  # char + ctef = ERROR
+                    self.operators[2]: self.types[9],  # char - ctef = ERROR
+                    self.operators[3]: self.types[9],  # char * ctef = ERROR
+                    self.operators[4]: self.types[9],  # char / ctef = ERROR
+                    self.operators[5]: self.types[9],  # char < ctef = ERROR
+                    self.operators[6]: self.types[9],  # char > ctef = ERROR
+                    self.operators[7]: self.types[9],  # char <= ctef = ERROR
+                    self.operators[8]: self.types[9],  # char >= ctef = ERROR
+                    self.operators[9]: self.types[9],  # char == ctef = ERROR
+                    self.operators[10]: self.types[9],  # char != ctef = ERROR
+                    self.operators[11]: self.types[4],  # char && ctef = bool
+                    self.operators[12]: self.types[4],  # char || ctef = bool
+                    self.operators[13]: self.types[9],  # char = ctef
+                    self.operators[14]: self.types[9],  # char == ctef = bool
+                },
+                
+                #compatibilidad de CHAR con CTEC
+                self.types[7]:{
+                    self.operators[1]: self.types[9],  # char + CTEC = ERROR
+                    self.operators[2]: self.types[9],  # char - CTEC = ERROR
+                    self.operators[3]: self.types[9],  # char * CTEC = ERROR
+                    self.operators[4]: self.types[9],  # char / CTEC = ERROR
+                    self.operators[5]: self.types[9],  # char < CTEC = ERROR
+                    self.operators[6]: self.types[9],  # char > CTEC = ERROR
+                    self.operators[7]: self.types[9],  # char <= CTEC = ERROR
+                    self.operators[8]: self.types[9],  # char >= CTEC = ERROR
+                    self.operators[9]: self.types[9],  # char == CTEC = ERROR
+                    self.operators[10]: self.types[4],  # char != CTEC = bool
+                    self.operators[11]: self.types[4],  # char && CTEC = bool
+                    self.operators[12]: self.types[4],  # char || CTEC = bool
+                    self.operators[13]: self.types[9],  # char = CTEC
+                    self.operators[14]: self.types[9],  # char == CTEC = bool
+                },
+                
+                #compatibilidad de CHAR con CTESTRING
+                self.types[8]:{
+                    self.operators[1]: self.types[9],  # char + CTEString = ERROR
+                    self.operators[2]: self.types[9],  # char - CTEString = ERROR
+                    self.operators[3]: self.types[9],  # char * CTEString = ERROR
+                    self.operators[4]: self.types[9],  # char / CTEString = ERROR
+                    self.operators[5]: self.types[9],  # char < CTEString = ERROR
+                    self.operators[6]: self.types[9],  # char > CTEString = ERROR
+                    self.operators[7]: self.types[9],  # char <= CTEString = ERROR
+                    self.operators[8]: self.types[9],  # char >= CTEString = ERROR
+                    self.operators[9]: self.types[9],  # char == CTEString = ERROR
+                    self.operators[10]: self.types[4],  # char != CTEString = bool
+                    self.operators[11]: self.types[4],  # char && CTEString = bool
+                    self.operators[12]: self.types[4],  # char || CTEString = bool
+                    self.operators[13]: self.types[9],  # char = CTEString
+                    self.operators[14]: self.types[9],  # char == CTEString = bool
+                }
+            },
+       
+       #4 BOOL
+        self.types[4]:{
+                #compatibilidad de BOOL con INT 
+                self.types[1]:{
+                    self.operators[1]: self.types[9],  # bool + int = ERROR
+                    self.operators[2]: self.types[9],  # bool - int = ERROR
+                    self.operators[3]: self.types[9],  # bool * int = ERROR
+                    self.operators[4]: self.types[9],  # bool / int = ERROR
+                    self.operators[5]: self.types[9],  # bool < int = ERROR
+                    self.operators[6]: self.types[9],  # bool > int = ERROR
+                    self.operators[7]: self.types[9],  # bool <= int = ERROR
+                    self.operators[8]: self.types[9],  # bool >= int = ERROR
+                    self.operators[9]: self.types[9],  # bool == int = ERROR
+                    self.operators[10]: self.types[9],  # bool != int = ERROR
+                    self.operators[11]: self.types[4],  # bool && int = bool
+                    self.operators[12]: self.types[4],  # bool || int = bool
+                    self.operators[13]: self.types[9],  # bool = int
+                    self.operators[14]: self.types[9],  # bool == int = bool
+                },
+                
+                #compatibilida de BOOL con FLOAT
+                self.types[2]:{
+                    self.operators[1]: self.types[9],  # bool + float = ERROR
+                    self.operators[2]: self.types[9],  # bool - float = ERROR
+                    self.operators[3]: self.types[9],  # bool * float = ERROR
+                    self.operators[4]: self.types[9],  # bool / float = ERROR
+                    self.operators[5]: self.types[9],  # bool < float = ERROR
+                    self.operators[6]: self.types[9],  # bool > float = ERROR
+                    self.operators[7]: self.types[9],  # bool <= float = ERROR
+                    self.operators[8]: self.types[9],  # bool >= float = ERROR
+                    self.operators[9]: self.types[9],  # bool == float = ERROR
+                    self.operators[10]: self.types[9],  # bool != float = ERROR
+                    self.operators[11]: self.types[4],  # bool && float = bool
+                    self.operators[12]: self.types[4],  # bool || float = bool
+                    self.operators[13]: self.types[9],  # bool = float
+                    self.operators[14]: self.types[9],  # bool == float = bool
+                },
+
+                #compatibilidad de BOOL con CHAR
+                self.types[3]:{
+                   self.operators[1]: self.types[9],  # bool + char = ERROR
+                    self.operators[2]: self.types[9],  # bool - char = ERROR
+                    self.operators[3]: self.types[9],  # bool * char = ERROR
+                    self.operators[4]: self.types[9],  # bool / char = ERROR
+                    self.operators[5]: self.types[9],  # bool < char = ERROR
+                    self.operators[6]: self.types[9],  # bool > char = ERROR
+                    self.operators[7]: self.types[9],  # bool <= char = ERROR
+                    self.operators[8]: self.types[9],  # bool >= char = ERROR
+                    self.operators[9]: self.types[9],  # bool == char = ERROR
+                    self.operators[10]: self.types[9],  # bool != char = ERROR
+                    self.operators[11]: self.types[4],  # bool && char = bool
+                    self.operators[12]: self.types[4],  # bool || char = bool
+                    self.operators[13]: self.types[9],  # bool = char
+                    self.operators[14]: self.types[9],  # bool == char = bool 
+                },
+
+                #compatibilidad de BOOL con BOOL
+                self.types[4]:{
+                    self.operators[1]: self.types[9],  # bool + bool = ERROR
+                    self.operators[2]: self.types[9],  # bool - bool = ERROR
+                    self.operators[3]: self.types[9],  # bool * bool = ERROR
+                    self.operators[4]: self.types[9],  # bool / bool = ERROR
+                    self.operators[5]: self.types[4],  # bool < bool = bool
+                    self.operators[6]: self.types[4],  # bool > bool = bool
+                    self.operators[7]: self.types[4],  # bool <= bool = bool
+                    self.operators[8]: self.types[4],  # bool >= bool = bool
+                    self.operators[9]: self.types[4],  # bool == bool = bool
+                    self.operators[10]: self.types[4],  # bool != bool = bool
+                    self.operators[11]: self.types[4],  # bool && bool = bool
+                    self.operators[12]: self.types[4],  # bool || bool = bool
+                    self.operators[13]: self.types[4],  # bool = bool
+                    self.operators[14]: self.types[4],  # bool == bool = bool
+                }
+        }
+
         }

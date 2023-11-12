@@ -97,12 +97,12 @@ Rule 91    for_end -> <empty>
 Rule 92    while_quad -> <empty>
 Rule 93    while_op -> <empty>
 Rule 94    while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
-Rule 95    escritura -> PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+Rule 95    escritura -> WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
 Rule 96    escritura1 -> escritura2 COMMA escritura2
 Rule 97    escritura1 -> escritura2
 Rule 98    escritura2 -> COMILLA CTESTRING COMILLA
-Rule 99    escritura2 -> CTEI saveCTE operatorPrintQuad
-Rule 100   escritura2 -> CTEF saveCTE operatorPrintQuad
+Rule 99    escritura2 -> CTEI saveCTE operatorWRITEQuad
+Rule 100   escritura2 -> CTEF saveCTE operatorWRITEQuad
 Rule 101   escritura2 -> exp
 Rule 102   lectura -> READ operatorRead LPAREN exp operatorReadQuad RPAREN
 Rule 103   exp -> nexp
@@ -128,8 +128,8 @@ Rule 122   sumexp -> mulexp PLUS addOperadorName mulexp genera_sum_quad
 Rule 123   sumexp -> mulexp MINUS addOperadorName mulexp genera_sum_quad
 Rule 124   genera_sum_quad -> <empty>
 Rule 125   genera_mul_quad -> <empty>
-Rule 126   operadorPrint -> <empty>
-Rule 127   operatorPrintQuad -> <empty>
+Rule 126   operadorWRITE -> <empty>
+Rule 127   operatorWRITEQuad -> <empty>
 Rule 128   operatorRead -> <empty>
 Rule 129   operatorReadQuad -> <empty>
 Rule 130   mulexp -> pexp
@@ -184,7 +184,7 @@ MUL                  : 131
 NE                   : 119
 OR                   : 104
 PLUS                 : 122
-PRINT                : 95
+WRITE                : 95
 PROGRAM              : 1
 RBRACKET             : 31 32 33 33 34 34 35 35 36 36
 RCURLY               : 7 44 45 83 84 88 94
@@ -250,9 +250,9 @@ mat                  : 21 22 23 61 68 69 70
 modules              : 3 4 37
 mulexp               : 121 122 122 123 123
 nexp                 : 103 104 104
-operadorPrint        : 95
+operadorWRITE        : 95
 operadorReturn       : 45
-operatorPrintQuad    : 95 99 100
+operatorWRITEQuad    : 95 99 100
 operatorRead         : 102
 operatorReadQuad     : 102
 param1               : 65 67 68 73
@@ -386,7 +386,7 @@ state 9
     $end            reduce using rule 14 (vars -> var .)
     ID              reduce using rule 14 (vars -> var .)
     READ            reduce using rule 14 (vars -> var .)
-    PRINT           reduce using rule 14 (vars -> var .)
+    WRITE           reduce using rule 14 (vars -> var .)
     FOR             reduce using rule 14 (vars -> var .)
     IF              reduce using rule 14 (vars -> var .)
     WHILE           reduce using rule 14 (vars -> var .)
@@ -403,7 +403,7 @@ state 10
     $end            reduce using rule 15 (vars -> empty .)
     ID              reduce using rule 15 (vars -> empty .)
     READ            reduce using rule 15 (vars -> empty .)
-    PRINT           reduce using rule 15 (vars -> empty .)
+    WRITE           reduce using rule 15 (vars -> empty .)
     FOR             reduce using rule 15 (vars -> empty .)
     IF              reduce using rule 15 (vars -> empty .)
     WHILE           reduce using rule 15 (vars -> empty .)
@@ -433,7 +433,7 @@ state 12
     $end            reduce using rule 140 (empty -> .)
     ID              reduce using rule 140 (empty -> .)
     READ            reduce using rule 140 (empty -> .)
-    PRINT           reduce using rule 140 (empty -> .)
+    WRITE           reduce using rule 140 (empty -> .)
     FOR             reduce using rule 140 (empty -> .)
     IF              reduce using rule 140 (empty -> .)
     WHILE           reduce using rule 140 (empty -> .)
@@ -485,7 +485,7 @@ state 15
     $end            reduce using rule 16 (var -> VAR var2 .)
     ID              reduce using rule 16 (var -> VAR var2 .)
     READ            reduce using rule 16 (var -> VAR var2 .)
-    PRINT           reduce using rule 16 (var -> VAR var2 .)
+    WRITE           reduce using rule 16 (var -> VAR var2 .)
     FOR             reduce using rule 16 (var -> VAR var2 .)
     IF              reduce using rule 16 (var -> VAR var2 .)
     WHILE           reduce using rule 16 (var -> VAR var2 .)
@@ -509,7 +509,7 @@ state 16
     $end            reduce using rule 27 (var2 -> empty .)
     ID              reduce using rule 27 (var2 -> empty .)
     READ            reduce using rule 27 (var2 -> empty .)
-    PRINT           reduce using rule 27 (var2 -> empty .)
+    WRITE           reduce using rule 27 (var2 -> empty .)
     FOR             reduce using rule 27 (var2 -> empty .)
     IF              reduce using rule 27 (var2 -> empty .)
     WHILE           reduce using rule 27 (var2 -> empty .)
@@ -924,7 +924,7 @@ state 48
     $end            reduce using rule 25 (addV -> .)
     ID              reduce using rule 25 (addV -> .)
     READ            reduce using rule 25 (addV -> .)
-    PRINT           reduce using rule 25 (addV -> .)
+    WRITE           reduce using rule 25 (addV -> .)
     FOR             reduce using rule 25 (addV -> .)
     IF              reduce using rule 25 (addV -> .)
     WHILE           reduce using rule 25 (addV -> .)
@@ -1180,7 +1180,7 @@ state 57
     $end            reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
     ID              reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
     READ            reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
-    PRINT           reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
+    WRITE           reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
     FOR             reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
     IF              reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
     WHILE           reduce using rule 26 (var2 -> var2 tipo var1 SEMICOLON addV .)
@@ -1928,7 +1928,7 @@ state 80
     VAR             shift and go to state 12
     ID              reduce using rule 140 (empty -> .)
     READ            reduce using rule 140 (empty -> .)
-    PRINT           reduce using rule 140 (empty -> .)
+    WRITE           reduce using rule 140 (empty -> .)
     FOR             reduce using rule 140 (empty -> .)
     IF              reduce using rule 140 (empty -> .)
     WHILE           reduce using rule 140 (empty -> .)
@@ -2734,7 +2734,7 @@ state 112
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -2742,7 +2742,7 @@ state 112
     RCURLY          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -3968,7 +3968,7 @@ state 138
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -3977,7 +3977,7 @@ state 138
     RETURN          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -4035,7 +4035,7 @@ state 144
 
     ID              reduce using rule 56 (statement1 -> for .)
     READ            reduce using rule 56 (statement1 -> for .)
-    PRINT           reduce using rule 56 (statement1 -> for .)
+    WRITE           reduce using rule 56 (statement1 -> for .)
     FOR             reduce using rule 56 (statement1 -> for .)
     IF              reduce using rule 56 (statement1 -> for .)
     WHILE           reduce using rule 56 (statement1 -> for .)
@@ -4049,7 +4049,7 @@ state 145
 
     ID              reduce using rule 57 (statement1 -> if .)
     READ            reduce using rule 57 (statement1 -> if .)
-    PRINT           reduce using rule 57 (statement1 -> if .)
+    WRITE           reduce using rule 57 (statement1 -> if .)
     FOR             reduce using rule 57 (statement1 -> if .)
     IF              reduce using rule 57 (statement1 -> if .)
     WHILE           reduce using rule 57 (statement1 -> if .)
@@ -4063,7 +4063,7 @@ state 146
 
     ID              reduce using rule 58 (statement1 -> while .)
     READ            reduce using rule 58 (statement1 -> while .)
-    PRINT           reduce using rule 58 (statement1 -> while .)
+    WRITE           reduce using rule 58 (statement1 -> while .)
     FOR             reduce using rule 58 (statement1 -> while .)
     IF              reduce using rule 58 (statement1 -> while .)
     WHILE           reduce using rule 58 (statement1 -> while .)
@@ -4098,7 +4098,7 @@ state 148
 
 state 149
 
-    (95) escritura -> PRINT . LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> WRITE . LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
 
     LPAREN          shift and go to state 186
 
@@ -4636,7 +4636,7 @@ state 180
 
     ID              reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
     READ            reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
-    PRINT           reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
+    WRITE           reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
     FOR             reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
     IF              reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
     WHILE           reduce using rule 52 (statement1 -> asignacion SEMICOLON .)
@@ -4650,7 +4650,7 @@ state 181
 
     ID              reduce using rule 53 (statement1 -> llamada SEMICOLON .)
     READ            reduce using rule 53 (statement1 -> llamada SEMICOLON .)
-    PRINT           reduce using rule 53 (statement1 -> llamada SEMICOLON .)
+    WRITE           reduce using rule 53 (statement1 -> llamada SEMICOLON .)
     FOR             reduce using rule 53 (statement1 -> llamada SEMICOLON .)
     IF              reduce using rule 53 (statement1 -> llamada SEMICOLON .)
     WHILE           reduce using rule 53 (statement1 -> llamada SEMICOLON .)
@@ -4664,7 +4664,7 @@ state 182
 
     ID              reduce using rule 54 (statement1 -> lectura SEMICOLON .)
     READ            reduce using rule 54 (statement1 -> lectura SEMICOLON .)
-    PRINT           reduce using rule 54 (statement1 -> lectura SEMICOLON .)
+    WRITE           reduce using rule 54 (statement1 -> lectura SEMICOLON .)
     FOR             reduce using rule 54 (statement1 -> lectura SEMICOLON .)
     IF              reduce using rule 54 (statement1 -> lectura SEMICOLON .)
     WHILE           reduce using rule 54 (statement1 -> lectura SEMICOLON .)
@@ -4678,7 +4678,7 @@ state 183
 
     ID              reduce using rule 55 (statement1 -> escritura SEMICOLON .)
     READ            reduce using rule 55 (statement1 -> escritura SEMICOLON .)
-    PRINT           reduce using rule 55 (statement1 -> escritura SEMICOLON .)
+    WRITE           reduce using rule 55 (statement1 -> escritura SEMICOLON .)
     FOR             reduce using rule 55 (statement1 -> escritura SEMICOLON .)
     IF              reduce using rule 55 (statement1 -> escritura SEMICOLON .)
     WHILE           reduce using rule 55 (statement1 -> escritura SEMICOLON .)
@@ -4713,32 +4713,32 @@ state 185
 
 state 186
 
-    (95) escritura -> PRINT LPAREN . operadorPrint escritura1 operatorPrintQuad RPAREN
-    (126) operadorPrint -> .
+    (95) escritura -> WRITE LPAREN . operadorWRITE escritura1 operatorWRITEQuad RPAREN
+    (126) operadorWRITE -> .
 
-    COMILLA         reduce using rule 126 (operadorPrint -> .)
-    CTEI            reduce using rule 126 (operadorPrint -> .)
-    CTEF            reduce using rule 126 (operadorPrint -> .)
-    CTEC            reduce using rule 126 (operadorPrint -> .)
-    CTESTRING       reduce using rule 126 (operadorPrint -> .)
-    LPAREN          reduce using rule 126 (operadorPrint -> .)
-    ID              reduce using rule 126 (operadorPrint -> .)
-    RPAREN          reduce using rule 126 (operadorPrint -> .)
-    COMMA           reduce using rule 126 (operadorPrint -> .)
-    OR              reduce using rule 126 (operadorPrint -> .)
-    AND             reduce using rule 126 (operadorPrint -> .)
-    GT              reduce using rule 126 (operadorPrint -> .)
-    LT              reduce using rule 126 (operadorPrint -> .)
-    GTE             reduce using rule 126 (operadorPrint -> .)
-    LTE             reduce using rule 126 (operadorPrint -> .)
-    NE              reduce using rule 126 (operadorPrint -> .)
-    COMPARE         reduce using rule 126 (operadorPrint -> .)
-    PLUS            reduce using rule 126 (operadorPrint -> .)
-    MINUS           reduce using rule 126 (operadorPrint -> .)
-    MUL             reduce using rule 126 (operadorPrint -> .)
-    DIV             reduce using rule 126 (operadorPrint -> .)
+    COMILLA         reduce using rule 126 (operadorWRITE -> .)
+    CTEI            reduce using rule 126 (operadorWRITE -> .)
+    CTEF            reduce using rule 126 (operadorWRITE -> .)
+    CTEC            reduce using rule 126 (operadorWRITE -> .)
+    CTESTRING       reduce using rule 126 (operadorWRITE -> .)
+    LPAREN          reduce using rule 126 (operadorWRITE -> .)
+    ID              reduce using rule 126 (operadorWRITE -> .)
+    RPAREN          reduce using rule 126 (operadorWRITE -> .)
+    COMMA           reduce using rule 126 (operadorWRITE -> .)
+    OR              reduce using rule 126 (operadorWRITE -> .)
+    AND             reduce using rule 126 (operadorWRITE -> .)
+    GT              reduce using rule 126 (operadorWRITE -> .)
+    LT              reduce using rule 126 (operadorWRITE -> .)
+    GTE             reduce using rule 126 (operadorWRITE -> .)
+    LTE             reduce using rule 126 (operadorWRITE -> .)
+    NE              reduce using rule 126 (operadorWRITE -> .)
+    COMPARE         reduce using rule 126 (operadorWRITE -> .)
+    PLUS            reduce using rule 126 (operadorWRITE -> .)
+    MINUS           reduce using rule 126 (operadorWRITE -> .)
+    MUL             reduce using rule 126 (operadorWRITE -> .)
+    DIV             reduce using rule 126 (operadorWRITE -> .)
 
-    operadorPrint                  shift and go to state 218
+    operadorWRITE                  shift and go to state 218
 
 state 187
 
@@ -5492,12 +5492,12 @@ state 217
 
 state 218
 
-    (95) escritura -> PRINT LPAREN operadorPrint . escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> WRITE LPAREN operadorWRITE . escritura1 operatorWRITEQuad RPAREN
     (96) escritura1 -> . escritura2 COMMA escritura2
     (97) escritura1 -> . escritura2
     (98) escritura2 -> . COMILLA CTESTRING COMILLA
-    (99) escritura2 -> . CTEI saveCTE operatorPrintQuad
-    (100) escritura2 -> . CTEF saveCTE operatorPrintQuad
+    (99) escritura2 -> . CTEI saveCTE operatorWRITEQuad
+    (100) escritura2 -> . CTEF saveCTE operatorWRITEQuad
     (101) escritura2 -> . exp
     (103) exp -> . nexp
     (104) exp -> . nexp OR addOperadorName nexp genera_quad_or
@@ -5667,7 +5667,7 @@ state 222
     VAR             shift and go to state 12
     ID              reduce using rule 140 (empty -> .)
     READ            reduce using rule 140 (empty -> .)
-    PRINT           reduce using rule 140 (empty -> .)
+    WRITE           reduce using rule 140 (empty -> .)
     FOR             reduce using rule 140 (empty -> .)
     IF              reduce using rule 140 (empty -> .)
     WHILE           reduce using rule 140 (empty -> .)
@@ -5688,7 +5688,7 @@ state 223
     VAR             shift and go to state 12
     ID              reduce using rule 140 (empty -> .)
     READ            reduce using rule 140 (empty -> .)
-    PRINT           reduce using rule 140 (empty -> .)
+    WRITE           reduce using rule 140 (empty -> .)
     FOR             reduce using rule 140 (empty -> .)
     IF              reduce using rule 140 (empty -> .)
     WHILE           reduce using rule 140 (empty -> .)
@@ -5874,12 +5874,12 @@ state 229
 
 state 230
 
-    (95) escritura -> PRINT LPAREN operadorPrint escritura1 . operatorPrintQuad RPAREN
-    (127) operatorPrintQuad -> .
+    (95) escritura -> WRITE LPAREN operadorWRITE escritura1 . operatorWRITEQuad RPAREN
+    (127) operatorWRITEQuad -> .
 
-    RPAREN          reduce using rule 127 (operatorPrintQuad -> .)
+    RPAREN          reduce using rule 127 (operatorWRITEQuad -> .)
 
-    operatorPrintQuad              shift and go to state 247
+    operatorWRITEQuad              shift and go to state 247
 
 state 231
 
@@ -5899,7 +5899,7 @@ state 232
 
 state 233
 
-    (99) escritura2 -> CTEI . saveCTE operatorPrintQuad
+    (99) escritura2 -> CTEI . saveCTE operatorWRITEQuad
     (134) pexp -> CTEI . saveCTE
     (143) saveCTE -> .
 
@@ -5922,7 +5922,7 @@ state 233
 
 state 234
 
-    (100) escritura2 -> CTEF . saveCTE operatorPrintQuad
+    (100) escritura2 -> CTEF . saveCTE operatorWRITEQuad
     (135) pexp -> CTEF . saveCTE
     (143) saveCTE -> .
 
@@ -5992,7 +5992,7 @@ state 240
 
     ID              reduce using rule 46 (fun_goto -> .)
     READ            reduce using rule 46 (fun_goto -> .)
-    PRINT           reduce using rule 46 (fun_goto -> .)
+    WRITE           reduce using rule 46 (fun_goto -> .)
     FOR             reduce using rule 46 (fun_goto -> .)
     IF              reduce using rule 46 (fun_goto -> .)
     WHILE           reduce using rule 46 (fun_goto -> .)
@@ -6007,7 +6007,7 @@ state 241
 
     ID              reduce using rule 46 (fun_goto -> .)
     READ            reduce using rule 46 (fun_goto -> .)
-    PRINT           reduce using rule 46 (fun_goto -> .)
+    WRITE           reduce using rule 46 (fun_goto -> .)
     FOR             reduce using rule 46 (fun_goto -> .)
     IF              reduce using rule 46 (fun_goto -> .)
     WHILE           reduce using rule 46 (fun_goto -> .)
@@ -6207,7 +6207,7 @@ state 246
 
 state 247
 
-    (95) escritura -> PRINT LPAREN operadorPrint escritura1 operatorPrintQuad . RPAREN
+    (95) escritura -> WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad . RPAREN
 
     RPAREN          shift and go to state 264
 
@@ -6216,8 +6216,8 @@ state 248
 
     (96) escritura1 -> escritura2 COMMA . escritura2
     (98) escritura2 -> . COMILLA CTESTRING COMILLA
-    (99) escritura2 -> . CTEI saveCTE operatorPrintQuad
-    (100) escritura2 -> . CTEF saveCTE operatorPrintQuad
+    (99) escritura2 -> . CTEI saveCTE operatorWRITEQuad
+    (100) escritura2 -> . CTEF saveCTE operatorWRITEQuad
     (101) escritura2 -> . exp
     (103) exp -> . nexp
     (104) exp -> . nexp OR addOperadorName nexp genera_quad_or
@@ -6297,12 +6297,12 @@ state 249
 
 state 250
 
-    (99) escritura2 -> CTEI saveCTE . operatorPrintQuad
+    (99) escritura2 -> CTEI saveCTE . operatorWRITEQuad
     (134) pexp -> CTEI saveCTE .
-    (127) operatorPrintQuad -> .
+    (127) operatorWRITEQuad -> .
 
-  ! reduce/reduce conflict for COMMA resolved using rule 127 (operatorPrintQuad -> .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 127 (operatorPrintQuad -> .)
+  ! reduce/reduce conflict for COMMA resolved using rule 127 (operatorWRITEQuad -> .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 127 (operatorWRITEQuad -> .)
     MUL             reduce using rule 134 (pexp -> CTEI saveCTE .)
     DIV             reduce using rule 134 (pexp -> CTEI saveCTE .)
     PLUS            reduce using rule 134 (pexp -> CTEI saveCTE .)
@@ -6315,22 +6315,22 @@ state 250
     COMPARE         reduce using rule 134 (pexp -> CTEI saveCTE .)
     AND             reduce using rule 134 (pexp -> CTEI saveCTE .)
     OR              reduce using rule 134 (pexp -> CTEI saveCTE .)
-    COMMA           reduce using rule 127 (operatorPrintQuad -> .)
-    RPAREN          reduce using rule 127 (operatorPrintQuad -> .)
+    COMMA           reduce using rule 127 (operatorWRITEQuad -> .)
+    RPAREN          reduce using rule 127 (operatorWRITEQuad -> .)
 
   ! COMMA           [ reduce using rule 134 (pexp -> CTEI saveCTE .) ]
   ! RPAREN          [ reduce using rule 134 (pexp -> CTEI saveCTE .) ]
 
-    operatorPrintQuad              shift and go to state 267
+    operatorWRITEQuad              shift and go to state 267
 
 state 251
 
-    (100) escritura2 -> CTEF saveCTE . operatorPrintQuad
+    (100) escritura2 -> CTEF saveCTE . operatorWRITEQuad
     (135) pexp -> CTEF saveCTE .
-    (127) operatorPrintQuad -> .
+    (127) operatorWRITEQuad -> .
 
-  ! reduce/reduce conflict for COMMA resolved using rule 127 (operatorPrintQuad -> .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 127 (operatorPrintQuad -> .)
+  ! reduce/reduce conflict for COMMA resolved using rule 127 (operatorWRITEQuad -> .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 127 (operatorWRITEQuad -> .)
     MUL             reduce using rule 135 (pexp -> CTEF saveCTE .)
     DIV             reduce using rule 135 (pexp -> CTEF saveCTE .)
     PLUS            reduce using rule 135 (pexp -> CTEF saveCTE .)
@@ -6343,13 +6343,13 @@ state 251
     COMPARE         reduce using rule 135 (pexp -> CTEF saveCTE .)
     AND             reduce using rule 135 (pexp -> CTEF saveCTE .)
     OR              reduce using rule 135 (pexp -> CTEF saveCTE .)
-    COMMA           reduce using rule 127 (operatorPrintQuad -> .)
-    RPAREN          reduce using rule 127 (operatorPrintQuad -> .)
+    COMMA           reduce using rule 127 (operatorWRITEQuad -> .)
+    RPAREN          reduce using rule 127 (operatorWRITEQuad -> .)
 
   ! COMMA           [ reduce using rule 135 (pexp -> CTEF saveCTE .) ]
   ! RPAREN          [ reduce using rule 135 (pexp -> CTEF saveCTE .) ]
 
-    operatorPrintQuad              shift and go to state 268
+    operatorWRITEQuad              shift and go to state 268
 
 state 252
 
@@ -6413,7 +6413,7 @@ state 257
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -6421,7 +6421,7 @@ state 257
     RCURLY          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -6455,7 +6455,7 @@ state 258
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -6463,7 +6463,7 @@ state 258
     RETURN          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -6545,9 +6545,9 @@ state 263
 
 state 264
 
-    (95) escritura -> PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN .
+    (95) escritura -> WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN .
 
-    SEMICOLON       reduce using rule 95 (escritura -> PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN .)
+    SEMICOLON       reduce using rule 95 (escritura -> WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN .)
 
 
 state 265
@@ -6567,18 +6567,18 @@ state 266
 
 state 267
 
-    (99) escritura2 -> CTEI saveCTE operatorPrintQuad .
+    (99) escritura2 -> CTEI saveCTE operatorWRITEQuad .
 
-    COMMA           reduce using rule 99 (escritura2 -> CTEI saveCTE operatorPrintQuad .)
-    RPAREN          reduce using rule 99 (escritura2 -> CTEI saveCTE operatorPrintQuad .)
+    COMMA           reduce using rule 99 (escritura2 -> CTEI saveCTE operatorWRITEQuad .)
+    RPAREN          reduce using rule 99 (escritura2 -> CTEI saveCTE operatorWRITEQuad .)
 
 
 state 268
 
-    (100) escritura2 -> CTEF saveCTE operatorPrintQuad .
+    (100) escritura2 -> CTEF saveCTE operatorWRITEQuad .
 
-    COMMA           reduce using rule 100 (escritura2 -> CTEF saveCTE operatorPrintQuad .)
-    RPAREN          reduce using rule 100 (escritura2 -> CTEF saveCTE operatorPrintQuad .)
+    COMMA           reduce using rule 100 (escritura2 -> CTEF saveCTE operatorWRITEQuad .)
+    RPAREN          reduce using rule 100 (escritura2 -> CTEF saveCTE operatorWRITEQuad .)
 
 
 state 269
@@ -6676,7 +6676,7 @@ state 271
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -6684,7 +6684,7 @@ state 271
     RCURLY          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -6755,7 +6755,7 @@ state 277
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -6763,7 +6763,7 @@ state 277
     RCURLY          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -6811,7 +6811,7 @@ state 280
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -6819,7 +6819,7 @@ state 280
     RCURLY          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -6890,7 +6890,7 @@ state 284
     ELSE            shift and go to state 290
     ID              reduce using rule 140 (empty -> .)
     READ            reduce using rule 140 (empty -> .)
-    PRINT           reduce using rule 140 (empty -> .)
+    WRITE           reduce using rule 140 (empty -> .)
     FOR             reduce using rule 140 (empty -> .)
     IF              reduce using rule 140 (empty -> .)
     WHILE           reduce using rule 140 (empty -> .)
@@ -6993,7 +6993,7 @@ state 288
 
     ID              reduce using rule 91 (for_end -> .)
     READ            reduce using rule 91 (for_end -> .)
-    PRINT           reduce using rule 91 (for_end -> .)
+    WRITE           reduce using rule 91 (for_end -> .)
     FOR             reduce using rule 91 (for_end -> .)
     IF              reduce using rule 91 (for_end -> .)
     WHILE           reduce using rule 91 (for_end -> .)
@@ -7009,7 +7009,7 @@ state 289
 
     ID              reduce using rule 109 (end_if -> .)
     READ            reduce using rule 109 (end_if -> .)
-    PRINT           reduce using rule 109 (end_if -> .)
+    WRITE           reduce using rule 109 (end_if -> .)
     FOR             reduce using rule 109 (end_if -> .)
     IF              reduce using rule 109 (end_if -> .)
     WHILE           reduce using rule 109 (end_if -> .)
@@ -7033,7 +7033,7 @@ state 291
 
     ID              reduce using rule 85 (else -> empty .)
     READ            reduce using rule 85 (else -> empty .)
-    PRINT           reduce using rule 85 (else -> empty .)
+    WRITE           reduce using rule 85 (else -> empty .)
     FOR             reduce using rule 85 (else -> empty .)
     IF              reduce using rule 85 (else -> empty .)
     WHILE           reduce using rule 85 (else -> empty .)
@@ -7048,7 +7048,7 @@ state 292
 
     ID              reduce using rule 90 (loop_end -> .)
     READ            reduce using rule 90 (loop_end -> .)
-    PRINT           reduce using rule 90 (loop_end -> .)
+    WRITE           reduce using rule 90 (loop_end -> .)
     FOR             reduce using rule 90 (loop_end -> .)
     IF              reduce using rule 90 (loop_end -> .)
     WHILE           reduce using rule 90 (loop_end -> .)
@@ -7072,7 +7072,7 @@ state 294
 
     ID              reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
     READ            reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
-    PRINT           reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
+    WRITE           reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
     FOR             reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
     IF              reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
     WHILE           reduce using rule 88 (for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end .)
@@ -7086,7 +7086,7 @@ state 295
 
     ID              reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
     READ            reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
-    PRINT           reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
+    WRITE           reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
     FOR             reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
     IF              reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
     WHILE           reduce using rule 83 (if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if .)
@@ -7107,7 +7107,7 @@ state 297
 
     ID              reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
     READ            reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
-    PRINT           reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
+    WRITE           reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
     FOR             reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
     IF              reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
     WHILE           reduce using rule 94 (while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end .)
@@ -7140,7 +7140,7 @@ state 299
     (61) asignacion -> . ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
     (75) llamada -> . ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad llena_endproc
     (102) lectura -> . READ operatorRead LPAREN exp operatorReadQuad RPAREN
-    (95) escritura -> . PRINT LPAREN operadorPrint escritura1 operatorPrintQuad RPAREN
+    (95) escritura -> . WRITE LPAREN operadorWRITE escritura1 operatorWRITEQuad RPAREN
     (88) for -> . FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
     (83) if -> . IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
     (94) while -> . WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement RCURLY loop_end
@@ -7148,7 +7148,7 @@ state 299
     RCURLY          reduce using rule 140 (empty -> .)
     ID              shift and go to state 147
     READ            shift and go to state 148
-    PRINT           shift and go to state 149
+    WRITE           shift and go to state 149
     FOR             shift and go to state 150
     IF              shift and go to state 151
     WHILE           shift and go to state 152
@@ -7195,7 +7195,7 @@ state 303
 
     ID              reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
     READ            reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
-    PRINT           reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
+    WRITE           reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
     FOR             reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
     IF              reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
     WHILE           reduce using rule 84 (else -> ELSE else_quad LCURLY statement RCURLY .)
@@ -7293,8 +7293,8 @@ WARNING: reduce/reduce conflict in state 79 resolved using rule (var1 -> ID)
 WARNING: rejected rule (era_call -> <empty>) in state 79
 WARNING: reduce/reduce conflict in state 177 resolved using rule (var1 -> empty)
 WARNING: rejected rule (aux_exp -> empty) in state 177
-WARNING: reduce/reduce conflict in state 250 resolved using rule (operatorPrintQuad -> <empty>)
+WARNING: reduce/reduce conflict in state 250 resolved using rule (operatorWRITEQuad -> <empty>)
 WARNING: rejected rule (pexp -> CTEI saveCTE) in state 250
-WARNING: reduce/reduce conflict in state 251 resolved using rule (operatorPrintQuad -> <empty>)
+WARNING: reduce/reduce conflict in state 251 resolved using rule (operatorWRITEQuad -> <empty>)
 WARNING: rejected rule (pexp -> CTEF saveCTE) in state 251
 WARNING: Rule (aux_exp -> empty) is never reduced

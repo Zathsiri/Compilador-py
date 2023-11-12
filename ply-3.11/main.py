@@ -1,6 +1,6 @@
 import ply.lex as lex
 import ply.yacc as yacc
-
+from tablaVariables import tabVar
 
 
 #Palabras reservadas
@@ -21,13 +21,10 @@ reserved ={
     'read'      :   'READ',
     'write'     :   'WRITE',
     'for'       :   'FOR',
-    'from'      :   'FROM',
     'while'     :   'WHILE',
     'to'        :   'TO'
-    
-
 }
-#toknes del lenguaje 
+
 tokens = [
     'ID',  #ID
     'CTEI',#CONSTANTE ENTERA
@@ -49,16 +46,16 @@ tokens = [
     'LPAREN', #(
     'RPAREN', #)
     'COMMA', #,
-    'SEMICOLON',#;
+    'SEMICOLON', 
     'NE', #NOT EQUAL
     'LBRACKET', #[
     'RBRACKET', #]
     'LCURLY', #{
     'RCURLY',#}
-    'TRANSPUESTA', #Estos venian dentro del parser pero no creo
-    'INVERSA', #Utilizarles
+    'TRANSPUESTA', 
+    'INVERSA',
     'DETERMINANTE', 
-    'COMILLA' # '',
+    'COMILLA' # ''
 ] + list(reserved.values())
 
 t_SEMICOLON = r'\;'
@@ -91,17 +88,21 @@ t_ignore = ' \t\n'
 #Identificador de ID's
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
+    #if t.value in reserved:
+    #t.type = reserved[t.value]
     t.type = reserved.get(t.value, 'ID')
     return t
 
 #identificador de INT
 def t_CTEI(t):
+    #r'\d+'
     r'0|[-+]?[1-9][0-9]*'
     t.value = int(t.value)
     return t
 
 #Identificador de FLOAT
 def t_CTEF(t):
+    #r'\d+\.\d+'
     r'[-+]?\d*\.\d+'
     t.value = float(t.value)
     return t
@@ -114,7 +115,14 @@ def t_CTESTRING(t):
 #en el caso de encontrar un error que se despliegue donde 
 def t_error(t):
     t.lexer.skip(1)
+    
     lexer = lex.lex()
+    
+actualFunType = ''
+fid = ''
+varId = ''
+paramId = '' 
+
 
 
 
@@ -126,13 +134,14 @@ def p_programa(p):
         programId = p[2]
         p[0] = 'PROGRAMA COMPILADO'
 
-#Aqui si identeficia el tipo de programa
 def p_addP(p):
     'addP :'
+    #tipo de programa
     global actual_funTipo, fid
     actual_funTipo = 'programa'
     fid = 'programa'
-    
+    #cuando este la tabla de Funciones agregar desde aqui
+
 def p_programa1(p):
     '''
 	programa1 : vars quadMain modules main_end programa2
@@ -143,26 +152,18 @@ def p_programa1(p):
 def p_programa2(p):
     '''
 	programa2 :  main 
-	''' 
+	'''   
 
-# asigna nombre del programa       
 def p_main(p):
     '''
 	main : MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
 	'''
     global actual_funTipo
     actual_funTipo = p[1]
+    # Aqui se asigna el nombre del programam
     global fid
     fid = p[1]
+    #print('_________', fid)
     global tablaFun
-   #aqui abra una funcion que agregue la funcion a la tabla de variables
-
-
-#Varibles aceptadas
-def p_tipo(p):
-    '''
-    tipo : INT guardaTipoVar
-         | FLOAT guardaTipoVar
-         | CHAR guardaTipoVar 
-    ''' 
-
+    #Cuando este la tabla de funciones agregar aqui 
+        
