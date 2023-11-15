@@ -196,6 +196,7 @@ class CuboSem:
                     self.operators[13]: self.types[2],  # float = int
                     self.operators[14]: self.types[9],  # float == int = bool
                 },
+                
                 #compatibilidad de FLOAT con FLOAT
                 self.types[2]:{
                     self.operators[1]: self.types[2],  # float + float = float
@@ -267,6 +268,7 @@ class CuboSem:
                     self.operators[13]: self.types[2],  # float = CTEI
                     self.operators[14]: self.types[9],  # float == CTEI = bool
                  },
+                 
 
                 #compatibilidad de FLOAT con CTEF
                 self.types[6]:{
@@ -540,7 +542,87 @@ class CuboSem:
                     self.operators[12]: self.types[4],  # bool || bool = bool
                     self.operators[13]: self.types[4],  # bool = bool
                     self.operators[14]: self.types[4],  # bool == bool = bool
-                }
-        }
+                },
+                
+                #compatibiliad de BOOL con CTEI
+                self.types[5]: {
+                    self.operators[1]: self.types[9],  # bool + ctei = ERROR
+                    self.operators[2]: self.types[9],  # bool - ctei = ERROR
+                    self.operators[3]: self.types[9],  # bool * ctei = ERROR
+                    self.operators[4]: self.types[9],  # bool / ctei = ERROR
+                    self.operators[5]: self.types[9],  # bool < ctei = ERROR
+                    self.operators[6]: self.types[9],  # bool > ctei = ERROR
+                    self.operators[7]: self.types[9],  # bool <= ctei = ERROR
+                    self.operators[8]: self.types[9],  # bool >= ctei = ERROR
+                    self.operators[9]: self.types[9],  # bool == ctei = ERROR
+                    self.operators[10]: self.types[9],  # bool != ctei = ERROR
+                    self.operators[11]: self.types[4],  # bool && ctei = bool
+                    self.operators[12]: self.types[4],  # bool || ctei = bool
+                    self.operators[13]: self.types[9],  # bool = ctei
+                    self.operators[14]: self.types[9],  # bool == ctei = bool
+                },
+                
+                #compatibilidad de BOOL con CTEF
+                self.types[6]: {
+                    self.operators[1]: self.types[9],  # bool + ctef = ERROR
+                    self.operators[2]: self.types[9],  # bool - ctef = ERROR
+                    self.operators[3]: self.types[9],  # bool * ctef = ERROR
+                    self.operators[4]: self.types[9],  # bool / ctef = ERROR
+                    self.operators[5]: self.types[9],  # bool < ctef = ERROR
+                    self.operators[6]: self.types[9],  # bool > ctef = ERROR
+                    self.operators[7]: self.types[9],  # bool <= ctef = ERROR
+                    self.operators[8]: self.types[9],  # bool >= ctef = ERROR
+                    self.operators[9]: self.types[9],  # bool == ctef = ERROR
+                    self.operators[10]: self.types[9],  # bool != ctef = ERROR
+                    self.operators[11]: self.types[4],  # bool && ctef = bool
+                    self.operators[12]: self.types[4],  # bool || ctef = bool
+                    self.operators[13]: self.types[9],  # bool = ctef
+                    self.operators[14]: self.types[9],  # bool == ctef = bool
+                },
+                     
+                #compatibilidad de BOOl con CTEC    
+                self.types[7]: {
+                    self.operators[1]: self.types[9],  # bool + ctec = ERROR
+                    self.operators[2]: self.types[9],  # bool - ctec = ERROR
+                    self.operators[3]: self.types[9],  # bool * ctec = ERROR
+                    self.operators[4]: self.types[9],  # bool / ctec = ERROR
+                    self.operators[5]: self.types[9],  # bool < ctec = ERROR
+                    self.operators[6]: self.types[9],  # bool > ctec = ERROR
+                    self.operators[7]: self.types[9],  # bool <= ctec = ERROR
+                    self.operators[8]: self.types[9],  # bool >= ctec = ERROR
+                    self.operators[9]: self.types[9],  # bool == ctec = ERROR
+                    self.operators[10]: self.types[9],  # bool != ctec = ERROR
+                    self.operators[11]: self.types[4],  # bool && ctec = bool
+                    self.operators[12]: self.types[4],  # bool || ctec = bool
+                    self.operators[13]: self.types[9],  # bool = ctec
+                    self.operators[14]: self.types[9],  # bool == ctec = bool
+                },
+                
+                #compatibilidad de BOOL con CTEC
+                self.types[8]: {
+                    self.operators[1]: self.types[9],  # ctestring + ctec = ERROR
+                    self.operators[2]: self.types[9],  # ctestring - ctec = ERROR
+                    self.operators[3]: self.types[9],  # ctestring * ctec = ERROR
+                    self.operators[4]: self.types[9],  # ctestring / ctec = ERROR
+                    self.operators[5]: self.types[9],  # ctestring < ctec = ERROR
+                    self.operators[6]: self.types[9],  # ctestring > ctec = ERROR
+                    self.operators[7]: self.types[9],  # ctestring <= ctec = ERROR
+                    self.operators[8]: self.types[9],  # ctestring >= ctec = ERROR
+                    self.operators[9]: self.types[9],  # ctestring == ctec = ERROR
+                    self.operators[10]: self.types[9],  # ctestring != ctec = ERROR
+                    self.operators[11]: self.types[4],  # ctestring && ctec = bool
+                    self.operators[12]: self.types[4],  # ctestring || ctec = bool
+                    self.operators[13]: self.types[9],  # ctestring = ctec
+                    self.operators[14]: self.types[9],  # ctestring == ctec = bool
+            },    
+        },
 
         }
+
+        def getType(self, lf, rg, op):
+            return self.dance[lf][rg][op]
+        
+        def pr(self,lf,rg,op):
+            print('valor de retorno es->', self.getType(lf, rg, op))
+
+  
