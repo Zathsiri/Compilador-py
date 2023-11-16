@@ -1,4 +1,4 @@
-class CuboSem:
+class Cubo:
     def __init__(self):
         self.operators ={
             1: '+',

@@ -33,3 +33,16 @@ class Memo:
                 'VER': 25,
                 'END': 26, 
         }
+
+#GLOBALES 
+        self.gint = 1000  # Rango permitido: 1000 a 2999
+        self.gfloat = 3000  # Rango permitido: 3000 a 4999
+        self.gchar = 5000  # Rango permitido: 5000 a 6999
+        self.gbool = 7000  # Rango permitido: 7000 a 8999
+#TEMPORALES
+
+
+#LOCALES
+
+
+#CONSTANTES

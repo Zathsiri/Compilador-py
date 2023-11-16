@@ -1,7 +1,8 @@
 import ply.lex as lex
 import ply.yacc as yacc
 from tablaVariables import tabVar
-
+from cuboSem import Cubo
+from stack import Stack
 
 #Palabras reservadas
 
@@ -123,6 +124,7 @@ fid = ''
 varId = ''
 paramId = '' 
 
+# aqui pondre todas las pilas para cuadruplos para eso cree la clase de Stack
 
 
 
@@ -166,4 +168,5 @@ def p_main(p):
     #print('_________', fid)
     global tablaFun
     #Cuando este la tabla de funciones agregar aqui 
-        
+
+parser = yacc.yacc()

@@ -18,5 +18,3 @@ class Stack:
 
     def top(self):
         return self.items[len(self.items)-1]
-
-
