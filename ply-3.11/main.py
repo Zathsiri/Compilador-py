@@ -21,7 +21,7 @@ reserved ={
     'end'       :   'END',
     'read'      :   'READ',
     'write'     :   'WRITE',
-    'for'       :   'FOR',
+    'for'       :   'FOR', #lo mas probable es que no lo saque
     'while'     :   'WHILE',
     'to'        :   'TO'
 }
@@ -42,8 +42,8 @@ tokens = [
     'GT', #GREATER THAN >
     'LTE', #LESS THAN OR EQUAL <=
     'GTE', #GRETER THAN OR EQUAL >=
-    'AND', #&&
-    'OR', #||
+    'AND', #&
+    'OR', #|
     'LPAREN', #(
     'RPAREN', #)
     'COMMA', #,
@@ -53,9 +53,6 @@ tokens = [
     'RBRACKET', #]
     'LCURLY', #{
     'RCURLY',#}
-    'TRANSPUESTA', 
-    'INVERSA',
-    'DETERMINANTE', 
     'COMILLA' # ''
 ] + list(reserved.values())
 
@@ -79,11 +76,8 @@ t_LT = r'\<'
 t_GTE = r'\>='
 t_LTE = r'\<='
 t_NE = r'\!=' 
-t_AND = r'\&&'
-t_OR = r'\||'
-t_TRANSPUESTA = r'\¡'
-t_DETERMINANTE = r'\$'
-t_INVERSA = r'\?'
+t_AND = r'\&'
+t_OR = r'\|'
 t_ignore = ' \t\n'
 
 #Identificador de ID's
