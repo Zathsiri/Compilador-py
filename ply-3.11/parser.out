@@ -1,0 +1,114 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    CHAR
+    COMILLA
+    COMMA
+    COMPARE
+    CTEC
+    CTEF
+    CTEI
+    CTESTRING
+    DIV
+    ELSE
+    EQUALS
+    FLOAT
+    FOR
+    FUNCTION
+    GT
+    GTE
+    IF
+    INT
+    LBRACKET
+    LT
+    LTE
+    MINUS
+    MUL
+    NE
+    OR
+    PLUS
+    RBRACKET
+    READ
+    RETURN
+    TO
+    VARS
+    VOID
+    WHILE
+    WRITE
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAM ID SEMICOLON addP programa1
+Rule 2     addP -> <empty>
+Rule 3     programa1 -> vars quadMain modules main_end programa2
+Rule 4     programa1 -> vars quadMain modules
+Rule 5     programa1 -> programa2
+Rule 6     programa2 -> main
+Rule 7     main -> MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
+
+Terminals, with rules where they appear
+
+AND                  : 
+CHAR                 : 
+COMILLA              : 
+COMMA                : 
+COMPARE              : 
+CTEC                 : 
+CTEF                 : 
+CTEI                 : 
+CTESTRING            : 
+DIV                  : 
+ELSE                 : 
+END                  : 7
+EQUALS               : 
+FLOAT                : 
+FOR                  : 
+FUNCTION             : 
+GT                   : 
+GTE                  : 
+ID                   : 1
+IF                   : 
+INT                  : 
+LBRACKET             : 
+LCURLY               : 7
+LPAREN               : 7
+LT                   : 
+LTE                  : 
+MAIN                 : 7
+MINUS                : 
+MUL                  : 
+NE                   : 
+OR                   : 
+PLUS                 : 
+PROGRAM              : 1
+RBRACKET             : 
+RCURLY               : 7
+READ                 : 
+RETURN               : 
+RPAREN               : 7
+SEMICOLON            : 1
+TO                   : 
+VARS                 : 
+VOID                 : 
+WHILE                : 
+WRITE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+addP                 : 1
+main                 : 6
+main_end             : 3
+modules              : 3 4
+param2               : 7
+programa             : 0
+programa1            : 1
+programa2            : 3 5
+quadMain             : 3 4
+save_fun             : 7
+statement            : 7
+vars                 : 3 4 7
+
