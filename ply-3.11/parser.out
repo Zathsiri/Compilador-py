@@ -4,7 +4,6 @@ Unused terminals:
 
     AND
     COMILLA
-    COMMA
     COMPARE
     CTEC
     CTEF
@@ -48,13 +47,21 @@ Rule 7     main -> MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCUR
 Rule 8     tipo -> INT guardaTipoVar
 Rule 9     tipo -> FLOAT guardaTipoVar
 Rule 10    tipo -> CHAR guardaTipoVar
+Rule 11    vars -> var
+Rule 12    vars -> empty
+Rule 13    var -> VAR var2
+Rule 14    var1 -> ID
+Rule 15    var1 -> ID COMMA var1 addV
+Rule 16    var1 -> ID arr
+Rule 17    var1 -> ID arr COMMA var1 addV
+Rule 18    var1 -> empty
 
 Terminals, with rules where they appear
 
 AND                  : 
 CHAR                 : 10
 COMILLA              : 
-COMMA                : 
+COMMA                : 15 17
 COMPARE              : 
 CTEC                 : 
 CTEF                 : 
@@ -69,7 +76,7 @@ FOR                  :
 FUNCTION             : 
 GT                   : 
 GTE                  : 
-ID                   : 1
+ID                   : 1 14 15 16 17
 IF                   : 
 INT                  : 8
 LBRACKET             : 
@@ -99,7 +106,11 @@ error                :
 
 Nonterminals, with rules where they appear
 
+VAR                  : 13
 addP                 : 1
+addV                 : 15 17
+arr                  : 16 17
+empty                : 12 18
 guardaTipoVar        : 8 9 10
 main                 : 6
 main_end             : 3
@@ -112,5 +123,8 @@ quadMain             : 3 4
 save_fun             : 7
 statement            : 7
 tipo                 : 
+var                  : 11
+var1                 : 15 17
+var2                 : 13
 vars                 : 3 4 7
 

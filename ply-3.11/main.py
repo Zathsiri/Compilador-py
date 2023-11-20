@@ -1,8 +1,9 @@
 import ply.lex as lex
 import ply.yacc as yacc
-from tablaVariables import tabVar
+from tablaVariables import tabVar, tabFunc
 from cuboSem import Cubo
 from stack import Stack
+from memory import Memo
 
 #Palabras reservadas
 
@@ -111,7 +112,8 @@ def t_error(t):
     t.lexer.skip(1)
     
 lexer = lex.lex()
-    
+
+tablaFunc= tabFunc()   
 actualFunType = ''
 fid = ''
 varId = ''
@@ -131,11 +133,11 @@ def p_programa(p):
 
 def p_addP(p):
     'addP :'
-    #tipo de programa
-    global actual_funTipo, fid
-    actual_funTipo = 'programa'
+    global actualFunType, fid
+    actualFunType = 'programa'
     fid = 'programa'
-    #cuando este la tabla de Funciones agregar desde aqui
+    global tablaFunc
+    tablaFunc.addFunc(actualFunType, fid, 0, [], [], 0)
 
 def p_programa1(p):
     '''
@@ -153,13 +155,14 @@ def p_main(p):
     '''
 	main : MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
 	'''
-    global actual_funTipo
-    actual_funTipo = p[1]
+    global actualFunType
+    actualFunType = p[1]
     global fid
     fid = p[1]
-    #print('_________', fid)
-    global tablaFun
-    tablaFun.add_Fun(actual_funTipo, fid, 0, [], [], 0)
+    global tablaFunc
+    tablaFunc.addFunc(actualFunType, fid, 0, [], [], 0)
+
+
 
 def p_tipo(p):
     '''
@@ -168,4 +171,37 @@ def p_tipo(p):
          | CHAR guardaTipoVar 
     '''
          
- 
+def p_vars(p):
+    '''
+    vars : var 
+         | empty
+    '''     
+
+def p_var(p):
+    '''
+    var : VAR var2 
+    '''        
+def p_var1(p):
+    '''
+        var1 : ID
+            | ID COMMA var1 addV
+            | ID arr 
+            | ID arr COMMA var1 addV 
+            | empty 
+    '''
+    global varId
+    varId = p[1]
+
+parser = yacc.yacc()
+
+if __name__ =='__main__':
+    fileName = 'test1.txt'
+    info= fileName.read()
+    fileName.close()
+    lexer.input(info)
+    while True:
+        tk = lexer.token()
+        if not tk:
+            break
+    else:
+        print("syntax error")

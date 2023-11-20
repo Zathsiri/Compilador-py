@@ -41,7 +41,7 @@ class tabFunc():
             }
     
     #busca el nombre de una funcion en especifico
-    def search_tabFunc(self, id):
+    def searchTabFunc(self, id):
         return id in self.funciones
     
     #busca el nombre de una variable
@@ -78,3 +78,51 @@ class tabFunc():
             ad = self.m.set_var_direction('programa', id, fid)
             self.funciones['programa']['vars'].add(tipo, id, ad)
             self.funciones['programa']['nVars'] = self.funciones[fid]['nVars'] + 1
+     
+     
+     #se agrega la variable a la direccion de memoria 
+    def addVarMem(self, tipo, vid, funId):
+        self.m.set_var_address(tipo, vid, funId)    
+        
+    #se obtiene la direccion de memoria de la variable
+    def getVarMem(self, var):
+        return self.m.get_var_address(var)
+
+    #se obitiene el numero de parametros 
+    def getNumeroParametros(self, fid):
+        return self.funciones[fid]['nParams']
+
+    #se agregan lso paramaertos  a la tabla de funciones 
+    def addParametros_tabFunc(self, fid, nameVar, varTipo):
+        self.funciones[fid]['nParams'] = self.funciones[fid]['nParams'] + 1
+        self.funciones[fid]['idParams'].append(nameVar)
+        self.funciones[fid]['tParams'].append(varTipo)
+    
+    #se agregan los temporales a la tabla de memoria 
+    def addTempMem(self, tipo, vid, funId):
+       self.m.set_temp_address(tipo, vid, funId)    
+        
+    #se obtiene la direccion del temporal de memoria 
+    def getTemp_mem(self, temp):
+        return self.m.get_temp_address(temp)
+        
+    #se agrega  y obtienen constantes
+    def add_cte_mem(self, val):
+        self.m.set_cte_address(val)
+        
+
+    def get_cte_mem(self, val):
+        return self.m.get_cte_address(val) 
+    
+
+    def get_op_mem(self, op):
+        return self.m.get_operator_address(op)
+
+    #resetep de los temporales      
+    def reset_temp_add(self):
+        self.m.reset_temp_vals()
+
+    #pritn de una variable      
+    def print_fun_vars(self, fid):
+        if fid in self.funciones:
+            self.funciones[fid]['vars'].printVars()

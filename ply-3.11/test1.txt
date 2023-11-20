@@ -1,9 +1,12 @@
 program master;
 var 
-int f, g, h, lol;
+int f, g, h, lol, rocket;
 
 main() {
 f = 23;
 g = 4;
 h = 7;
+rocket = 100;
+
+f = f + g
 }

@@ -218,7 +218,7 @@ def set_var_direction(self, tipo, id, funId):
                     address = self.gbool
                     self.gbool += 1
          
-        
+        #variables locales
         else:
             if tipo == 'int':
 
@@ -304,7 +304,6 @@ def get_temp_address(self, temp):
         else:
             return -1
     
-
 
 def set_cte_address(self, val):
         if self.get_cte_address(val) == -1:
