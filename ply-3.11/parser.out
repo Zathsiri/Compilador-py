@@ -3,7 +3,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     AND
-    CHAR
     COMILLA
     COMMA
     COMPARE
@@ -14,13 +13,11 @@ Unused terminals:
     DIV
     ELSE
     EQUALS
-    FLOAT
     FOR
     FUNCTION
     GT
     GTE
     IF
-    INT
     LBRACKET
     LT
     LTE
@@ -48,11 +45,14 @@ Rule 4     programa1 -> vars quadMain modules
 Rule 5     programa1 -> programa2
 Rule 6     programa2 -> main
 Rule 7     main -> MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
+Rule 8     tipo -> INT guardaTipoVar
+Rule 9     tipo -> FLOAT guardaTipoVar
+Rule 10    tipo -> CHAR guardaTipoVar
 
 Terminals, with rules where they appear
 
 AND                  : 
-CHAR                 : 
+CHAR                 : 10
 COMILLA              : 
 COMMA                : 
 COMPARE              : 
@@ -64,14 +64,14 @@ DIV                  :
 ELSE                 : 
 END                  : 7
 EQUALS               : 
-FLOAT                : 
+FLOAT                : 9
 FOR                  : 
 FUNCTION             : 
 GT                   : 
 GTE                  : 
 ID                   : 1
 IF                   : 
-INT                  : 
+INT                  : 8
 LBRACKET             : 
 LCURLY               : 7
 LPAREN               : 7
@@ -100,6 +100,7 @@ error                :
 Nonterminals, with rules where they appear
 
 addP                 : 1
+guardaTipoVar        : 8 9 10
 main                 : 6
 main_end             : 3
 modules              : 3 4
@@ -110,5 +111,6 @@ programa2            : 3 5
 quadMain             : 3 4
 save_fun             : 7
 statement            : 7
+tipo                 : 
 vars                 : 3 4 7
 

@@ -1,0 +1,9 @@
+program master;
+var 
+int f, g, h, lol;
+
+main() {
+f = 23;
+g = 4;
+h = 7;
+}

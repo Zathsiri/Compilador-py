@@ -48,7 +48,7 @@ tokens = [
     'RPAREN', #)
     'COMMA', #,
     'SEMICOLON', 
-    'NE', #NOT EQUAL
+    'NE', #!=
     'LBRACKET', #[
     'RBRACKET', #]
     'LCURLY', #{
@@ -97,7 +97,6 @@ def t_CTEI(t):
 
 #Identificador de FLOAT
 def t_CTEF(t):
-    #r'\d+\.\d+'
     r'[-+]?\d*\.\d+'
     t.value = float(t.value)
     return t
@@ -111,7 +110,7 @@ def t_CTESTRING(t):
 def t_error(t):
     t.lexer.skip(1)
     
-    lexer = lex.lex()
+lexer = lex.lex()
     
 actualFunType = ''
 fid = ''
@@ -156,11 +155,17 @@ def p_main(p):
 	'''
     global actual_funTipo
     actual_funTipo = p[1]
-    # Aqui se asigna el nombre del programam
     global fid
     fid = p[1]
     #print('_________', fid)
     global tablaFun
-    #Cuando este la tabla de funciones agregar aqui 
+    tablaFun.add_Fun(actual_funTipo, fid, 0, [], [], 0)
 
-parser = yacc.yacc()
+def p_tipo(p):
+    '''
+    tipo : INT guardaTipoVar
+         | FLOAT guardaTipoVar
+         | CHAR guardaTipoVar 
+    '''
+         
+ 
