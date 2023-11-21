@@ -9,7 +9,7 @@ from memory import Memo
 
 reserved ={
     'function'  :   'FUNCTION',
-    'vars'      :   'VARS',
+    'var'      :   'VAR',
     'program'   :   'PROGRAM',
     'main'      :   'MAIN',
     'void'      :   'VOID',
@@ -137,7 +137,7 @@ def p_addP(p):
     actualFunType = 'programa'
     fid = 'programa'
     global tablaFunc
-    tablaFunc.addFunc(actualFunType, fid, 0, [], [], 0)
+    tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
 
 def p_programa1(p):
     '''
@@ -160,16 +160,22 @@ def p_main(p):
     global fid
     fid = p[1]
     global tablaFunc
-    tablaFunc.addFunc(actualFunType, fid, 0, [], [], 0)
+    tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
 
 
 
+#las 3 tipos de variables aceptadas 
 def p_tipo(p):
     '''
     tipo : INT guardaTipoVar
          | FLOAT guardaTipoVar
          | CHAR guardaTipoVar 
     '''
+#aqui se guarda el tipo de variable 
+def p_guardaTipoVar(p): 
+    'guardaTipoVar : '
+    global actual_varTipo
+    actual_varTipo = p[-1]
          
 def p_vars(p):
     '''
@@ -191,6 +197,50 @@ def p_var1(p):
     '''
     global varId
     varId = p[1]
+
+def p_addV(p):
+    'addV :'
+    global tablaFunc
+    global varId
+    global actual_varTipo
+    if not varId ==None:
+
+            if tablaFunc.searchTabFunc(fid):
+                tablaFunc.addVar(fid, actual_varTipo, varId)
+            else:
+             SystemExit()
+#aqui esta la recursividad para tener diferntes tipos de variables
+def p_var2(p):
+    '''
+        var2 : var2 tip var1 SEMICOLON addV
+            | empty
+
+    '''
+
+def p_modules(p):
+    '''
+    modules : function modules
+            | empty
+    
+    ''' 
+
+def p_save_fun(p):
+    'save_fun: '
+    global actualFunType
+    global fid
+    global tablaFunc
+
+    if p[-1] == 'main':
+        actualFunType = 'main'
+        fid = p[-1]
+        tablaFunc.addFunction(actualFunType, fid, 0, [],[], 0)
+
+def p_function(p):
+    '''
+    functions : FUNCTION VOID functions1
+             | FUNCTION INT functions2
+             | FUNCTION FLOAT functions2
+    '''
 
 parser = yacc.yacc()
 
