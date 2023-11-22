@@ -119,7 +119,25 @@ fid = ''
 varId = ''
 paramId = '' 
 
-# aqui pondre todas las pilas para cuadruplos para eso cree la clase de Stack
+# las pilas para los cuadruplos
+stackN= Stack()
+stackT= Stack()
+operadores = Stack()
+cuadrulpos = []
+arreglos = []
+functions = []
+pendeintes = 0
+end_proc = []
+salto_end_proc = 0
+
+
+countParams=0
+
+#Instanciare objetos para las clases que se utilizan 
+cubo = Cubo()
+saltos = Stack()
+salto_fun = Stack()
+
 
 
 
@@ -162,7 +180,17 @@ def p_main(p):
     global tablaFunc
     tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
 
+def p_quadMain(p):
+    'queadMain :'
+    global saltos, cuadrulpos
+    cuad =('GOTOMAIN', 'main', -1, None)
+    cuadrulpos.append(cuad)
+    saltos.push(len(cuadrulpos)-1)
 
+def p_main_end(p):
+    'main_end :'
+    end = saltos.pop()
+        
 
 #las 3 tipos de variables aceptadas 
 def p_tipo(p):
@@ -209,6 +237,7 @@ def p_addV(p):
                 tablaFunc.addVar(fid, actual_varTipo, varId)
             else:
              SystemExit()
+
 #aqui esta la recursividad para tener diferntes tipos de variables
 def p_var2(p):
     '''
@@ -245,13 +274,73 @@ def p_function(p):
              | FUNCTION INT fun2
              | FUNCTION FLOAT fun2
     '''
+
 def p_fun1(p):
     '''
     fun1 : ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto  statement RCURLY end_func 
     '''
+
 def p_fun2(p):
     '''
     fun2 : ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto  statement RETURN operadorReturn exp quad_return SEMICOLON RCURLY end_func 
+    '''
+
+def p_fun_goto(p):
+    'fun_goto : '
+    global functions
+    nombre = p[-8]
+    salto = (nombre, len(cuadrulpos))
+    functions.append(salto)
+
+def p_end_func(p):
+    'end_func : '
+    global cuadrulpos, tablaFunc
+
+    cuad = ('ENDFUNC',None, None, -1)
+    cuadrulpos.append(cuad)
+    end_proc.append(len(cuadrulpos)-1)
+    tablaFunc.reset_temp_add()
+
+def p_operadorReturn(p):
+    'operadorReturn : '
+    global operadores
+    operadores.push('return')
+
+def p_quad_Return(p):
+    'quad_return : '
+    global cuadrulpos, stackN, stackT, operadores, actualFunType
+    if operadores.size() > 0:
+        if operadores.top() == 'return':
+            operadores2 = operadores.pop()
+            result = stackN.pop()
+
+            cuad = (operadores2, -1, -1, result)
+            cuadrulpos.append(cuad)
+
+        else:
+            print('Type missmatch')
+            
+def p_statement(p):
+    '''
+    statemetn : statement1 statement
+              | empty
+    '''
+
+def p_statement1(p):
+    '''
+    statement : asignacion SEMICOLON
+              | llamada SEMICOLON
+              | lectura SEMICOLON
+              | escritura SEMICOLON
+              | if
+              |while
+    '''
+
+def p_asignacion(p):
+    '''
+    asignacion : ID saveId2 EQUALS addOperadorName exp genera_quad_asignacion
+               | ID saveId2 arr EQUALS addOperadorName exp genera_quad_asignacion
+    
     '''
 
 

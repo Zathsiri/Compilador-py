@@ -40,36 +40,42 @@ Rule 4     programa1 -> vars quadMain modules
 Rule 5     programa1 -> programa2
 Rule 6     programa2 -> main
 Rule 7     main -> MAIN save_function LPAREN param2 RPAREN LCURLY vars statement RCURLY END
-Rule 8     tipo -> INT guardaTipoVar
-Rule 9     tipo -> FLOAT guardaTipoVar
-Rule 10    tipo -> CHAR guardaTipoVar
-Rule 11    guardaTipoVar -> <empty>
-Rule 12    vars -> var
-Rule 13    vars -> empty
-Rule 14    var -> VAR var2
-Rule 15    var1 -> ID
-Rule 16    var1 -> ID COMMA var1 addV
-Rule 17    var1 -> ID arr
-Rule 18    var1 -> ID arr COMMA var1 addV
-Rule 19    var1 -> empty
-Rule 20    addV -> <empty>
-Rule 21    var2 -> var2 tip var1 SEMICOLON addV
-Rule 22    var2 -> empty
-Rule 23    modules -> function modules
-Rule 24    modules -> empty
-Rule 25    save_function -> <empty>
-Rule 26    fun -> FUNCTION VOID fun1
-Rule 27    fun -> FUNCTION INT fun2
-Rule 28    fun -> FUNCTION FLOAT fun2
-Rule 29    fun1 -> ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto statement RCURLY end_func
-Rule 30    fun2 -> ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto statement RETURN operadorReturn exp quad_return SEMICOLON RCURLY end_func
+Rule 8     queadMain -> <empty>
+Rule 9     main_end -> <empty>
+Rule 10    tipo -> INT guardaTipoVar
+Rule 11    tipo -> FLOAT guardaTipoVar
+Rule 12    tipo -> CHAR guardaTipoVar
+Rule 13    guardaTipoVar -> <empty>
+Rule 14    vars -> var
+Rule 15    vars -> empty
+Rule 16    var -> VAR var2
+Rule 17    var1 -> ID
+Rule 18    var1 -> ID COMMA var1 addV
+Rule 19    var1 -> ID arr
+Rule 20    var1 -> ID arr COMMA var1 addV
+Rule 21    var1 -> empty
+Rule 22    addV -> <empty>
+Rule 23    var2 -> var2 tip var1 SEMICOLON addV
+Rule 24    var2 -> empty
+Rule 25    modules -> function modules
+Rule 26    modules -> empty
+Rule 27    save_function -> <empty>
+Rule 28    fun -> FUNCTION VOID fun1
+Rule 29    fun -> FUNCTION INT fun2
+Rule 30    fun -> FUNCTION FLOAT fun2
+Rule 31    fun1 -> ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto statement RCURLY end_func
+Rule 32    fun2 -> ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto statement RETURN operadorReturn exp quad_return SEMICOLON RCURLY end_func
+Rule 33    fun_goto -> <empty>
+Rule 34    end_func -> <empty>
+Rule 35    operadorReturn -> <empty>
+Rule 36    quad_return -> <empty>
 
 Terminals, with rules where they appear
 
 AND                  : 
-CHAR                 : 10
+CHAR                 : 12
 COMILLA              : 
-COMMA                : 16 18
+COMMA                : 18 20
 COMPARE              : 
 CTEC                 : 
 CTEF                 : 
@@ -79,17 +85,17 @@ DIV                  :
 ELSE                 : 
 END                  : 7
 EQUALS               : 
-FLOAT                : 9 28
+FLOAT                : 11 30
 FOR                  : 
-FUNCTION             : 26 27 28
+FUNCTION             : 28 29 30
 GT                   : 
 GTE                  : 
-ID                   : 1 15 16 17 18 29 30
+ID                   : 1 17 18 19 20 31 32
 IF                   : 
-INT                  : 8 27
+INT                  : 10 29
 LBRACKET             : 
-LCURLY               : 7 29 30
-LPAREN               : 7 29 30
+LCURLY               : 7 31 32
+LPAREN               : 7 31 32
 LT                   : 
 LTE                  : 
 MAIN                 : 7
@@ -100,14 +106,14 @@ OR                   :
 PLUS                 : 
 PROGRAM              : 1
 RBRACKET             : 
-RCURLY               : 7 29 30
+RCURLY               : 7 31 32
 READ                 : 
-RETURN               : 30
-RPAREN               : 7 29 30
-SEMICOLON            : 1 21 29 30 30
+RETURN               : 32
+RPAREN               : 7 31 32
+SEMICOLON            : 1 23 31 32 32
 TO                   : 
-VAR                  : 14
-VOID                 : 26
+VAR                  : 16
+VOID                 : 28
 WHILE                : 
 WRITE                : 
 error                : 
@@ -115,33 +121,34 @@ error                :
 Nonterminals, with rules where they appear
 
 addP                 : 1
-addV                 : 16 18 21
-arr                  : 17 18
-empty                : 13 19 22 24
-end_func             : 29 30
-exp                  : 30
+addV                 : 18 20 23
+arr                  : 19 20
+empty                : 15 21 24 26
+end_func             : 31 32
+exp                  : 32
 fun                  : 
-fun1                 : 26
-fun2                 : 27 28
-fun_goto             : 29 30
-function             : 23
-guardaTipoVar        : 8 9 10
+fun1                 : 28
+fun2                 : 29 30
+fun_goto             : 31 32
+function             : 25
+guardaTipoVar        : 10 11 12
 main                 : 6
 main_end             : 3
-modules              : 3 4 23
-operadorReturn       : 30
-param2               : 7 29 30
+modules              : 3 4 25
+operadorReturn       : 32
+param2               : 7 31 32
 programa             : 0
 programa1            : 1
 programa2            : 3 5
 quadMain             : 3 4
-quad_return          : 30
-save_function        : 7 29 30
-statement            : 7 29 30
-tip                  : 21
+quad_return          : 32
+queadMain            : 
+save_function        : 7 31 32
+statement            : 7 31 32
+tip                  : 23
 tipo                 : 
-var                  : 12
-var1                 : 16 18 21
-var2                 : 14 21
-vars                 : 3 4 7 29 30
+var                  : 14
+var1                 : 18 20 23
+var2                 : 16 23
+vars                 : 3 4 7 31 32
 
