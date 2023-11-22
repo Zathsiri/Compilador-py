@@ -619,10 +619,10 @@ class Cubo:
 
         }
 
-        def getType(self, lf, rg, op):
+def getType(self, lf, rg, op):
             return self.dance[lf][rg][op]
         
-        def pr(self,lf,rg,op):
+def pr(self,lf,rg,op):
             print('valor de retorno es->', self.getType(lf, rg, op))
 
   

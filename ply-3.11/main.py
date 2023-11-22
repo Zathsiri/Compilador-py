@@ -4,6 +4,7 @@ from tablaVariables import tabVar, tabFunc
 from cuboSem import Cubo
 from stack import Stack
 from memory import Memo
+import sys 
 
 #Palabras reservadas
 
@@ -181,7 +182,7 @@ def p_main(p):
     tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
 
 def p_quadMain(p):
-    'queadMain :'
+    'quadMain :'
     global saltos, cuadrulpos
     cuad =('GOTOMAIN', 'main', -1, None)
     cuadrulpos.append(cuad)
@@ -333,7 +334,7 @@ def p_statement1(p):
               | lectura SEMICOLON
               | escritura SEMICOLON
               | if
-              |while
+              | while
     '''
 
 def p_asignacion(p):
@@ -342,6 +343,89 @@ def p_asignacion(p):
                | ID saveId2 arr EQUALS addOperadorName exp genera_quad_asignacion
     
     '''
+
+def p_asignacion(p):
+     '''
+    asignacion : ID saveId2 EQUALS addOperadorName exp genera_quad_asignacion
+               | ID saveId2 arr EQUALS addOperadorName exp genera_quad_asignacion
+               | ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
+    ''' 
+
+def p_genera_quad_asignacion(p):
+    'geenra_quad_asignacion : '
+    global stackT, stackN, operadores, cuadrulpos
+
+    if operadores.size() >0 :
+        op = tabFunc.get_op_mem(operadores.top())
+        operadores2 = operadores.pop()
+        op_d = stackN.pop()
+        op_dt = stackT.pop()
+        op_i = stackN.pop()
+        op_it = stackT.pop()
+        res = cubo.getType(op_it, op_dt, operadores2)
+
+        if res != 'ERROR':
+            cuad = (op_it, op_dt, operadores2)
+            cuadrulpos.append(cuad)
+        else:
+            print('no hay nada :c')
+            sys.exit()
+
+def p_addOperatorName(p):
+    'addOperatorName : '
+    global operadores
+    aux = p[-1]
+    operadores.push(aux)
+
+def p_param1(p):
+    '''
+    param1 : ID addParam
+           | ID COMMA param1 addParam
+           | ID arr
+           | ID COMMA para 1
+           | empty
+    '''
+    global primerP
+    primerP = p[1]
+
+def p_addParam(p):
+    'addParam : '
+    global tablaFunc, paramId, primerP, actual_varTipo
+    paramId = p[-1]
+    print("en params entra", paramId)
+    print("leyendo->", primerP)
+    if not paramId == None and paramId is not None:
+        if tablaFunc.searchTabFunc(fid):
+            tablaFunc.addParametros_tabFunc(fid, actual_varTipo, primerP)
+            tablaFunc.addVar(fid, actual_varTipo, primerP)
+            tablaFunc.addParametros_tabFunc(fid, actual_varTipo, paramId)
+            tablaFunc.addVar(fid, actual_varTipo, paramId)
+            print(paramId, "esta en -> ", fid)
+            print(primerP, "el id del parametro esta en ->", fid)
+        else:
+            SystemExit()
+
+def p_param2(p):
+    '''
+    param2 : param2 tipo param1
+           | empty
+    '''
+
+def p_llamada(p):
+    '''
+    llamada : ID era_call LPAREN aux_exp quad_param RPAREN  gosub_quad llena_endproc
+    '''
+def p_aux_exp(p):
+    '''
+    aux_exp : exp
+            | exp COMMA aux_exp
+            | empty
+    '''
+
+
+
+
+
 
 
 parser = yacc.yacc()
