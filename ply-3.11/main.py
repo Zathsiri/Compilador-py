@@ -153,7 +153,7 @@ def p_programa2(p):
 
 def p_main(p):
     '''
-	main : MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
+	main : MAIN save_function LPAREN param2 RPAREN LCURLY vars statement RCURLY END
 	'''
     global actualFunType
     actualFunType = p[1]
@@ -224,8 +224,8 @@ def p_modules(p):
     
     ''' 
 
-def p_save_fun(p):
-    'save_fun: '
+def p_save_function(p):
+    'save_function : '
     global actualFunType
     global fid
     global tablaFunc
@@ -234,13 +234,26 @@ def p_save_fun(p):
         actualFunType = 'main'
         fid = p[-1]
         tablaFunc.addFunction(actualFunType, fid, 0, [],[], 0)
+    else:
+        actualFunType = p[-2]
+        fid =p[-1]
+        tablaFunc.addFunction(actualFunType, fid, 0, [],[], 0)
 
 def p_function(p):
     '''
-    functions : FUNCTION VOID functions1
-             | FUNCTION INT functions2
-             | FUNCTION FLOAT functions2
+    fun : FUNCTION VOID fun1
+             | FUNCTION INT fun2
+             | FUNCTION FLOAT fun2
     '''
+def p_fun1(p):
+    '''
+    fun1 : ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto  statement RCURLY end_func 
+    '''
+def p_fun2(p):
+    '''
+    fun2 : ID save_function LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto  statement RETURN operadorReturn exp quad_return SEMICOLON RCURLY end_func 
+    '''
+
 
 parser = yacc.yacc()
 
