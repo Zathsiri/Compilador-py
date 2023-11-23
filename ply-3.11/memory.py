@@ -19,7 +19,7 @@ class Memo:
                 '&' : 11,
                 '|' : 12,
                 '=' : 13,
-                'for' : 14, # no estoy esperando sacar el codigo del for pero por si acaso lo pondre
+                'for' : 14,
                 'while' : 15, 
                 'read' : 16,
                 'write' : 17,
