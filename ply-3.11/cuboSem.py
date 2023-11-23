@@ -615,14 +615,14 @@ class Cubo:
                     self.operators[13]: self.types[9],  # ctestring = ctec
                     self.operators[14]: self.types[9],  # ctestring == ctec = bool
             },    
-        },
+        }
 
         }
 
-def getType(self, lf, rg, op):
-            return self.dance[lf][rg][op]
-        
-def pr(self,lf,rg,op):
-            print('valor de retorno es->', self.getType(lf, rg, op))
+    def getType(self, lf, rg, op):
+        return self.dance[lf][rg][op]
+            
+    def pr(self,lf,rg,op):
+        print('valor de retorno es->', self.getType(lf, rg, op))
 
   

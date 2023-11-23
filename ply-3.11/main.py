@@ -127,7 +127,7 @@ operadores = Stack()
 cuadrulpos = []
 arreglos = []
 functions = []
-pendeintes = 0
+pendientes = 0
 end_proc = []
 salto_end_proc = 0
 
@@ -182,16 +182,17 @@ def p_main(p):
     tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
 
 def p_quadMain(p):
-    'quadMain :'
+    'quadMain : '
     global saltos, cuadrulpos
     cuad =('GOTOMAIN', 'main', -1, None)
     cuadrulpos.append(cuad)
     saltos.push(len(cuadrulpos)-1)
 
 def p_main_end(p):
-    'main_end :'
+    'main_end : '
     end = saltos.pop()
-        
+   # llenar_quad(end, -1) 
+
 
 #las 3 tipos de variables aceptadas 
 def p_tipo(p):
@@ -242,7 +243,7 @@ def p_addV(p):
 #aqui esta la recursividad para tener diferntes tipos de variables
 def p_var2(p):
     '''
-        var2 : var2 tip var1 SEMICOLON addV
+        var2 : var2 tipo var1 SEMICOLON addV
             | empty
 
     '''
@@ -323,7 +324,7 @@ def p_quad_Return(p):
             
 def p_statement(p):
     '''
-    statemetn : statement1 statement
+    statement : statement1 statement
               | empty
     '''
 
@@ -352,7 +353,7 @@ def p_asignacion(p):
     ''' 
 
 def p_genera_quad_asignacion(p):
-    'geenra_quad_asignacion : '
+    'genera_quad_asignacion : '
     global stackT, stackN, operadores, cuadrulpos
 
     if operadores.size() >0 :
@@ -363,7 +364,7 @@ def p_genera_quad_asignacion(p):
         op_i = stackN.pop()
         op_it = stackT.pop()
         res = cubo.getType(op_it, op_dt, operadores2)
-
+        
         if res != 'ERROR':
             cuad = (op_it, op_dt, operadores2)
             cuadrulpos.append(cuad)
@@ -415,6 +416,7 @@ def p_llamada(p):
     '''
     llamada : ID era_call LPAREN aux_exp quad_param RPAREN  gosub_quad llena_endproc
     '''
+
 def p_aux_exp(p):
     '''
     aux_exp : exp
@@ -422,10 +424,67 @@ def p_aux_exp(p):
             | empty
     '''
 
+def p_quad_param(p):
+    '''quad_param : '''
+    global cuadrulpos, countParams, nameV, llamadaID, pendientes
+    if not varId == None:
+        if tablaFunc.searchVarTabFunc(fid,varId):
+            tipos = tablaFunc.getVarTipo(varId, fid)
 
+            tablaFunc.addVarMem(tipos, varId, fid)
+            varmemo = tablaFunc.getVarMem(varId)
+            print("la variable ", varId, varmemo)
 
+            if paramId == varId:
+                print("es la misma")
+                pendientes = varmemo
+            
+            if tipos:
+                stackT.push(tipos)
+                stackN.push(varmemo)
+                print("la direccion es ->", varId, 'es de ->', varmemo)
 
+            else:
+                SystemExit()
+    
+def p_llenar_endproc(p):
+    'llena_endproc : '
+    global end_proc, salto_end_proc
+    end = end_proc().pop
+    tempo = list(cuadrulpos[end])
+    cuadrulpos[end] = tuple(tempo)
 
+def p_era_call(p):
+    'era_call : '
+    global cuadrulpos, countParams, nameV
+    nameV = p[-1]
+    countParams = 0
+    cuad = ('ERA', None, None, nameV)
+    cuadrulpos.append(cuad)
+    saltos.push(len(cuadrulpos)-1)
+
+def p_gosub_quad(p):
+    'gosub_quad : '
+    global cuadrulpos, functions, salto_end_proc
+    gosub_call = p[-6]
+
+    for i in functions:
+        if i[0] == gosub_call:
+            end = i[1]
+    cuad = ('GOSUB', gosub_call, None, end)
+    cuadrulpos.append(cuad)
+    salto_end_proc = len(cuadrulpos)
+
+def p_if(p):
+    '''
+    if : IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if   
+    '''
+
+def p_else(p):
+    '''
+    else : ELSE else_quad LCURLY statement RCURLY
+         | empty
+    '''
 
 
 parser = yacc.yacc()

@@ -10,11 +10,9 @@ Unused terminals:
     CTEI
     CTESTRING
     DIV
-    ELSE
     FOR
     GT
     GTE
-    IF
     LBRACKET
     LT
     LTE
@@ -54,7 +52,7 @@ Rule 19    var1 -> ID arr
 Rule 20    var1 -> ID arr COMMA var1 addV
 Rule 21    var1 -> empty
 Rule 22    addV -> <empty>
-Rule 23    var2 -> var2 tip var1 SEMICOLON addV
+Rule 23    var2 -> var2 tipo var1 SEMICOLON addV
 Rule 24    var2 -> empty
 Rule 25    modules -> function modules
 Rule 26    modules -> empty
@@ -68,8 +66,8 @@ Rule 33    fun_goto -> <empty>
 Rule 34    end_func -> <empty>
 Rule 35    operadorReturn -> <empty>
 Rule 36    quad_return -> <empty>
-Rule 37    statemetn -> statement1 statement
-Rule 38    statemetn -> empty
+Rule 37    statement -> statement1 statement
+Rule 38    statement -> empty
 Rule 39    statement -> asignacion SEMICOLON
 Rule 40    statement -> llamada SEMICOLON
 Rule 41    statement -> lectura SEMICOLON
@@ -79,7 +77,7 @@ Rule 44    statement -> while
 Rule 45    asignacion -> ID saveId2 EQUALS addOperadorName exp genera_quad_asignacion
 Rule 46    asignacion -> ID saveId2 arr EQUALS addOperadorName exp genera_quad_asignacion
 Rule 47    asignacion -> ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
-Rule 48    geenra_quad_asignacion -> <empty>
+Rule 48    genera_quad_asignacion -> <empty>
 Rule 49    addOperatorName -> <empty>
 Rule 50    param1 -> ID addParam
 Rule 51    param1 -> ID COMMA param1 addParam
@@ -93,6 +91,13 @@ Rule 58    llamada -> ID era_call LPAREN aux_exp quad_param RPAREN gosub_quad ll
 Rule 59    aux_exp -> exp
 Rule 60    aux_exp -> exp COMMA aux_exp
 Rule 61    aux_exp -> empty
+Rule 62    quad_param -> <empty>
+Rule 63    llena_endproc -> <empty>
+Rule 64    era_call -> <empty>
+Rule 65    gosub_quad -> <empty>
+Rule 66    if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
+Rule 67    else -> ELSE else_quad LCURLY statement RCURLY
+Rule 68    else -> empty
 
 Terminals, with rules where they appear
 
@@ -106,7 +111,7 @@ CTEF                 :
 CTEI                 : 
 CTESTRING            : 
 DIV                  : 
-ELSE                 : 
+ELSE                 : 67
 END                  : 7
 EQUALS               : 45 46 47
 FLOAT                : 11 30
@@ -115,11 +120,11 @@ FUNCTION             : 28 29 30
 GT                   : 
 GTE                  : 
 ID                   : 1 17 18 19 20 31 32 45 46 47 50 51 52 53 58
-IF                   : 
+IF                   : 66
 INT                  : 10 29
 LBRACKET             : 
-LCURLY               : 7 31 32
-LPAREN               : 7 31 32 58
+LCURLY               : 7 31 32 66 67
+LPAREN               : 7 31 32 58 66
 LT                   : 
 LTE                  : 
 MAIN                 : 7
@@ -130,10 +135,10 @@ OR                   :
 PLUS                 : 
 PROGRAM              : 1
 RBRACKET             : 
-RCURLY               : 7 31 32
+RCURLY               : 7 31 32 66 67
 READ                 : 
 RETURN               : 32
-RPAREN               : 7 31 32 58
+RPAREN               : 7 31 32 58 66
 SEMICOLON            : 1 23 31 32 32 39 40 41 42
 TO                   : 
 VAR                  : 16
@@ -153,21 +158,24 @@ addV                 : 18 20 23
 arr                  : 19 20 46 52
 asignacion           : 39
 aux_exp              : 58 60
-empty                : 15 21 24 26 38 54 57 61
+else                 : 66
+else_quad            : 67
+empty                : 15 21 24 26 38 54 57 61 68
 end_func             : 31 32
+end_if               : 66
 era_call             : 58
 escritura            : 42
-exp                  : 32 45 46 47 59 60
+exp                  : 32 45 46 47 59 60 66
 fun                  : 
 fun1                 : 28
 fun2                 : 29 30
 fun_goto             : 31 32
 function             : 25
-geenra_quad_asignacion : 
 genera_quad_asignacion : 45 46 47
 gosub_quad           : 58
 guardaTipoVar        : 10 11 12
 if                   : 43
+if_quad              : 66
 lectura              : 41
 llamada              : 40
 llena_endproc        : 58
@@ -187,11 +195,9 @@ quad_param           : 58
 quad_return          : 32
 saveId2              : 45 46 47
 save_function        : 7 31 32
-statement            : 7 31 32 37
+statement            : 7 31 32 37 66 67
 statement1           : 37
-statemetn            : 
-tip                  : 23
-tipo                 : 56
+tipo                 : 23 56
 var                  : 14
 var1                 : 18 20 23
 var2                 : 16 23
