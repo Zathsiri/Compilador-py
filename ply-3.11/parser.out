@@ -3,14 +3,9 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     AND
-    COMILLA
     COMPARE
     CTEC
-    CTEF
-    CTEI
-    CTESTRING
     DIV
-    FOR
     GT
     GTE
     LBRACKET
@@ -19,12 +14,9 @@ Unused terminals:
     MINUS
     MUL
     NE
-    OR
     PLUS
     RBRACKET
-    READ
     TO
-    WRITE
 
 Grammar
 
@@ -77,7 +69,7 @@ Rule 45    asignacion -> ID saveId2 EQUALS addOperadorName exp genera_quad_asign
 Rule 46    asignacion -> ID saveId2 arr EQUALS addOperadorName exp genera_quad_asignacion
 Rule 47    asignacion -> ID saveId2 mat EQUALS addOperadorName exp genera_quad_asignacion
 Rule 48    genera_quad_asignacion -> <empty>
-Rule 49    addOperatorName -> <empty>
+Rule 49    addOperadorName -> <empty>
 Rule 50    param1 -> ID addParam
 Rule 51    param1 -> ID COMMA param1 addParam
 Rule 52    param1 -> ID arr
@@ -97,28 +89,42 @@ Rule 65    gosub_quad -> <empty>
 Rule 66    if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
 Rule 67    else -> ELSE else_quad LCURLY statement RCURLY
 Rule 68    else -> empty
-Rule 69    loop_end -> <empty>
-Rule 70    while_quad -> <empty>
-Rule 71    while_op -> <empty>
-Rule 72    while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement
+Rule 69    for_op -> <empty>
+Rule 70    for_quad -> <empty>
+Rule 71    for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
+Rule 72    for1 -> <empty>
+Rule 73    loop_end -> <empty>
+Rule 74    while_quad -> <empty>
+Rule 75    while_op -> <empty>
+Rule 76    while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement
+Rule 77    escritura -> WRITE LPAREN operadorWrite escritura1 operadorWriteQuad RPAREM
+Rule 78    escritura1 -> escritura2 COMMA escritura 2
+Rule 79    escritura1 -> escritura2
+Rule 80    escritura2 -> COMILLA CTESTRING COMILLA
+Rule 81    escritura2 -> CTEI saveCTE operatorWriteQuad
+Rule 82    escritura2 -> CTEF saveCTE operatorWriteQuad
+Rule 83    escritura2 -> exp
+Rule 84    lectura -> READ operatorRead LPAREN exp operatorReadQuad RPAREN
+Rule 85    exp -> nexp
+Rule 86    exp -> nexp OR addOperadorName
 
 Terminals, with rules where they appear
 
 AND                  : 
 CHAR                 : 12
-COMILLA              : 
-COMMA                : 18 20 51 53 60
+COMILLA              : 80 80
+COMMA                : 18 20 51 53 60 78
 COMPARE              : 
 CTEC                 : 
-CTEF                 : 
-CTEI                 : 
-CTESTRING            : 
+CTEF                 : 82
+CTEI                 : 81
+CTESTRING            : 80
 DIV                  : 
 ELSE                 : 67
 END                  : 7
 EQUALS               : 45 46 47
 FLOAT                : 11 30
-FOR                  : 
+FOR                  : 71
 FUNCTION             : 28 29 30
 GT                   : 
 GTE                  : 
@@ -126,34 +132,35 @@ ID                   : 1 17 18 19 20 31 32 45 46 47 50 51 52 53 58
 IF                   : 66
 INT                  : 10 29
 LBRACKET             : 
-LCURLY               : 7 31 32 66 67 72
-LPAREN               : 7 31 32 58 66 72
+LCURLY               : 7 31 32 66 67 71 76
+LPAREN               : 7 31 32 58 66 71 76 77 84
 LT                   : 
 LTE                  : 
 MAIN                 : 7
 MINUS                : 
 MUL                  : 
 NE                   : 
-OR                   : 
+OR                   : 86
 PLUS                 : 
 PROGRAM              : 1
 RBRACKET             : 
-RCURLY               : 7 31 32 66 67
-READ                 : 
+RCURLY               : 7 31 32 66 67 71
+READ                 : 84
 RETURN               : 32
-RPAREN               : 7 31 32 58 66 72
+RPAREN               : 7 31 32 58 66 71 76 84
 SEMICOLON            : 1 23 31 32 32 39 40 41 42
 TO                   : 
 VAR                  : 16
 VOID                 : 28
-WHILE                : 72
-WRITE                : 
+WHILE                : 76
+WRITE                : 77
 error                : 
 
 Nonterminals, with rules where they appear
 
-addOperadorName      : 45 46 47
-addOperatorName      : 
+2                    : 78
+RPAREM               : 77
+addOperadorName      : 45 46 47 86
 addP                 : 1
 addParam             : 50 51
 addV                 : 18 20 23
@@ -166,8 +173,15 @@ empty                : 15 21 24 26 38 54 57 61 68
 end_func             : 31 32
 end_if               : 66
 era_call             : 58
-escritura            : 42
-exp                  : 32 45 46 47 59 60 66 72
+escritura            : 42 78
+escritura1           : 77
+escritura2           : 78 79
+exp                  : 32 45 46 47 59 60 66 76 83 84
+for                  : 
+for1                 : 71
+for_end              : 71
+for_op               : 71
+for_quad             : 71
 fun                  : 
 fun1                 : 28
 fun2                 : 29 30
@@ -186,7 +200,13 @@ main                 : 6
 main_end             : 3
 mat                  : 47
 modules              : 3 4 25
+nexp                 : 85 86
 operadorReturn       : 32
+operadorWrite        : 77
+operadorWriteQuad    : 77
+operatorRead         : 84
+operatorReadQuad     : 84
+operatorWriteQuad    : 81 82
 param1               : 51 53 56
 param2               : 7 31 32 56
 programa             : 0
@@ -195,9 +215,10 @@ programa2            : 3 5
 quadMain             : 3 4
 quad_param           : 58
 quad_return          : 32
+saveCTE              : 81 82
 saveId2              : 45 46 47
 save_function        : 7 31 32
-statement            : 7 31 32 37 66 67 72
+statement            : 7 31 32 37 66 67 71 76
 statement1           : 37
 tipo                 : 23 56
 var                  : 14
@@ -205,6 +226,6 @@ var1                 : 18 20 23
 var2                 : 16 23
 vars                 : 3 4 7 31 32
 while                : 44
-while_op             : 72
-while_quad           : 72
+while_op             : 76
+while_quad           : 76
 

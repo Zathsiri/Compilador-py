@@ -1,5 +1,5 @@
 program master;
-var 
+var
 int f, g, h, lol, rocket;
 
 main() {

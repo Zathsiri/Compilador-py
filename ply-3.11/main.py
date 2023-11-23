@@ -1,11 +1,13 @@
 import ply.lex as lex
 import ply.yacc as yacc
+from disponible import dispo
 from tablaVariables import tabVar, tabFunc
 from cuboSem import Cubo
+from maquinaVirtual import *
 from stack import Stack
 from memory import Memo
 import sys 
-
+import json
 #Palabras reservadas
 
 reserved ={
@@ -23,7 +25,7 @@ reserved ={
     'end'       :   'END',
     'read'      :   'READ',
     'write'     :   'WRITE',
-    'for'       :   'FOR', #lo mas probable es que no lo saque
+    'for'       :   'FOR', 
     'while'     :   'WHILE',
     'to'        :   'TO'
 }
@@ -270,8 +272,8 @@ def p_save_function(p):
 def p_function(p):
     '''
     fun : FUNCTION VOID fun1
-             | FUNCTION INT fun2
-             | FUNCTION FLOAT fun2
+        | FUNCTION INT fun2
+        | FUNCTION FLOAT fun2
     '''
 
 def p_fun1(p):
@@ -369,8 +371,8 @@ def p_genera_quad_asignacion(p):
             print('no hay nada :c')
             sys.exit()
 
-def p_addOperatorName(p):
-    'addOperatorName : '
+def p_addOperadorName(p):
+    'addOperadorName : '
     global operadores
     aux = p[-1]
     operadores.push(aux)
@@ -479,6 +481,40 @@ def p_else(p):
     else : ELSE else_quad LCURLY statement RCURLY
          | empty
     '''
+
+def p_for_op(p):
+    'for_op : '
+    global operadores, cuadrulpos, saltos
+
+    op = tablaFunc.get_op_mem('for')
+    operadores.push(op)
+    saltos.push(len(cuadrulpos))
+
+def p_for_quad(p):
+    'for_quad : '
+    global stackN, stackT, cuadrulpos, saltos
+    resT = stackT.pop()
+
+    if resT == 'bool':
+        valor = stackN.pop()
+        cuad =('GOTOV', valor, None, -1)
+        cuadrulpos.append(cuad)
+        saltos.push(len(cuadrulpos)-1)
+    else:
+        print('Error en el cuadruplo')
+        sys.exit()
+
+def p_for(p):
+    '''
+    for : FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
+    '''
+ 
+def p_for1(p):
+    '''
+    for1 :   
+    '''
+
+
 #aqui es donde se marca el fin del loop
 def p_loop_end(p):
     'loop_end : '
@@ -517,8 +553,59 @@ def p_while(p):
     while : WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement
     '''
 
-#def p_while_op(p):
+def p_escritura(p):
+    '''
+    escritura : WRITE LPAREN operadorWrite escritura1 operadorWriteQuad RPAREM
+    '''
+def p_escritura1(p):
+    '''
+    escritura1 : escritura2 COMMA escritura 2
+               | escritura2
+    '''
+def p_escritura2(p):
+    '''
+    escritura2 : COMILLA CTESTRING COMILLA
+               | CTEI saveCTE operatorWriteQuad
+               | CTEF saveCTE operatorWriteQuad
+               | exp
+    '''
+def p_lectura(p):
+    '''
+    lectura : READ operatorRead LPAREN exp operatorReadQuad RPAREN
+    '''
 
+
+def p_exp(p):
+    '''
+    exp : nexp
+        | nexp OR addOperadorName
+    '''
+
+def genera_cuadruplo():
+    global operadores, stackN, stackT, cuadrulpos
+
+    if operadores.size() > 0:
+        op=tablaFunc.get_op_mem(operadores.top())
+        operando2 = operadores.pop()
+        op_d= stackN.pop()
+        op_dt= stackT.pop()
+        op_i= stackN.pop()
+        op_it= stackT.pop()
+
+        resT = cubo.getType(op_it, op_dt, operando2)
+        if resT !='ERORR':
+            res = dispo.next()
+
+        tablaFunc.addTempMem(resT, res, fid)
+        varT = tablaFunc.getTemp_mem(res)
+
+        cuad = (op, op_i, op_d, varT)
+        cuadrulpos.append(cuad)
+
+        stackN.push(varT)
+        stackT.push(resT)
+
+        
 parser = yacc.yacc()
 
 if __name__ =='__main__':
