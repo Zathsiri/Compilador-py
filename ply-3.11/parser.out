@@ -24,7 +24,6 @@ Unused terminals:
     RBRACKET
     READ
     TO
-    WHILE
     WRITE
 
 Grammar
@@ -82,7 +81,7 @@ Rule 49    addOperatorName -> <empty>
 Rule 50    param1 -> ID addParam
 Rule 51    param1 -> ID COMMA param1 addParam
 Rule 52    param1 -> ID arr
-Rule 53    param1 -> ID COMMA para 1
+Rule 53    param1 -> ID COMMA param1
 Rule 54    param1 -> empty
 Rule 55    addParam -> <empty>
 Rule 56    param2 -> param2 tipo param1
@@ -98,6 +97,10 @@ Rule 65    gosub_quad -> <empty>
 Rule 66    if -> IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if
 Rule 67    else -> ELSE else_quad LCURLY statement RCURLY
 Rule 68    else -> empty
+Rule 69    loop_end -> <empty>
+Rule 70    while_quad -> <empty>
+Rule 71    while_op -> <empty>
+Rule 72    while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement
 
 Terminals, with rules where they appear
 
@@ -123,8 +126,8 @@ ID                   : 1 17 18 19 20 31 32 45 46 47 50 51 52 53 58
 IF                   : 66
 INT                  : 10 29
 LBRACKET             : 
-LCURLY               : 7 31 32 66 67
-LPAREN               : 7 31 32 58 66
+LCURLY               : 7 31 32 66 67 72
+LPAREN               : 7 31 32 58 66 72
 LT                   : 
 LTE                  : 
 MAIN                 : 7
@@ -138,18 +141,17 @@ RBRACKET             :
 RCURLY               : 7 31 32 66 67
 READ                 : 
 RETURN               : 32
-RPAREN               : 7 31 32 58 66
+RPAREN               : 7 31 32 58 66 72
 SEMICOLON            : 1 23 31 32 32 39 40 41 42
 TO                   : 
 VAR                  : 16
 VOID                 : 28
-WHILE                : 
+WHILE                : 72
 WRITE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-1                    : 53
 addOperadorName      : 45 46 47
 addOperatorName      : 
 addP                 : 1
@@ -165,7 +167,7 @@ end_func             : 31 32
 end_if               : 66
 era_call             : 58
 escritura            : 42
-exp                  : 32 45 46 47 59 60 66
+exp                  : 32 45 46 47 59 60 66 72
 fun                  : 
 fun1                 : 28
 fun2                 : 29 30
@@ -179,13 +181,13 @@ if_quad              : 66
 lectura              : 41
 llamada              : 40
 llena_endproc        : 58
+loop_end             : 
 main                 : 6
 main_end             : 3
 mat                  : 47
 modules              : 3 4 25
 operadorReturn       : 32
-para                 : 53
-param1               : 51 56
+param1               : 51 53 56
 param2               : 7 31 32 56
 programa             : 0
 programa1            : 1
@@ -195,7 +197,7 @@ quad_param           : 58
 quad_return          : 32
 saveId2              : 45 46 47
 save_function        : 7 31 32
-statement            : 7 31 32 37 66 67
+statement            : 7 31 32 37 66 67 72
 statement1           : 37
 tipo                 : 23 56
 var                  : 14
@@ -203,4 +205,6 @@ var1                 : 18 20 23
 var2                 : 16 23
 vars                 : 3 4 7 31 32
 while                : 44
+while_op             : 72
+while_quad           : 72
 

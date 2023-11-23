@@ -85,14 +85,11 @@ t_ignore = ' \t\n'
 #Identificador de ID's
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    #if t.value in reserved:
-    #t.type = reserved[t.value]
     t.type = reserved.get(t.value, 'ID')
     return t
 
 #identificador de INT
 def t_CTEI(t):
-    #r'\d+'
     r'0|[-+]?[1-9][0-9]*'
     t.value = int(t.value)
     return t
@@ -143,12 +140,12 @@ salto_fun = Stack()
 
 
 def p_programa(p):
-        '''
-        programa : PROGRAM ID SEMICOLON addP programa1 
-        '''
-        global programId
-        programId = p[2]
-        p[0] = 'PROGRAMA COMPILADO'
+    '''
+    programa : PROGRAM ID SEMICOLON addP programa1 
+    '''
+    global programId
+    programId = p[2]
+    p[0] = 'PROGRAMA COMPILADO'
 
 def p_addP(p):
     'addP :'
@@ -383,7 +380,7 @@ def p_param1(p):
     param1 : ID addParam
            | ID COMMA param1 addParam
            | ID arr
-           | ID COMMA para 1
+           | ID COMMA param1
            | empty
     '''
     global primerP
@@ -427,26 +424,22 @@ def p_aux_exp(p):
 def p_quad_param(p):
     '''quad_param : '''
     global cuadrulpos, countParams, nameV, llamadaID, pendientes
-    if not varId == None:
-        if tablaFunc.searchVarTabFunc(fid,varId):
-            tipos = tablaFunc.getVarTipo(varId, fid)
+    llamadaID = p[.4]
+    print("llamadaID->" , llamadaID)
+    totalParams = tablaFunc.getNumeroParametros(llamadaID)
 
-            tablaFunc.addVarMem(tipos, varId, fid)
-            varmemo = tablaFunc.getVarMem(varId)
-            print("la variable ", varId, varmemo)
-
-            if paramId == varId:
-                print("es la misma")
-                pendientes = varmemo
-            
-            if tipos:
-                stackT.push(tipos)
-                stackN.push(varmemo)
-                print("la direccion es ->", varId, 'es de ->', varmemo)
-
-            else:
-                SystemExit()
-    
+    if not stackN.is_empty():
+        val = stackN.pop()
+        print("Valor del parametro->", val)
+        if not countParams == totalParams:
+            print("Parametro actualizados ->", totalParams)
+            cuad = ('PARAM', val, None, pendientes)
+            cuadrulpos.append(cuad)
+            stackN.pop()
+            countParams +=1
+        else:
+            print("parametros excedidos")
+        
 def p_llenar_endproc(p):
     'llena_endproc : '
     global end_proc, salto_end_proc
@@ -475,17 +468,56 @@ def p_gosub_quad(p):
     cuadrulpos.append(cuad)
     salto_end_proc = len(cuadrulpos)
 
+# se para detectar y dar las instrucciones de if
 def p_if(p):
     '''
     if : IF LPAREN exp RPAREN if_quad LCURLY statement RCURLY else end_if   
     '''
-
+#para las intrucciones del else
 def p_else(p):
     '''
     else : ELSE else_quad LCURLY statement RCURLY
          | empty
     '''
+#aqui es donde se marca el fin del loop
+def p_loop_end(p):
+    'loop_end : '
+    global stackN, stackT, cuadrulpos, saltos
+    end = saltos.pop()
+    retro = saltos.pop()
+    cuad = ('GOTO', None, None, retro)
+    cuadrulpos.append(cuad)
+   #llenar_quad(end, retro) 
 
+def p_while_quad(p):
+    'while_quad : '
+    global stackN, stackT, cuadrulpos, saltos
+    tipoRes = stackT.pop()
+
+    if tipoRes == 'bool':
+        valor = stackN.pop()
+        cuad = ('GOTOF', valor, None, -1)
+        print('cuadruplo: ', str(cuad))
+        cuadrulpos.append(cuad)
+        saltos.push(len(cuadrulpos)-1)
+
+    else:
+        print('eroro dentro del cuadruplo del while')
+        sys,exit()
+
+def p_while_op(p):
+    'while_op :'    
+    global operadores, cuadrulpos, saltos
+    op = tablaFunc.get_op_mem('while')
+    operadores.push(op)
+    saltos.push(len(cuadrulpos))
+
+def p_while(p):
+    '''
+    while : WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement
+    '''
+
+#def p_while_op(p):
 
 parser = yacc.yacc()
 
@@ -498,5 +530,5 @@ if __name__ =='__main__':
         tk = lexer.token()
         if not tk:
             break
-    else:
-        print("syntax error")
+        else:
+            print("syntax error")
