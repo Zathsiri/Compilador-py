@@ -71,7 +71,7 @@ class MaVi():
                 self.NE(cuads[self.instructionPointer])
                 self.instructionPointer += 1
                 
-            elif cuads[self.instructionPointer][0] == self.memo.get_operator_address('&&'):
+            elif cuads[self.instructionPointer][0] == self.memo.get_operator_address('&'):
                 self.andcomp(cuads[self.instructionPointer])
                 self.instructionPointer += 1
 

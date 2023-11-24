@@ -104,18 +104,18 @@ class Memo:
             else:
                 if address < 19000 and address >= 11000: 
                     if address < 13000 and address >= 11000:
-                        self.temporal[address] = value
+                        self.temporales[address] = value
                     
                     elif address < 15000 and address >= 13000:
-                        self.temporal[address] = value
+                        self.temporales[address] = value
                     
                     
                     elif address < 17000 and address >= 15000:
-                        self.temporal[address] = value
+                        self.temporales[address] = value
                 
                     
                     elif address < 19000 and address >= 17000:
-                        self.temporal[address] = value
+                        self.temporales[address] = value
                     
                     else:
                         print("Out of range")  
@@ -158,32 +158,32 @@ class Memo:
                     
             elif address < 49000 and address >=45000:
                 if address <46000:
-                    return self.constants[address]
+                    return self.constantes[address]
             
                 elif address <47000:
-                    return self.constants[address]
+                    return self.constantes[address]
             
                 elif address <48000:
-                    return self.constants[address]
+                    return self.constantes[address]
                 
                 elif address < 49000:
-                    return self.constants[address]
+                    return self.constantes[address]
                 
                 else:
                     print("index out of range")
             
             else:   
                 if address < 13000:
-                        return self.temporal[address]
+                        return self.temporales[address]
                 
                 elif address < 15000:
-                        return self.temporal[address]
+                        return self.temporales[address]
                 
                 elif address < 17000:
-                        return self.temporal[address]
+                        return self.temporales[address]
                 
                 elif address < 19000:
-                        return self.temporal[address]
+                        return self.temporales[address]
                 else:
                     print("index ouf of range")
 
@@ -248,8 +248,36 @@ class Memo:
                     if self.lbool < 33000:
                         address = self.lbool
                         self.lbool += 1
+                        return address
+                    
+    def set_temp_direction(self, tipo, id, funId):
+            if tipo == 'int':
+                if self.gLint <13000:
+                    address = self.gdLi
+                    self.gLint += 1
 
-            return address
+                else:
+                        print("index out of range")
+
+            elif tipo == 'float':
+            if self.gLf < 15000:                
+                address = self.gLf
+                self.gLf += 1
+            else:
+                    print("index out of range")
+                        
+            elif tipo == 'char':
+                if self.gLc < 17000:
+                    address = self.gLc                  
+                    self.gLc += 1            
+                else:
+                    print("index out of range")
+                
+            else:
+                if self.gLb < 20000:                   
+                    address = self.gLb
+                    self.gLb += 1
+                    return address
 
     #Manejo de constantes
 
@@ -275,8 +303,7 @@ class Memo:
                     if self.cteString < 49000:
                         address = self.cteString
                         self.cteString += 1
-                        
-            return address 
+                        return address 
         
     def set_var_address(self, tipo, vid, funId):
             if self.get_var_address(vid) == -1:    
@@ -294,7 +321,7 @@ class Memo:
     def set_temp_address(self, tipo, vid, funId):
             if self.get_temp_address(vid) == -1:           
                 ad = self.set_temp_direction(tipo, vid, funId)
-                self.temporal[vid] = {
+                self.temporales[vid] = {
                     'address': ad
                 }
 
@@ -308,7 +335,7 @@ class Memo:
     def set_cte_address(self, val):
             if self.get_cte_address(val) == -1:
                 ad = self.set_cte(val)
-                self.constants[val] = {
+                self.constantes[val] = {
                 'address': ad
                 }
             

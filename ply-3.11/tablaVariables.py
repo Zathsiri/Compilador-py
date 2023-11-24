@@ -1,5 +1,6 @@
 from memory import Memo
 
+
 class tabVar:
     def __init__(self):
         self.var_list ={}
@@ -20,14 +21,12 @@ class tabVar:
         return self.var_list[id]['tipo']
 
 #tabla de funciones 
-
 class tabFunc():
-    
     #constructor de la clase con un diccionario para las funciones y su objeto de memoria
     def __init__(self):
         self.funciones= {}
         self.mem = Memo()
-    
+        
     #crea la funcion y la agrega
     def addFunction(self,tipo, id, nParams, tParams, idParams, nVars):
         if self.funciones.get(id) == None:
@@ -43,7 +42,6 @@ class tabFunc():
     #busca el nombre de una funcion en especifico
     def searchTabFunc(self, id):
         return id in self.funciones
-    
     
     #busca el nombre de una variable
     def searchVarTabFunc(self, fid, id):
@@ -70,7 +68,7 @@ class tabFunc():
      # si no existe en el local aun lo agrego
         elif not self.funciones[fid]['vars'].searchVars(id):
             ad = self.mem.set_var_direction(tipo, id, fid)
-            self.funciones[fid]['vars'].add(tipo, id, ad)
+            self.funciones[fid]['vars'].addVar(tipo, id, ad)
             self.funciones[fid]['nVars'] = self.funciones[fid]['nVars'] + 1
     
     # si existe como global no lo agrego y aviso que ya estaba
@@ -126,8 +124,7 @@ class tabFunc():
     def reset_temp_add(self):
         self.mem.p_reset_temp_vals()
 
-    #pritn de una variable      
+    # Print de una variable      
     def print_fun_vars(self, fid):
         if fid in self.funciones:
-            self.funciones[fid]['vars'].print_vars()
-
+            self.funciones[fid]['vars'].printVars()

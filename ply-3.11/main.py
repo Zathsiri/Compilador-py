@@ -1,3 +1,4 @@
+from tkinter import END
 import ply.lex as lex
 import ply.yacc as yacc
 from disponible import dispo
@@ -452,7 +453,7 @@ def p_quad_param(p):
 def p_llenar_endproc(p):
     'llena_endproc : '
     global end_proc, salto_end_proc
-    end = end_proc().pop
+    end = end_proc().pop # type: ignore
     tempo = list(cuadrulpos[end])
     cuadrulpos[end] = tuple(tempo)
 
@@ -473,7 +474,7 @@ def p_gosub_quad(p):
     for i in functions:
         if i[0] == gosub_call:
             end = i[1]
-    cuad = ('GOSUB', gosub_call, None, end)
+    cuad = ('GOSUB', gosub_call, None, END) 
     cuadrulpos.append(cuad)
     salto_end_proc = len(cuadrulpos)
 
@@ -526,7 +527,7 @@ def p_for_end(p):
     global stackN, stackT, cuadrulpos, saltos
     end = saltos.pop()
     retro =saltos.pop()
-    retro = int(retro)+ 1
+    retro = int(retro)+ 1 # type: ignore
     cuad = ('GOTO', None, None, retro)
     cuadrulpos.append(cuad)
     llenar_quad(end,retro)
@@ -556,7 +557,7 @@ def p_while_quad(p):
 
     else:
         print('eroro dentro del cuadruplo del while')
-        sys,exit()
+        sys.exit()
 
 def p_while_op(p):
     'while_op :'    
@@ -632,20 +633,20 @@ def p_genera_quad_or(p):
     global operadores
     if operadores.size()> 0:
         if operadores.top()== '|':
-            genera_cuadruplo()
+            genera_cuadruplo(p)
 
 def p_genera_quad_and(p):
     'genera_quad_and :'
     if operadores.size()> 0:
         if operadores.top() == '&':
-            genera_cuadruplo()
+            genera_cuadruplo(p)
 
 def p_compare_quad(p):
     'compare_quad : '
     global operadores
     if operadores.size() > 0:
         if operadores.top() == '<' or operadores.top() == '>' or operadores.top() == '<=' or operadores.top() == '>=' or operadores.top() == '==' or operadores.top() == '!=':
-            genera_cuadruplo()
+            genera_cuadruplo(p)
 
 def p_if_quad(p):
     'if_quad : '
@@ -718,14 +719,14 @@ def p_genera_sum_quad(p):
     global operadores
     if operadores.size() > 0:
         if operadores.top()== '+' or operadores.top() == '-':
-            genera_cuadruplo()
+            genera_cuadruplo(p)
 
 def p_genera_quad_mul(p):
     'genera_mul_quad : '
     global operadores
     if operadores.size() > 0:
         if operadores.top() == '*' or operadores.top() == '/':
-            genera_cuadruplo()
+            genera_cuadruplo(p)
 
 def p_operadorWrite(p):
     'operadorWrite : '
