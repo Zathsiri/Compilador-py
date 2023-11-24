@@ -1,0 +1,27 @@
+program master;
+
+var
+int f, a, h, lol, rocket, cont;
+
+function void loquillo(int maestro, int alumno);
+{
+    while(cont < 50){
+    write("arremangala, arrempujala ")
+    cont = cont + alumno;
+    write(con)
+    write(maestro)
+    }
+}
+
+main() {
+f = 23;
+a = 4;
+h = 7;
+rocket = 100;
+
+f = f + a
+write(f)
+
+loquillo(a, h)
+}
+end

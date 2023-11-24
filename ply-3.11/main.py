@@ -7,12 +7,12 @@ from maquinaVirtual import *
 from stack import Stack
 from memory import Memo
 import sys 
-import json
+import os
 #Palabras reservadas
 
-reserved ={
+reserved = {
     'function'  :   'FUNCTION',
-    'var'      :   'VAR',
+    'var'       :   'VAR',
     'program'   :   'PROGRAM',
     'main'      :   'MAIN',
     'void'      :   'VOID',
@@ -225,11 +225,11 @@ def p_var(p):
     '''        
 def p_var1(p):
     '''
-        var1 : ID
-            | ID COMMA var1 addV
-            | ID arr 
-            | ID arr COMMA var1 addV 
-            | empty 
+    var1 : ID
+         | ID COMMA var1 addV
+         | ID arr 
+         | ID arr COMMA var1 addV 
+         | empty 
     '''
     global varId
     varId = p[1]
@@ -285,13 +285,14 @@ def p_save_fun(p):
 def p_fun(p):
     '''
     fun : FUNCTION VOID fun1
-            | FUNCTION INT fun2
-            | FUNCTION FLOAT fun2
+        | FUNCTION INT fun2
+        | FUNCTION CHAR fun2
+        | FUNCTION FLOAT fun2
     '''
 
 def p_fun1(p):
     '''
-    fun1 : ID save_fun LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto  statement RCURLY end_func 
+    fun1 :  ID save_fun LPAREN param2 RPAREN SEMICOLON LCURLY vars fun_goto  statement RCURLY end_func
     '''
 
 def p_fun2(p):
@@ -852,23 +853,61 @@ def p_saveCTE(p):
 
 def p_error(p):
     if p is not None:
-        print('syntax error en el input', p)
-        sys.exit()
+        print(f"syntax error en el input {p.value!r}, línea {p.lineno}, posición {find_column(p)}")
     else:
         print("final inesperado en el input")
-         
+#aqui te medio ayuda con la sintaxis de las pruebas te intenta la ubicacion del error 
+def find_column(p):
+    last_cr = lexer.lexdata.rfind('\n', 0, p.lexpos)
+    if last_cr < 0:
+        last_cr = 0
+    column = (p.lexpos - last_cr) + 1
+    return column     
 
         
 parser = yacc.yacc()
 
 if __name__ =='__main__':
-    fileName = 'test1.txt'
-    info= fileName.read()
-    fileName.close()
-    lexer.input(info)
-    while True:
-        tk = lexer.token()
-        if not tk:
-            break
+    try:
+        # Get the current working directory
+        print("Current Working Directory:", os.getcwd())
+
+        archivo = 'ply-3.11/prueba1.txt'
+
+        # Check if the file exists
+        if os.path.exists(archivo):
+            arc = open(archivo, 'r')
+            info = arc.read()
+            arc.close()
+
+            lexer.input(info)
+            while True:
+                tok = lexer.token()
+                if not tok:
+                    break
+
+            if parser.parse(info, tracking=True) == 'Compilacion completa':
+                print("Sintaxis correcta")
+
+                f = open('cuadruplos.txt', 'w')
+                for i in cuadrulpos:
+                    f.write(str(i) + '\n')
+                f.close()
+
+                c = open("const.txt", 'w')
+                for i in arreglos:
+                    c.write(str(i) + '\n')
+                c.close()
+
+                # Ponemos a funcionar la maquina virtual
+                mv = MaVi()
+                mv.rebuildCte()
+                q = mv.clear_quad()
+                mv.reading(q)
         else:
-            print("syntax error")
+            print(f"Error: File '{archivo}' not found.")
+
+    except EOFError:
+        print("EOFError")
+else:
+    print("Syntax error")

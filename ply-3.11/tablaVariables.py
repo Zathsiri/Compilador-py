@@ -44,6 +44,7 @@ class tabFunc():
     def searchTabFunc(self, id):
         return id in self.funciones
     
+    
     #busca el nombre de una variable
     def searchVarTabFunc(self, fid, id):
         if self.funciones[fid]['vars'].searchVars(id) or self.funciones['programa'][vars].searchVars(id):
@@ -51,6 +52,9 @@ class tabFunc():
         else:
             print('variable', id, ' inexistente')
 
+    def print_vars(self):
+        print(self.funciones.items())
+   
     #busca el tipo de una variable  y verifica donde debe de ir 
     def getVarTipo(self, id, fid):
         if self.funciones[fid]['vars'].searchVars(id):
@@ -65,7 +69,7 @@ class tabFunc():
     
      # si no existe en el local aun lo agrego
         elif not self.funciones[fid]['vars'].searchVars(id):
-            ad = self.m.set_var_direction(tipo, id, fid)
+            ad = self.mem.set_var_direction(tipo, id, fid)
             self.funciones[fid]['vars'].add(tipo, id, ad)
             self.funciones[fid]['nVars'] = self.funciones[fid]['nVars'] + 1
     
@@ -75,18 +79,18 @@ class tabFunc():
         
     # si no existe como global lo agrego como global
         elif self.funciones['programa']['vars'].searchVars(id):
-            ad = self.m.set_var_direction('programa', id, fid)
-            self.funciones['programa']['vars'].add(tipo, id, ad)
+            ad = self.mem.set_var_direction('programa', id, fid)
+            self.funciones['programa']['vars'].addVar(tipo, id, ad)
             self.funciones['programa']['nVars'] = self.funciones[fid]['nVars'] + 1
      
      
      #se agrega la variable a la direccion de memoria 
     def addVarMem(self, tipo, vid, funId):
-        self.m.set_var_address(tipo, vid, funId)    
+        self.mem.set_var_address(tipo, vid, funId)    
         
     #se obtiene la direccion de memoria de la variable
     def getVarMem(self, var):
-        return self.m.get_var_address(var)
+        return self.mem.get_var_address(var)
 
     #se obitiene el numero de parametros 
     def getNumeroParametros(self, fid):
@@ -100,29 +104,30 @@ class tabFunc():
     
     #se agregan los temporales a la tabla de memoria 
     def addTempMem(self, tipo, vid, funId):
-       self.m.set_temp_address(tipo, vid, funId)    
+       self.mem.set_temp_address(tipo, vid, funId)    
         
     #se obtiene la direccion del temporal de memoria 
     def getTemp_mem(self, temp):
-        return self.m.get_temp_address(temp)
+        return self.mem.get_temp_address(temp)
         
     #se agrega  y obtienen constantes
     def add_cte_mem(self, val):
-        self.m.set_cte_address(val)
+        self.mem.set_cte_address(val)
         
 
     def get_cte_mem(self, val):
-        return self.m.get_cte_address(val) 
+        return self.mem.get_cte_address(val) 
     
 
     def get_op_mem(self, op):
-        return self.m.get_operator_address(op)
+        return self.mem.get_operator_address(op)
 
     #resetep de los temporales      
     def reset_temp_add(self):
-        self.m.reset_temp_vals()
+        self.mem.p_reset_temp_vals()
 
     #pritn de una variable      
     def print_fun_vars(self, fid):
         if fid in self.funciones:
-            self.funciones[fid]['vars'].printVars()
+            self.funciones[fid]['vars'].print_vars()
+

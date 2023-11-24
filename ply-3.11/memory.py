@@ -92,13 +92,13 @@ class Memo:
                 
             elif address >= 45000 and address <49000:
                 if address < 46000:
-                    self.constants[address] = value
+                    self.constantes[address] = value
                 elif address <47000:
-                    self.constants[address] = value
+                    self.constantes[address] = value
                 elif address <48000:
-                    self.constants[address] = value  
+                    self.constantes[address] = value  
                 elif address <49000:
-                    self.constants[address] = value    
+                    self.constantes[address] = value    
                 else:
                     print("index out of range")  
             else:
@@ -193,7 +193,7 @@ class Memo:
             if funId == 'programa':
                 if tipo == 'int':
                     if self.gint <3000:
-                        address = self.gi
+                        address = self.gint
                         self.gint += 1
                     else:
                         print("index out of range")
@@ -299,8 +299,8 @@ class Memo:
                 }
 
     def get_temp_address(self, temp):
-            if temp in self.temporal.keys():
-                return self.temporal[temp]['address']
+            if temp in self.temporales.keys():
+                return self.temporales[temp]['address']
             else:
                 return -1
         
@@ -314,16 +314,16 @@ class Memo:
             
             
     def get_cte_address (self, val):
-            if val in self.constants.keys():
-                return self.constants[val]["address"]       
+            if val in self.constantes.keys():
+                return self.constantes[val]["address"]       
             else:
                 return -1
         
     def get_operator_address(self, op):
-            if op in self.operators.keys():
-                return self.operators[op]
+            if op in self.operadores.keys():
+                return self.operadores[op]
             
-#Reseteo las direcciones de los temporales 
+    def p_reset_temp_vals(self):
             self.liint = 23000
             self.lfloat = 26000
             self.lchar = 29000
