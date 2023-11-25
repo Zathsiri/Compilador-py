@@ -244,7 +244,7 @@ def p_addV(p):
     if not varId ==None:
 
             if tablaFunc.searchTabFunc(fid):
-                tablaFunc.addVar(fid, actual_varTipo, varId)
+                tablaFunc.addVari(fid, actual_varTipo, varId)
             else:
              SystemExit()
 
@@ -406,9 +406,9 @@ def p_addParam(p):
     if not paramId == None and paramId is not None:
         if tablaFunc.searchTabFunc(fid):
             tablaFunc.addParametros_tabFunc(fid, actual_varTipo, primerP)
-            tablaFunc.addVar(fid, actual_varTipo, primerP)
+            tablaFunc.addVari(fid, actual_varTipo, primerP)
             tablaFunc.addParametros_tabFunc(fid, actual_varTipo, paramId)
-            tablaFunc.addVar(fid, actual_varTipo, paramId)
+            tablaFunc.addVari(fid, actual_varTipo, paramId)
             print(paramId, "esta en -> ", fid)
             print(primerP, "el id del parametro esta en ->", fid)
         else:
@@ -680,7 +680,7 @@ def p_else_quad(p):
 
 def llenar_quad(end, cont):
     global cuadrulpos
-    temp = list(cuadrulpos)
+    temp = list(cuadrulpos[end])
     temp[3] = len(cuadrulpos)
     cuadrulpos[end] = tuple(temp)
 
@@ -858,6 +858,7 @@ def p_error(p):
     else:
         print("final inesperado en el input")
 #aqui te medio ayuda con la sintaxis de las pruebas te intenta la ubicacion del error 
+
 def find_column(p):
     last_cr = lexer.lexdata.rfind('\n', 0, p.lexpos)
     if last_cr < 0:
@@ -887,7 +888,7 @@ if __name__ =='__main__':
                 if not tok:
                     break
 
-            if parser.parse(info, tracking=True) == 'Compilacion completa':
+            if parser.parser(info, tracking=True) == 'Compilacion completa':
                 print("Sintaxis correcta")
 
                 f = open('cuadruplos.txt', 'w')

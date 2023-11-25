@@ -20,7 +20,7 @@ class tabVar:
 
     def getTipo(self, id):
         return self.var_list[id]['tipo']
-
+    
 #tabla de funciones 
 class tabFunc():
     #constructor de la clase con un diccionario para las funciones y su objeto de memoria
@@ -28,6 +28,7 @@ class tabFunc():
         self.funciones= {}
         self.mem = Memo()
         
+    
     #crea la funcion y la agrega
     def addFunction(self,tipo, id, nParams, tParams, idParams, nVars):
         if self.funciones.get(id) == None:
@@ -46,41 +47,62 @@ class tabFunc():
     
     #busca el nombre de una variable
     def searchVarTabFunc(self, fid, id):
-        if self.funciones[fid]['vars'].searchVars(id) or self.funciones['programa']['vars'].searchVars(id):
-            return True
+        if fid in self.funciones:
+            print(f"Función {fid} encontrada")
+            if 'vars' in self.funciones[fid]:
+                print(f"Variable 'vars' encontrada en la función {fid}")
+                if tabVar.searchVars(self.funciones[fid]['vars'], id):
+                    print(f"Variable {id} encontrada en la función {fid}")
+                    return True
+                else:
+                    print(f'Error: variable {id} no encontrada en la función {fid}')
+                    return False
+            else:
+                print(f'Error: No hay variable "vars" en la función {fid}')
+                return False
         else:
-            print('variable', id, ' inexistente')
+            print(f'Error: función {fid} inexistente')
+            return False
 
     def print_vars(self):
         print(self.funciones.items())
    
     #busca el tipo de una variable  y verifica donde debe de ir 
     def getVarTipo(self, id, fid):
-        if self.funciones[fid]['vars'].searchVars(id):
-            return self.funciones[fid][vars].getTipo(id)
+        if fid in self.funciones:
+            print(f"Función {fid} encontrada")
+            if 'vars' in self.funciones[fid]:
+                print(f"Variable 'vars' encontrada en la función {fid}")
+                if tabVar.searchVars(self.funciones[fid]['vars'], id):
+                    print(f"Variable {id} encontrada en la función {fid}")
+                    return tabVar.getTipo(self.funciones[fid]['vars'], id)
+                else:
+                    print(f'Error: variable {id} no encontrada en la función {fid}')
+                    return None  # o maneja el error según tu lógica
+            else:
+                print(f'Error: No hay variable "vars" en la función {fid}')
+                return None  # o maneja el error según tu lógica
         else:
-            print('variable', id, ' inexistente')
+            print(f'Error: función {fid} inexistente')
+            return None  # o maneja el error según tu lógica
     
     #esta funcion agrega una varible
-    def addVar(self, fid, tipo, id):
-        if self.funciones[fid]['vars'].searchVars(id):
-            print('La variable', id, ' ya existe en el scope', fid)
-    
-     # si no existe en el local aun lo agrego
-        elif not self.funciones[fid]['vars'].searchVars(id):
+    def addVari(self, fid, tipo, id):
+        vars_func = self.funciones[fid]['vars']
+        vars_programa = self.funciones['programa']['vars']
+
+        if tabVar.searchVars(vars_func, id):
+            print(f'La variable {id} ya existe en el scope {fid}')
+        elif not tabVar.searchVars(vars_func, id):
             ad = self.mem.set_var_direction(tipo, id, fid)
-            self.funciones[fid]['vars'].addVar(tipo, id, ad)
-            self.funciones[fid]['nVars'] = self.funciones[fid]['nVars'] + 1
-    
-    # si existe como global no lo agrego y aviso que ya estaba
-        elif self.funciones['programa']['vars'].searchVars(id):
-            print('La variable', id, ' ya existe en el programa como global')
-        
-    # si no existe como global lo agrego como global
-        elif self.funciones['programa']['vars'].searchVars(id):
-            ad = self.mem.set_var_direction('programa', id, fid)
-            self.funciones['programa']['vars'].addVar(tipo, id, ad)
-            self.funciones['programa']['nVars'] = self.funciones[fid]['nVars'] + 1
+            tabVar.addVar(vars_func, tipo, id, ad)
+            self.funciones[fid]['nVars'] += 1
+        elif tabVar.searchVars(vars_programa, id):
+            print(f'La variable {id} ya existe en el programa como global')
+        elif not tabVar.searchVars(vars_programa, id):
+            ad = self.mem.set_var_direction(tipo, id, 'programa')
+            tabVar.addVar(vars_programa, tipo, id, ad)
+            self.funciones['programa']['nVars'] += 1
      
      
      #se agrega la variable a la direccion de memoria 
@@ -125,7 +147,7 @@ class tabFunc():
     def reset_temp_add(self):
         self.mem.p_reset_temp_vals()
 
-    # Print de una variable      
+  # Print de una variable      
     def print_fun_vars(self, fid):
         if fid in self.funciones:
             self.funciones[fid]['vars'].printVars()
