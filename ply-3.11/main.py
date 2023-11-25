@@ -1,4 +1,4 @@
-from tkinter import END
+
 import ply.lex as lex
 import ply.yacc as yacc
 from disponible import dispo
@@ -145,6 +145,7 @@ countParams=0
 cubo = Cubo()
 saltos = Stack()
 salto_fun = Stack()
+dispo_instance = dispo()
 
 
 
@@ -364,7 +365,7 @@ def p_genera_quad_asignacion(p):
     global stackT, stackN, operadores, cuadrulpos
 
     if operadores.size() >0 :
-        op = tabFunc.get_op_mem(operadores.top())
+        op = tablaFunc.get_op_mem(operadores.top())
         operadores2 = operadores.pop()
         op_d = stackN.pop()
         op_dt = stackT.pop()
@@ -453,7 +454,7 @@ def p_quad_param(p):
 def p_llenar_endproc(p):
     'llena_endproc : '
     global end_proc, salto_end_proc
-    end = end_proc().pop # type: ignore
+    end = end_proc.pop()
     tempo = list(cuadrulpos[end])
     cuadrulpos[end] = tuple(tempo)
 
@@ -474,7 +475,7 @@ def p_gosub_quad(p):
     for i in functions:
         if i[0] == gosub_call:
             end = i[1]
-    cuad = ('GOSUB', gosub_call, None, END) 
+    cuad = ('GOSUB', gosub_call, None, end) #type: ignore
     cuadrulpos.append(cuad)
     salto_end_proc = len(cuadrulpos)
 
@@ -599,9 +600,8 @@ def p_exp(p):
         | nexp OR addOperadorName nexp genera_quad_or
     '''
 
-def genera_cuadruplo(p):
+def genera_cuadruplo():
     global operadores, stackN, stackT, cuadrulpos
-
     if operadores.size() > 0:
         op=tablaFunc.get_op_mem(operadores.top())
         operando2 = operadores.pop()
@@ -612,7 +612,7 @@ def genera_cuadruplo(p):
 
         resT = cubo.getType(op_it, op_dt, operando2)
         if resT !='ERORR':
-            res = dispo.next()
+            res = dispo_instance.next()
 
             tablaFunc.addTempMem(resT, res, fid)
             varT = tablaFunc.getTemp_mem(res)
@@ -633,20 +633,20 @@ def p_genera_quad_or(p):
     global operadores
     if operadores.size()> 0:
         if operadores.top()== '|':
-            genera_cuadruplo(p)
+            genera_cuadruplo()
 
 def p_genera_quad_and(p):
     'genera_quad_and :'
     if operadores.size()> 0:
         if operadores.top() == '&':
-            genera_cuadruplo(p)
+            genera_cuadruplo()
 
 def p_compare_quad(p):
     'compare_quad : '
     global operadores
     if operadores.size() > 0:
         if operadores.top() == '<' or operadores.top() == '>' or operadores.top() == '<=' or operadores.top() == '>=' or operadores.top() == '==' or operadores.top() == '!=':
-            genera_cuadruplo(p)
+            genera_cuadruplo()
 
 def p_if_quad(p):
     'if_quad : '
@@ -719,14 +719,14 @@ def p_genera_sum_quad(p):
     global operadores
     if operadores.size() > 0:
         if operadores.top()== '+' or operadores.top() == '-':
-            genera_cuadruplo(p)
+            genera_cuadruplo()
 
 def p_genera_quad_mul(p):
     'genera_mul_quad : '
     global operadores
     if operadores.size() > 0:
         if operadores.top() == '*' or operadores.top() == '/':
-            genera_cuadruplo(p)
+            genera_cuadruplo()
 
 def p_operadorWrite(p):
     'operadorWrite : '
@@ -830,7 +830,7 @@ def p_saveCTE(p):
 
     tablaFunc.add_cte_mem(cte)
 
-    cte_address = tabFunc.get_cte_mem(cte)
+    cte_address = tablaFunc.get_cte_mem(cte)
     cteA = (cte, cte_address)
 
     if not cteA in arreglos:

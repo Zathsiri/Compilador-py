@@ -2,10 +2,11 @@ from memory import Memo
 
 
 class tabVar:
+   
     def __init__(self):
         self.var_list ={}
              
-    def add(self, tipo, id, address):
+    def addVar(self, tipo, id, address):
         self.var_list[id] ={
             'tipo': tipo,
             'address': address
@@ -45,7 +46,7 @@ class tabFunc():
     
     #busca el nombre de una variable
     def searchVarTabFunc(self, fid, id):
-        if self.funciones[fid]['vars'].searchVars(id) or self.funciones['programa'][vars].searchVars(id):
+        if self.funciones[fid]['vars'].searchVars(id) or self.funciones['programa']['vars'].searchVars(id):
             return True
         else:
             print('variable', id, ' inexistente')

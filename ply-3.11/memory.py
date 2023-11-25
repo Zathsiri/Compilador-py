@@ -44,7 +44,7 @@ class Memo:
         self.tint = 11000  # Rango permitido: 11000 a 12999
         self.tfloat = 13000  # Rango permitido: 13000 a 14999
         self.tchar = 15000  # Rango permitido: 15000 a 16999
-        self.tcool = 17000  # Rango permitido: 17000 a 18999
+        self.tbool = 17000  # Rango permitido: 17000 a 18999
 
 #LOCALES
         self.lint = 23000  # Rango permitido: 23000 a 25999
@@ -252,31 +252,31 @@ class Memo:
                     
     def set_temp_direction(self, tipo, id, funId):
             if tipo == 'int':
-                if self.gLint <13000:
-                    address = self.gdLi
-                    self.gLint += 1
+                if self.tint <13000:
+                    address = self.tint
+                    self.tint += 1
 
                 else:
                         print("index out of range")
 
             elif tipo == 'float':
-            if self.gLf < 15000:                
-                address = self.gLf
-                self.gLf += 1
-            else:
-                    print("index out of range")
+                if self.tfloat < 15000:                
+                    address = self.tfloat
+                    self.tfloat += 1
+                else:
+                        print("index out of range")
                         
             elif tipo == 'char':
-                if self.gLc < 17000:
-                    address = self.gLc                  
-                    self.gLc += 1            
+                if self.tchar < 17000:
+                    address = self.tchar                 
+                    self.tchar += 1            
                 else:
                     print("index out of range")
                 
             else:
-                if self.gLb < 20000:                   
-                    address = self.gLb
-                    self.gLb += 1
+                if self.tbool < 20000:                   
+                    address = self.tbool
+                    self.tbool += 1
                     return address
 
     #Manejo de constantes

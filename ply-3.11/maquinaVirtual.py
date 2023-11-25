@@ -1,6 +1,6 @@
 import memory
 import sys
-import time
+
 
 class MaVi():
     def __init__(self):
@@ -25,8 +25,8 @@ class MaVi():
     def clear_quad(self):
         with open('cuadruplos.txt', 'r') as cuadList:
             cuads = []
-            for cuads in cuadList:
-                cuads.append(eval(cuads))
+            for line in cuadList:
+                cuads.append(eval(line))
             return cuads
     
     def reading (self, cuads):  
@@ -122,28 +122,58 @@ class MaVi():
 #operadores logicos 
 
     def GT(self, cuads):
-        if self.memo.value_from_memory(cuads[1]) > self.memo.value_from_memory(cuads[2]):
-           self.memo.value_to_memory(cuads[3], True)
-        else:
-           self.memo.value_to_memory(cuads[3], False)
+        # Obtener valores de memoria para los operandos
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
 
-    def LT(self, cuads):
-        if self.memo.value_from_memory(cuads[1]) < self.memo.value_from_memory(cuads[2]):
-           self.memo.value_to_memory(cuads[3], True)
+        # Comparación y asignación del resultado
+        if operand1 is not None and operand2 is not None:
+            if operand1 > operand2:
+                self.memo.value_to_memory(cuads[3], True)
+            else:
+                self.memo.value_to_memory(cuads[3], False)
         else:
-           self.memo.value_to_memory(cuads[3], False)
+            print("Error: Al menos uno de los operandos es None.")
+            # Otra lógica de manejo de error si es necesario
+    def LT(self, cuads):
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        # Comparación y asignación del resultado
+        if operand1 is not None and operand2 is not None:
+            if operand1 < operand2:
+                self.memo.value_to_memory(cuads[3], True)
+            else:
+                self.memo.value_to_memory(cuads[3], False)
+        else:
+            print("Error: Al menos uno de los operandos es None.")
     
     def GTE(self, cuads):
-        if self.memo.value_from_memory(cuads[1]) >= self.memo.value_from_memory(cuads[2]):
-           self.memo.value_to_memory(cuads[3], True)
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        # Comparación y asignación del resultado
+        if operand1 is not None and operand2 is not None:
+            if operand1 >= operand2:
+                self.memo.value_to_memory(cuads[3], True)
+            else:
+                self.memo.value_to_memory(cuads[3], False)
         else:
-           self.memo.value_to_memory(cuads[3], False)
+            print("Error: Al menos uno de los operandos es None.")
+
 
     def LTE(self, cuads):
-        if self.memo.value_from_memory(cuads[1]) <= self.memo.value_from_memory(cuads[2]):
-           self.memo.value_to_memory(cuads[3], True)
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        # Comparación y asignación del resultado
+        if operand1 is not None and operand2 is not None:
+            if operand1 <= operand2:
+                self.memo.value_to_memory(cuads[3], True)
+            else:
+                self.memo.value_to_memory(cuads[3], False)
         else:
-           self.memo.value_to_memory(cuads[3], False)
+            print("Error: Al menos uno de los operandos es None.")
     
     def NE(self, cuads):
         if self.memo.value_from_memory(cuads[1]) != self.memo.value_from_memory(cuads[2]):
@@ -192,20 +222,44 @@ class MaVi():
 #operadores artimetico
 
     def multi(self, cuads):
-        tempo = self.memo.value_from_memory(cuads[1]) * self.memo.value_from_memory(cuads[2])
-        self.memo.value_to_memory(cuads[3], tempo)
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        if operand1 is not None and operand2 is not None:
+            result = operand1 * operand2
+            self.memo.value_to_memory(cuads[3], result)
+        else:
+            print("Error: Al menos uno de los operandos es None.")
 
     def division(self, cuads):
-        tempo = self.memo.value_from_memory(cuads[1]) / self.memo.value_from_memory(cuads[2])
-        self.memo.value_to_memory(cuads[3], tempo)
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        if operand1 is not None and operand2 is not None:
+            result = operand1 / operand2
+            self.memo.value_to_memory(cuads[3], result)
+        else:
+            print("Error: Al menos uno de los operandos es None.")
 
     def plus(self, cuads):
-        tempo = self.memo.value_from_memory(cuads[1]) + self.memo.value_from_memory(cuads[2])
-        self.memo.value_to_memory(cuads[3], tempo)
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        if operand1 is not None and operand2 is not None:
+            result = operand1 + operand2
+            self.memo.value_to_memory(cuads[3], result)
+        else:
+            print("Error: Al menos uno de los operandos es None.")
     
     def minus(self, cuads):
-        tempo = self.memo.value_from_memory(cuads[1]) - self.memo.value_from_memory(cuads[2])
-        self.memo.value_to_memory(cuads[3], tempo)
+        operand1 = self.memo.value_from_memory(cuads[1])
+        operand2 = self.memo.value_from_memory(cuads[2])
+
+        if operand1 is not None and operand2 is not None:
+            result = operand1 - operand2
+            self.memo.value_to_memory(cuads[3], result)
+        else:
+            print("Error: Al menos uno de los operandos es None.")
     
     def asignacion(self, cuads):
         self.memo.value_to_memory(cuads[3], self.memo.value_from_memory(cuads[3]))
