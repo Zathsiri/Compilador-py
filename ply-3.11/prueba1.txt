@@ -1,12 +1,35 @@
-program patito;
-var 
-int ig;
+program heinz;
 
-main() {
-ig = 98;
-write(ig);
-ig = ig + 1;
-
+function void imprimeVar();
+{
+    var
+    int q;
+    q = 10;
+    write(q); 
+    write("LLAMADA function");
 }
 
+function int Hello(int lad, int itc);
+{
+    var 
+    int j, w, g;
+    j = 20;
+    w = 30;
+    g = w * itc;
+    j = w * 23;
+    write("JOLA");
+    write(j);
+    write(g);
+    return j;  
+}
+
+main () {
+  var 
+    int i;
+    i = 17;
+    write(i);
+    Hello(1500, i);
+    imprimeVar();
+
+}
 end

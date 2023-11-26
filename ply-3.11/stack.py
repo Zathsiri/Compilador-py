@@ -14,7 +14,7 @@ class Stack:
     def pop(self):
          if self.size() > 0:
              return self.items.pop()
-         print('empty stack....')
+         print('//STACK-VACIO//')
 
     def top(self):
         return self.items[len(self.items)-1]
