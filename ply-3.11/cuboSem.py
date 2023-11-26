@@ -44,8 +44,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # int >= int = bool
                     self.operators[9]: self.types[4],  # int == int = bool
                     self.operators[10]: self.types[4], # int != int = bool
-                    self.operators[11]: self.types[4], # int && int = bool
-                    self.operators[12]: self.types[4], # int || int = bool
+                    self.operators[11]: self.types[4], # int & int = bool
+                    self.operators[12]: self.types[4], # int | int = bool
                     self.operators[13]: self.types[1], # int = int = bool
                     self.operators[14]: self.types[4], # int == int = bool                   
 
@@ -63,7 +63,7 @@ class Cubo:
                     self.operators[8]: self.types[4],  # int >= float = bool
                     self.operators[9]: self.types[4],  # int == float = bool
                     self.operators[10]: self.types[4],  # int != float = bool
-                    self.operators[11]: self.types[4],  # int && float = bool 
+                    self.operators[11]: self.types[4],  # int & float = bool 
                     self.operators[12]: self.types[4],  # int | float = bool 
                     self.operators[13]: self.types[9],  # int = float 
                     self.operators[14]: self.types[9],  # int == float = bool 
@@ -81,8 +81,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # int >= char = ERROR 
                     self.operators[9]: self.types[9],  # int == char = ERROR 
                     self.operators[10]: self.types[9],  # int != char = ERROR 
-                    self.operators[11]: self.types[4],  # int && char = bool 
-                    self.operators[12]: self.types[4],  # int || char = bool 
+                    self.operators[11]: self.types[4],  # int & char = bool 
+                    self.operators[12]: self.types[4],  # int | char = bool 
                     self.operators[13]: self.types[9],  # int = char 
                     self.operators[14]: self.types[9],  # int == char = bool 
                 },
@@ -99,8 +99,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # int >= bool = ERROR
                     self.operators[9]: self.types[9],  # int == bool = ERROR
                     self.operators[10]: self.types[9],  # int != bool = ERROR
-                    self.operators[11]: self.types[4],  # int && bool = bool
-                    self.operators[12]: self.types[9],  # int || bool = ERROR
+                    self.operators[11]: self.types[4],  # int & bool = bool
+                    self.operators[12]: self.types[9],  # int | bool = ERROR
                     self.operators[13]: self.types[9],  # int = bool = ERROR
                     self.operators[14]: self.types[9],  # int == bool = ERROR
                 },
@@ -116,8 +116,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # int >= CTEI = bool
                     self.operators[9]: self.types[4],  # int == CTEI = bool
                     self.operators[10]: self.types[4],  # int != CTEI = bool
-                    self.operators[11]: self.types[4],  # int && CTEI = bool
-                    self.operators[12]: self.types[4],  # int || CTEI = bool
+                    self.operators[11]: self.types[4],  # int & CTEI = bool
+                    self.operators[12]: self.types[4],  # int | CTEI = bool
                     self.operators[13]: self.types[1],  # int = CTEI = int
                     self.operators[14]: self.types[4],  # int == CTEI = bool
                 },
@@ -134,8 +134,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # int >= CTEF = bool
                     self.operators[9]: self.types[4],  # int == CTEF = bool
                     self.operators[10]: self.types[4],  # int != CTEF = bool
-                    self.operators[11]: self.types[4],  # int && CTEF = bool
-                    self.operators[12]: self.types[4],  # int || CTEF = bool
+                    self.operators[11]: self.types[4],  # int & CTEF = bool
+                    self.operators[12]: self.types[4],  # int | CTEF = bool
                     self.operators[13]: self.types[9],  # int = CTEF = float
                     self.operators[14]: self.types[9],  # int == CTEF = bool
                 },
@@ -152,8 +152,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # int >= CTEC = ERROR 
                     self.operators[9]: self.types[9],  # int == CTEC = ERROR 
                     self.operators[10]: self.types[9],  # int != CTEC = ERROR 
-                    self.operators[11]: self.types[4],  # int && CTEC = bool 
-                    self.operators[12]: self.types[4],  # int || CTEC = bool 
+                    self.operators[11]: self.types[4],  # int & CTEC = bool 
+                    self.operators[12]: self.types[4],  # int | CTEC = bool 
                     self.operators[13]: self.types[9],  # int = CTEC 
                     self.operators[14]: self.types[9],  # int == CTEC = bool 
                 },
@@ -170,8 +170,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # int >= CTESTRING = ERROR
                     self.operators[9]: self.types[9],  # int == CTESTRING = ERROR
                     self.operators[10]: self.types[9],  # int != CTESTRING = ERROR
-                    self.operators[11]: self.types[4],  # int && CTESTRING = bool
-                    self.operators[12]: self.types[4],  # int || CTESTRING = bool
+                    self.operators[11]: self.types[4],  # int & CTESTRING = bool
+                    self.operators[12]: self.types[4],  # int | CTESTRING = bool
                     self.operators[13]: self.types[9],  # int = CTESTRING 
                     self.operators[14]: self.types[9],  # int == CTESTRING = bool
                 },
@@ -191,8 +191,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # float >= int = bool
                     self.operators[9]: self.types[4],  # float == int = bool
                     self.operators[10]: self.types[4],  # float != int = bool
-                    self.operators[11]: self.types[4],  # float && int = bool
-                    self.operators[12]: self.types[4],  # float || int = bool
+                    self.operators[11]: self.types[4],  # float & int = bool
+                    self.operators[12]: self.types[4],  # float | int = bool
                     self.operators[13]: self.types[2],  # float = int
                     self.operators[14]: self.types[9],  # float == int = bool
                 },
@@ -209,8 +209,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # float >= float = bool
                     self.operators[9]: self.types[4],  # float == float = bool
                     self.operators[10]: self.types[4],  # float != float = bool
-                    self.operators[11]: self.types[4],  # float && float = bool
-                    self.operators[12]: self.types[4],  # float || float = bool
+                    self.operators[11]: self.types[4],  # float & float = bool
+                    self.operators[12]: self.types[4],  # float | float = bool
                     self.operators[13]: self.types[2],  # float = float
                     self.operators[14]: self.types[4],  # float == float = bool    
                 },
@@ -227,8 +227,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # float >= char = ERROR
                     self.operators[9]: self.types[9],  # float == char = ERROR
                     self.operators[10]: self.types[9],  # float != char = ERROR
-                    self.operators[11]: self.types[4],  # float && char = bool
-                    self.operators[12]: self.types[4],  # float || char = bool
+                    self.operators[11]: self.types[4],  # float & char = bool
+                    self.operators[12]: self.types[4],  # float | char = bool
                     self.operators[13]: self.types[9],  # float = char
                     self.operators[14]: self.types[9],  # float == char = bool 
                 },
@@ -245,8 +245,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= bool = ERROR
                     self.operators[9]: self.types[9],  # bool == bool = ERROR
                     self.operators[10]: self.types[9],  # bool != bool = ERROR
-                    self.operators[11]: self.types[4],  # bool && bool = bool
-                    self.operators[12]: self.types[9],  # bool || bool = ERROR
+                    self.operators[11]: self.types[4],  # bool & bool = bool
+                    self.operators[12]: self.types[9],  # bool | bool = ERROR
                     self.operators[13]: self.types[9],  # bool = bool
                     self.operators[14]: self.types[9],  # bool == bool = bool
                 },
@@ -263,8 +263,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # float >= CTEI = bool
                     self.operators[9]: self.types[4],  # float == CTEI = bool
                     self.operators[10]: self.types[4],  # float != CTEI = bool
-                    self.operators[11]: self.types[4],  # float && CTEI = bool
-                    self.operators[12]: self.types[4],  # float || CTEI = bool
+                    self.operators[11]: self.types[4],  # float & CTEI = bool
+                    self.operators[12]: self.types[4],  # float | CTEI = bool
                     self.operators[13]: self.types[2],  # float = CTEI
                     self.operators[14]: self.types[9],  # float == CTEI = bool
                  },
@@ -282,8 +282,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # float >= CTEF = bool
                     self.operators[9]: self.types[4],  # float == CTEF = bool
                     self.operators[10]: self.types[4],  # float != CTEF = bool
-                    self.operators[11]: self.types[4],  # float && CTEF = bool
-                    self.operators[12]: self.types[4],  # float || CTEF = bool
+                    self.operators[11]: self.types[4],  # float & CTEF = bool
+                    self.operators[12]: self.types[4],  # float | CTEF = bool
                     self.operators[13]: self.types[2],  # float = CTEF
                     self.operators[14]: self.types[4],  # float == CTEF = bool
                 },
@@ -299,8 +299,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # float >= CTEC = ERROR
                     self.operators[9]: self.types[9],  # float == CTEC = ERROR
                     self.operators[10]: self.types[9],  # float != CTEC = ERROR
-                    self.operators[11]: self.types[4],  # float && CTEC = bool
-                    self.operators[12]: self.types[4],  # float || CTEC = bool
+                    self.operators[11]: self.types[4],  # float & CTEC = bool
+                    self.operators[12]: self.types[4],  # float | CTEC = bool
                     self.operators[13]: self.types[9],  # float = CTEC
                     self.operators[14]: self.types[9],  # float == CTEC = bool
                 },
@@ -316,8 +316,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # float >= CTESTRING = ERROR
                     self.operators[9]: self.types[9],  # float == CTESTRING = ERROR
                     self.operators[10]: self.types[9],  # float != CTESTRING = ERROR
-                    self.operators[11]: self.types[4],  # float && CTESTRING = bool
-                    self.operators[12]: self.types[4],  # float || CTESTRING = bool
+                    self.operators[11]: self.types[4],  # float & CTESTRING = bool
+                    self.operators[12]: self.types[4],  # float | CTESTRING = bool
                     self.operators[13]: self.types[9],  # float = CTESTRING
                     self.operators[14]: self.types[9],  # float == CTESTRING = bool 
                 }
@@ -337,8 +337,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= int = ERROR
                     self.operators[9]: self.types[9],  # char == int = ERROR
                     self.operators[10]: self.types[9],  # char != int = ERROR
-                    self.operators[11]: self.types[4],  # char && int = bool
-                    self.operators[12]: self.types[4],  # char || int = bool
+                    self.operators[11]: self.types[4],  # char & int = bool
+                    self.operators[12]: self.types[4],  # char | int = bool
                     self.operators[13]: self.types[9],  # char = int
                     self.operators[14]: self.types[9],  # char == int = bool
                 },
@@ -355,8 +355,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= float = ERROR
                     self.operators[9]: self.types[9],  # char == float = ERROR
                     self.operators[10]: self.types[9],  # char != float = ERROR
-                    self.operators[11]: self.types[4],  # char && float = bool
-                    self.operators[12]: self.types[4],  # char || float = bool
+                    self.operators[11]: self.types[4],  # char & float = bool
+                    self.operators[12]: self.types[4],  # char | float = bool
                     self.operators[13]: self.types[9],  # char = float
                     self.operators[14]: self.types[9],  # char == float = bool
                 },
@@ -373,8 +373,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= char = ERROR
                     self.operators[9]: self.types[4],  # char == char = bool
                     self.operators[10]: self.types[4],  # char != char = bool
-                    self.operators[11]: self.types[4],  # char && char = bool
-                    self.operators[12]: self.types[4],  # char || char = bool
+                    self.operators[11]: self.types[4],  # char & char = bool
+                    self.operators[12]: self.types[4],  # char | char = bool
                     self.operators[13]: self.types[3],  # char = char
                     self.operators[14]: self.types[4],  # char == char = bool
                 },
@@ -391,8 +391,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= bool = ERROR
                     self.operators[9]: self.types[9],  # char == bool = ERROR
                     self.operators[10]: self.types[9],  # char != bool = ERROR
-                    self.operators[11]: self.types[9],  # char && bool = ERROR
-                    self.operators[12]: self.types[9],  # char || bool = ERROR
+                    self.operators[11]: self.types[9],  # char & bool = ERROR
+                    self.operators[12]: self.types[9],  # char | bool = ERROR
                     self.operators[13]: self.types[9],  # char = bool
                     self.operators[14]: self.types[9],  # char == bool = ERROR  
                 },
@@ -409,8 +409,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= ctei = ERROR
                     self.operators[9]: self.types[9],  # char == ctei = ERROR
                     self.operators[10]: self.types[9],  # char != ctei = ERROR
-                    self.operators[11]: self.types[4],  # char && ctei = bool
-                    self.operators[12]: self.types[4],  # char || ctei = bool
+                    self.operators[11]: self.types[4],  # char & ctei = bool
+                    self.operators[12]: self.types[4],  # char | ctei = bool
                     self.operators[13]: self.types[9],  # char = ctei
                     self.operators[14]: self.types[9],  # char == ctei = bool
                 },
@@ -427,8 +427,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= ctef = ERROR
                     self.operators[9]: self.types[9],  # char == ctef = ERROR
                     self.operators[10]: self.types[9],  # char != ctef = ERROR
-                    self.operators[11]: self.types[4],  # char && ctef = bool
-                    self.operators[12]: self.types[4],  # char || ctef = bool
+                    self.operators[11]: self.types[4],  # char & ctef = bool
+                    self.operators[12]: self.types[4],  # char | ctef = bool
                     self.operators[13]: self.types[9],  # char = ctef
                     self.operators[14]: self.types[9],  # char == ctef = bool
                 },
@@ -445,8 +445,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= CTEC = ERROR
                     self.operators[9]: self.types[9],  # char == CTEC = ERROR
                     self.operators[10]: self.types[4],  # char != CTEC = bool
-                    self.operators[11]: self.types[4],  # char && CTEC = bool
-                    self.operators[12]: self.types[4],  # char || CTEC = bool
+                    self.operators[11]: self.types[4],  # char & CTEC = bool
+                    self.operators[12]: self.types[4],  # char | CTEC = bool
                     self.operators[13]: self.types[9],  # char = CTEC
                     self.operators[14]: self.types[9],  # char == CTEC = bool
                 },
@@ -463,8 +463,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # char >= CTEString = ERROR
                     self.operators[9]: self.types[9],  # char == CTEString = ERROR
                     self.operators[10]: self.types[4],  # char != CTEString = bool
-                    self.operators[11]: self.types[4],  # char && CTEString = bool
-                    self.operators[12]: self.types[4],  # char || CTEString = bool
+                    self.operators[11]: self.types[4],  # char & CTEString = bool
+                    self.operators[12]: self.types[4],  # char | CTEString = bool
                     self.operators[13]: self.types[9],  # char = CTEString
                     self.operators[14]: self.types[9],  # char == CTEString = bool
                 }
@@ -484,8 +484,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= int = ERROR
                     self.operators[9]: self.types[9],  # bool == int = ERROR
                     self.operators[10]: self.types[9],  # bool != int = ERROR
-                    self.operators[11]: self.types[4],  # bool && int = bool
-                    self.operators[12]: self.types[4],  # bool || int = bool
+                    self.operators[11]: self.types[4],  # bool & int = bool
+                    self.operators[12]: self.types[4],  # bool | int = bool
                     self.operators[13]: self.types[9],  # bool = int
                     self.operators[14]: self.types[9],  # bool == int = bool
                 },
@@ -502,8 +502,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= float = ERROR
                     self.operators[9]: self.types[9],  # bool == float = ERROR
                     self.operators[10]: self.types[9],  # bool != float = ERROR
-                    self.operators[11]: self.types[4],  # bool && float = bool
-                    self.operators[12]: self.types[4],  # bool || float = bool
+                    self.operators[11]: self.types[4],  # bool & float = bool
+                    self.operators[12]: self.types[4],  # bool | float = bool
                     self.operators[13]: self.types[9],  # bool = float
                     self.operators[14]: self.types[9],  # bool == float = bool
                 },
@@ -520,8 +520,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= char = ERROR
                     self.operators[9]: self.types[9],  # bool == char = ERROR
                     self.operators[10]: self.types[9],  # bool != char = ERROR
-                    self.operators[11]: self.types[4],  # bool && char = bool
-                    self.operators[12]: self.types[4],  # bool || char = bool
+                    self.operators[11]: self.types[4],  # bool & char = bool
+                    self.operators[12]: self.types[4],  # bool | char = bool
                     self.operators[13]: self.types[9],  # bool = char
                     self.operators[14]: self.types[9],  # bool == char = bool 
                 },
@@ -538,8 +538,8 @@ class Cubo:
                     self.operators[8]: self.types[4],  # bool >= bool = bool
                     self.operators[9]: self.types[4],  # bool == bool = bool
                     self.operators[10]: self.types[4],  # bool != bool = bool
-                    self.operators[11]: self.types[4],  # bool && bool = bool
-                    self.operators[12]: self.types[4],  # bool || bool = bool
+                    self.operators[11]: self.types[4],  # bool & bool = bool
+                    self.operators[12]: self.types[4],  # bool | bool = bool
                     self.operators[13]: self.types[4],  # bool = bool
                     self.operators[14]: self.types[4],  # bool == bool = bool
                 },
@@ -556,8 +556,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= ctei = ERROR
                     self.operators[9]: self.types[9],  # bool == ctei = ERROR
                     self.operators[10]: self.types[9],  # bool != ctei = ERROR
-                    self.operators[11]: self.types[4],  # bool && ctei = bool
-                    self.operators[12]: self.types[4],  # bool || ctei = bool
+                    self.operators[11]: self.types[4],  # bool & ctei = bool
+                    self.operators[12]: self.types[4],  # bool | ctei = bool
                     self.operators[13]: self.types[9],  # bool = ctei
                     self.operators[14]: self.types[9],  # bool == ctei = bool
                 },
@@ -574,8 +574,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= ctef = ERROR
                     self.operators[9]: self.types[9],  # bool == ctef = ERROR
                     self.operators[10]: self.types[9],  # bool != ctef = ERROR
-                    self.operators[11]: self.types[4],  # bool && ctef = bool
-                    self.operators[12]: self.types[4],  # bool || ctef = bool
+                    self.operators[11]: self.types[4],  # bool & ctef = bool
+                    self.operators[12]: self.types[4],  # bool | ctef = bool
                     self.operators[13]: self.types[9],  # bool = ctef
                     self.operators[14]: self.types[9],  # bool == ctef = bool
                 },
@@ -592,8 +592,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # bool >= ctec = ERROR
                     self.operators[9]: self.types[9],  # bool == ctec = ERROR
                     self.operators[10]: self.types[9],  # bool != ctec = ERROR
-                    self.operators[11]: self.types[4],  # bool && ctec = bool
-                    self.operators[12]: self.types[4],  # bool || ctec = bool
+                    self.operators[11]: self.types[4],  # bool & ctec = bool
+                    self.operators[12]: self.types[4],  # bool | ctec = bool
                     self.operators[13]: self.types[9],  # bool = ctec
                     self.operators[14]: self.types[9],  # bool == ctec = bool
                 },
@@ -610,8 +610,8 @@ class Cubo:
                     self.operators[8]: self.types[9],  # ctestring >= ctec = ERROR
                     self.operators[9]: self.types[9],  # ctestring == ctec = ERROR
                     self.operators[10]: self.types[9],  # ctestring != ctec = ERROR
-                    self.operators[11]: self.types[4],  # ctestring && ctec = bool
-                    self.operators[12]: self.types[4],  # ctestring || ctec = bool
+                    self.operators[11]: self.types[4],  # ctestring & ctec = bool
+                    self.operators[12]: self.types[4],  # ctestring | ctec = bool
                     self.operators[13]: self.types[9],  # ctestring = ctec
                     self.operators[14]: self.types[9],  # ctestring == ctec = bool
             },    
@@ -620,7 +620,12 @@ class Cubo:
         }
 
     def getType(self, lf, rg, op):
-        return self.dance[lf][rg][op]
+        if lf in self.dance and rg in self.dance[lf] and op in self.dance[lf][rg]:
+            return self.dance[lf][rg][op]
+        else:
+            # Manejar el caso en el que una clave no existe
+            return None  # o devuelve un valor predeterminado o levanta una excepción
+
             
     def pr(self,lf,rg,op):
         print('valor de retorno es->', self.getType(lf, rg, op))

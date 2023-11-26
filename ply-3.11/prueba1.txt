@@ -1,6 +1,12 @@
 program patito;
+var 
+int i;
 
 main() {
-    write("hello world");
+i = 98;
+write(i);
+i = i + 1;
+
 }
+
 end

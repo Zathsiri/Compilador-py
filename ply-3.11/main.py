@@ -1,14 +1,17 @@
 
 import ply.lex as lex
 import ply.yacc as yacc
+from ply import yacc
 from disponible import dispo
 from tablaVariables import tabVar, tabFunc
 from cuboSem import Cubo
 from maquinaVirtual import *
 from stack import Stack
 from memory import Memo
+from argparse import ArgumentParser
 import sys 
 import os
+
 #Palabras reservadas
 
 reserved = {
@@ -137,6 +140,7 @@ functions = []
 pendientes = 0
 end_proc = []
 salto_end_proc = 0
+primerP = None
 
 
 countParams=0
@@ -336,6 +340,7 @@ def p_quad_Return(p):
 
         else:
             print('Type missmatch')
+            sys.exit()
             
 def p_statement(p):
     '''
@@ -374,7 +379,7 @@ def p_genera_quad_asignacion(p):
         res = cubo.getType(op_it, op_dt, operadores2)
         
         if res != 'ERROR':
-            cuad = (op_it, op_dt, operadores2)
+            cuad = (op, op_d , None, op_i)
             cuadrulpos.append(cuad)
     else:
         print('no hay nada :c')
@@ -394,7 +399,7 @@ def p_param1(p):
            | ID COMMA param1
            | empty
     '''
-    global primerP
+    global primerP 
     primerP = p[1]
 
 def p_addParam(p):
@@ -443,7 +448,7 @@ def p_quad_param(p):
         val = stackN.pop()
         print("Valor del parametro->", val)
         if not countParams == totalParams:
-            print("Parametro actualizados ->", totalParams)
+            print("Parametro actualizados ->", countParams)
             cuad = ('PARAM', val, None, pendientes)
             cuadrulpos.append(cuad)
             stackN.pop()
@@ -456,6 +461,7 @@ def p_llenar_endproc(p):
     global end_proc, salto_end_proc
     end = end_proc.pop()
     tempo = list(cuadrulpos[end])
+    tempo[3] = salto_end_proc
     cuadrulpos[end] = tuple(tempo)
 
 def p_era_call(p):
@@ -502,15 +508,15 @@ def p_for_op(p):
 def p_for_quad(p):
     'for_quad : '
     global stackN, stackT, cuadrulpos, saltos
-    resT = stackT.pop()
+    resT = stackN.pop()
 
     if resT == 'bool':
-        valor = stackN.pop()
-        cuad =('GOTOV', valor, None, -1)
+        val = stackN.pop()
+        cuad = ('GOTOV', val, None, -1)
         cuadrulpos.append(cuad)
         saltos.push(len(cuadrulpos)-1)
     else:
-        print('Error en el cuadruplo')
+        print("error en el cuadruplo del for")
         sys.exit()
 
 def p_for(p):
@@ -527,12 +533,11 @@ def p_for_end(p):
     'for_end : '
     global stackN, stackT, cuadrulpos, saltos
     end = saltos.pop()
-    retro =saltos.pop()
-    retro = int(retro)+ 1 # type: ignore
+    retro = saltos.pop()
+    retro = int(retro) + 1
     cuad = ('GOTO', None, None, retro)
     cuadrulpos.append(cuad)
-    llenar_quad(end,retro)
-
+    llenar_quad(end, retro)
 
 #aqui es donde se marca el fin del loop
 def p_loop_end(p):
@@ -547,18 +552,18 @@ def p_loop_end(p):
 def p_while_quad(p):
     'while_quad : '
     global stackN, stackT, cuadrulpos, saltos
-    tipoRes = stackT.pop()
+    resT = stackT.pop()
 
-    if tipoRes == 'bool':
-        valor = stackN.pop()
-        cuad = ('GOTOF', valor, None, -1)
-        print('cuadruplo: ', str(cuad))
+    if resT == 'bool':
+        val = stackN.pop()
+        cuad = ('GOTOF', val, None, -1)
+        print('cuad:', str(cuad))
         cuadrulpos.append(cuad)
         saltos.push(len(cuadrulpos)-1)
-
     else:
-        print('eroro dentro del cuadruplo del while')
+        print('Error en el cuadruplo del while')
         sys.exit()
+
 
 def p_while_op(p):
     'while_op :'    
@@ -603,30 +608,27 @@ def p_exp(p):
 def genera_cuadruplo():
     global operadores, stackN, stackT, cuadrulpos
     if operadores.size() > 0:
-        op=tablaFunc.get_op_mem(operadores.top())
-        operando2 = operadores.pop()
-        op_d= stackN.pop()
-        op_dt= stackT.pop()
-        op_i= stackN.pop()
-        op_it= stackT.pop()
+        op = tablaFunc.get_op_mem(operadores.top())
+        op2 = operadores.pop()
+        op_d = stackN.pop()
+        op_dt = stackT.pop()
+        op_i = stackN.pop()
+        op_it = stackT.pop()
 
-        resT = cubo.getType(op_it, op_dt, operando2)
-        if resT !='ERORR':
-            res = dispo_instance.next()
+        resT = cubo.getType(op_it, op_dt,op2)
+        if resT != 'ERROR':
+            res = dispo.next()
 
             tablaFunc.addTempMem(resT, res, fid)
-            varT = tablaFunc.getTemp_mem(res)
-
-            cuad = (op, op_i, op_d, varT)
+            vartempo = tablaFunc.getTemp_mem(res)
+            cuad =(op, op_i, op_d, vartempo)
             cuadrulpos.append(cuad)
-
-            stackN.push(varT)
+            stackN.push(vartempo)
             stackT.push(resT)
         else:
-            print('No se pudo generar el cuadruplo')
-            sys.exit()
+            print('no se pudo generar :c')
     else:
-        print("pila de operadores vacia")
+        print('pila de operadores vacia')
     
 def p_genera_quad_or(p):
     'genera_quad_or : '
@@ -652,6 +654,7 @@ def p_if_quad(p):
     'if_quad : '
     global stackN, stackT, cuadrulpos, saltos
     resT = stackT.pop()
+    
     if resT=='bool':
         valor = stackN.pop()
         cuad=('GOTOF', valor, None, -1)
@@ -805,7 +808,7 @@ def p_saveId(p):
             if tipos:
                 stackT.push(tipos)
                 stackN.push(varMemo)
-                print("direccion de -> ", varId, "es", varMemo)
+                print("direccion -> ", varId, "->", varMemo)
 
             else:
                 SystemExit()
@@ -888,7 +891,7 @@ if __name__ =='__main__':
                 if not tok:
                     break
 
-            if parser.parser(info, tracking=True) == 'Compilacion completa':
+            if parser.parse(info, tracking=True) == 'Compilacion completa':
                 print("Sintaxis correcta")
 
                 f = open('cuadruplos.txt', 'w')
