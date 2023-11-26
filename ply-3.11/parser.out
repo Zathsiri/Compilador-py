@@ -78,8 +78,8 @@ Rule 72    for_op -> <empty>
 Rule 73    for_quad -> <empty>
 Rule 74    for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY for_end
 Rule 75    for1 -> FROM asignacion TO exp
-Rule 76    for_end -> <empty>
-Rule 77    loop_end -> <empty>
+Rule 76    loop_end -> <empty>
+Rule 77    for_end -> <empty>
 Rule 78    while_quad -> <empty>
 Rule 79    while_op -> <empty>
 Rule 80    while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement loop_end
@@ -5951,16 +5951,16 @@ state 255
 state 256
 
     (80) while -> WHILE while_op LPAREN exp RPAREN while_quad LCURLY statement . loop_end
-    (77) loop_end -> .
+    (76) loop_end -> .
 
-    ID              reduce using rule 77 (loop_end -> .)
-    READ            reduce using rule 77 (loop_end -> .)
-    WRITE           reduce using rule 77 (loop_end -> .)
-    FOR             reduce using rule 77 (loop_end -> .)
-    IF              reduce using rule 77 (loop_end -> .)
-    WHILE           reduce using rule 77 (loop_end -> .)
-    RCURLY          reduce using rule 77 (loop_end -> .)
-    RETURN          reduce using rule 77 (loop_end -> .)
+    ID              reduce using rule 76 (loop_end -> .)
+    READ            reduce using rule 76 (loop_end -> .)
+    WRITE           reduce using rule 76 (loop_end -> .)
+    FOR             reduce using rule 76 (loop_end -> .)
+    IF              reduce using rule 76 (loop_end -> .)
+    WHILE           reduce using rule 76 (loop_end -> .)
+    RCURLY          reduce using rule 76 (loop_end -> .)
+    RETURN          reduce using rule 76 (loop_end -> .)
 
     loop_end                       shift and go to state 263
 
@@ -6043,16 +6043,16 @@ state 258
 state 259
 
     (74) for -> FOR for_op LPAREN for1 RPAREN for_quad LCURLY statement RCURLY . for_end
-    (76) for_end -> .
+    (77) for_end -> .
 
-    ID              reduce using rule 76 (for_end -> .)
-    READ            reduce using rule 76 (for_end -> .)
-    WRITE           reduce using rule 76 (for_end -> .)
-    FOR             reduce using rule 76 (for_end -> .)
-    IF              reduce using rule 76 (for_end -> .)
-    WHILE           reduce using rule 76 (for_end -> .)
-    RCURLY          reduce using rule 76 (for_end -> .)
-    RETURN          reduce using rule 76 (for_end -> .)
+    ID              reduce using rule 77 (for_end -> .)
+    READ            reduce using rule 77 (for_end -> .)
+    WRITE           reduce using rule 77 (for_end -> .)
+    FOR             reduce using rule 77 (for_end -> .)
+    IF              reduce using rule 77 (for_end -> .)
+    WHILE           reduce using rule 77 (for_end -> .)
+    RCURLY          reduce using rule 77 (for_end -> .)
+    RETURN          reduce using rule 77 (for_end -> .)
 
     for_end                        shift and go to state 265
 

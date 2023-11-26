@@ -8,7 +8,6 @@ from cuboSem import Cubo
 from maquinaVirtual import *
 from stack import Stack
 from memory import Memo
-from argparse import ArgumentParser
 import sys 
 import os
 
@@ -333,9 +332,9 @@ def p_quad_Return(p):
     if operadores.size() > 0:
         if operadores.top() == 'return':
             operadores2 = operadores.pop()
-            result = stackN.pop()
+            res = stackN.pop()
 
-            cuad = (operadores2, -1, -1, result)
+            cuad = (operadores2, -1, -1, res)
             cuadrulpos.append(cuad)
 
         else:
@@ -440,7 +439,7 @@ def p_aux_exp(p):
 def p_quad_param(p):
     '''quad_param : '''
     global cuadrulpos, countParams, nameV, llamadaID, pendientes
-    llamadaID = p[.4]
+    llamadaID = p[-4]
     print("llamadaID->" , llamadaID)
     totalParams = tablaFunc.getNumeroParametros(llamadaID)
 
@@ -450,6 +449,8 @@ def p_quad_param(p):
         if not countParams == totalParams:
             print("Parametro actualizados ->", countParams)
             cuad = ('PARAM', val, None, pendientes)
+            operadores.push('PARAM')
+            print('PARAM->,', nameV, str(cuad))
             cuadrulpos.append(cuad)
             stackN.pop()
             countParams +=1
@@ -528,6 +529,15 @@ def p_for1(p):
     '''
     for1 : FROM asignacion TO exp
     '''
+#aqui es donde se marca el fin del loop
+def p_loop_end(p):
+    'loop_end : '
+    global stackN, stackT, cuadrulpos, saltos
+    end = saltos.pop()
+    retro = saltos.pop()
+    cuad = ('GOTO', None, None, retro)
+    cuadrulpos.append(cuad)
+    llenar_quad(end, retro) 
 
 def p_for_end(p):
     'for_end : '
@@ -539,15 +549,6 @@ def p_for_end(p):
     cuadrulpos.append(cuad)
     llenar_quad(end, retro)
 
-#aqui es donde se marca el fin del loop
-def p_loop_end(p):
-    'loop_end : '
-    global stackN, stackT, cuadrulpos, saltos
-    end = saltos.pop()
-    retro = saltos.pop()
-    cuad = ('GOTO', None, None, retro)
-    cuadrulpos.append(cuad)
-    llenar_quad(end, retro) 
 
 def p_while_quad(p):
     'while_quad : '
@@ -617,7 +618,7 @@ def genera_cuadruplo():
 
         resT = cubo.getType(op_it, op_dt,op2)
         if resT != 'ERROR':
-            res = dispo.next()
+            res = dispo_instance.next()
 
             tablaFunc.addTempMem(resT, res, fid)
             vartempo = tablaFunc.getTemp_mem(res)
@@ -795,8 +796,8 @@ def p_saveId(p):
     '''saveId :'''
     global varId, tablaFunc, fid, stackN, stackT, pendientes
     if not varId == None:
-        if tablaFunc.searchVarTabFunc(varId, fid):
-            tipos = tablaFunc.getVarTipo(fid,varId)
+        if tablaFunc.searchVarTabFunc(fid, varId):
+            tipos = tablaFunc.getVarTipo(varId, fid)
             
             tablaFunc.addVarMem(tipos, varId, fid)
             varMemo = tablaFunc.getVarMem(varId)
@@ -805,6 +806,7 @@ def p_saveId(p):
             if paramId == varId:
                 print("same")
                 pendientes = varMemo
+
             if tipos:
                 stackT.push(tipos)
                 stackN.push(varMemo)
@@ -824,6 +826,8 @@ def p_saveId2(p):
 
         stackT.push(tipo)
         stackN.push(memov)
+    else:
+        SystemExit()
 
 def p_saveCTE(p):
     '''saveCTE : '''
@@ -876,9 +880,9 @@ if __name__ =='__main__':
     try:
         # Get the current working directory
         print("Current Working Directory:", os.getcwd())
-
+    
         archivo = 'ply-3.11/prueba1.txt'
-
+        print(archivo)
         # Check if the file exists
         if os.path.exists(archivo):
             arc = open(archivo, 'r')

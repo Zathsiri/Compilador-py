@@ -29,7 +29,7 @@ class tabFunc():
         
     
     #crea la funcion y la agrega
-    def addFunction(self,tipo, id, nParams, tParams, idParams, nVars):
+    def addFunction(self, tipo, id, nParams, tParams, idParams, nVars):
         if self.funciones.get(id) == None:
             self.funciones[id]= {
                 'tipo' : tipo,  #el tipo de nuestra funcion 
@@ -54,7 +54,7 @@ class tabFunc():
    
     #busca el tipo de una variable  y verifica donde debe de ir 
     def getVarTipo(self, id, fid):
-        if self.funciones[fid]['vars'].searchVars(id) or self.funciones['programa']['vars'].searchVars(id):
+        if self.funciones[fid]['vars'].searchVars(id):
             return self.funciones[fid]['vars'].getTipo(id)
         else:
             print('variable->', id, 'no esta presente')
@@ -68,7 +68,7 @@ class tabFunc():
         elif not self.funciones[fid]['vars'].searchVars(id):
            addV = self.mem.set_var_address(tipo, id, fid)
            self.funciones[fid]['vars'].addVar(tipo, id, addV)
-           self.funciones[fid]['nvars'] = self.funciones[fid]['nvars'] + 1
+           self.funciones[fid]['nVars'] = self.funciones[fid]['nVars'] + 1
 
         #si existe como una global, no la agrego
         elif self.funciones['programa']['vars'].searchVars(id):
@@ -78,7 +78,7 @@ class tabFunc():
         elif self.funciones['programa']['vars'].searchVars(id):
             addV = self.mem.set_var_direction('programa', id, fid)
             self.funciones['programa']['vars'].addVar(tipo, id, addV)
-            self.funciones['programa']['nvars'] = self.funciones[fid]['nvars'] + 1
+            self.funciones['programa']['nVars'] = self.funciones[fid]['nVars'] + 1
 
 
      #se agrega la variable a la direccion de memoria 

@@ -1,11 +1,11 @@
 program patito;
 var 
-int i;
+int ig;
 
 main() {
-i = 98;
-write(i);
-i = i + 1;
+ig = 98;
+write(ig);
+ig = ig + 1;
 
 }
 
