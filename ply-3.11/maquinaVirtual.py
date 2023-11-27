@@ -87,7 +87,7 @@ class MaVi():
                 self.inputOP(cuads[self.instructionPointer]) 
                 self.instructionPointer += 1
 
-            elif cuads[self.instructionPointer][0] == self.memo.get_operator_address('print'):
+            elif cuads[self.instructionPointer][0] == self.memo.get_operator_address('write'):
                 self.writing(cuads[self.instructionPointer]) 
                 self.instructionPointer += 1
                 
