@@ -35,6 +35,7 @@ class Memo:
         }
 
 #GLOBALES 
+       
         self.gint = 1000  # Rango permitido: 1000 a 2999
         self.gfloat = 3000  # Rango permitido: 3000 a 4999
         self.gchar = 5000  # Rango permitido: 5000 a 6999
@@ -247,6 +248,7 @@ class Memo:
                 if self.lbool < 33000:
                     address = self.lbool
                     self.lbool += 1
+        
         return address
                         
     def set_temp_direction(self, tipo, id, funId):
@@ -276,7 +278,7 @@ class Memo:
             if self.tbool < 20000:                   
                 address = self.tbool
                 self.tbool += 1
-                return address
+        return address
 
         #Manejo de constantes
 
@@ -302,7 +304,7 @@ class Memo:
                 if self.cteString < 49000:
                     address = self.cteString
                     self.cteString += 1
-            return address 
+        return address 
             
     def set_var_address(self, tipo, vid, funId):
         if self.get_var_address(vid) == -1:    
@@ -350,7 +352,7 @@ class Memo:
             return self.operadores[op]
                 
     def p_reset_temp_vals(self):
-        self.liint = 23000
+        self.lint = 23000
         self.lfloat = 26000
         self.lchar = 29000
         self.lbool = 31000

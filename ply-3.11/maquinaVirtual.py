@@ -14,7 +14,7 @@ class MaVi():
         self.activation_record = []
 
     def rebuildCte(self):
-        with open('const.txt', 'r') as cteList:
+        with open('ply-3.11/const.txt', 'r') as cteList:
             lines = []
             for line in cteList:
                 lines.append(eval(line))
@@ -23,7 +23,7 @@ class MaVi():
                 self.memo.value_to_memory(line[1], line[0])
 
     def clear_quad(self):
-        with open('cuadruplos.txt', 'r') as cuadList:
+        with open('ply-3.11/cuadruplos.txt', 'r') as cuadList:
             cuads = []
             for cuad in cuadList:
                 cuads.append(eval(cuad))

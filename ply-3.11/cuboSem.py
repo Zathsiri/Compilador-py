@@ -615,17 +615,12 @@ class Cubo:
                     self.operators[13]: self.types[9],  # ctestring = ctec
                     self.operators[14]: self.types[9],  # ctestring == ctec = bool
             },    
-        }
+        },
 
-        }
+    }
 
     def getType(self, lf, rg, op):
-        if lf in self.dance and rg in self.dance[lf] and op in self.dance[lf][rg]:
-            return self.dance[lf][rg][op]
-        else:
-            # Manejar el caso en el que una clave no existe
-            return None  # o devuelve un valor predeterminado o levanta una excepción
-
+        return self.dance[lf][rg][op]
             
     def pr(self,lf,rg,op):
         print('valor de retorno es->', self.getType(lf, rg, op))

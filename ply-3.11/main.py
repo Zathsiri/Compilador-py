@@ -1,9 +1,8 @@
 
 import ply.lex as lex
 import ply.yacc as yacc
-from ply import yacc
 from disponible import dispo
-from tablaVariables import tabVar, tabFunc
+from tablaVariables import tabFunc, tabVar
 from cuboSem import Cubo
 from maquinaVirtual import *
 from stack import Stack
@@ -95,16 +94,16 @@ def t_ID(t):
     t.type = reserved.get(t.value, 'ID')
     return t
 
-#identificador de INT
-def t_CTEI(t):
-    r'0|[-+]?[1-9][0-9]*'
-    t.value = int(t.value)
-    return t
-
 #Identificador de FLOAT
 def t_CTEF(t):
     r'[-+]?\d*\.\d+'
     t.value = float(t.value)
+    return t
+
+#identificador de INT
+def t_CTEI(t):
+    r'0|[-+]?[1-9][0-9]*'
+    t.value = int(t.value)
     return t
 
 #Identificador de STRING
@@ -159,15 +158,15 @@ def p_programa(p):
     '''
     global programId
     programId = p[2]
-    p[0] = 'PROGRAMA COMPILADO'
+    p[0] = 'Compilacion completa'
 
 def p_addP(p):
     'addP : '
-    global actualFunType, fid
-    actualFunType = 'programa'
+    global actual_funTipo, fid
+    actual_funTipo = 'programa'
     fid = 'programa'
     global tablaFunc
-    tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
+    tablaFunc.addFunction(actual_funTipo, fid, 0, [], [], 0)
 
 def p_programa1(p):
     '''
@@ -185,12 +184,12 @@ def p_main(p):
     '''
 	main : MAIN save_fun LPAREN param2 RPAREN LCURLY vars statement RCURLY END
 	'''
-    global actualFunType
-    actualFunType = p[1]
+    global actual_funTipo
+    actual_funTipo = p[1]
     global fid
     fid = p[1]
     global tablaFunc
-    tablaFunc.addFunction(actualFunType, fid, 0, [], [], 0)
+    tablaFunc.addFunction(actual_funTipo, fid, 0, [], [], 0)
 
 def p_quadMain(p):
     'quadMain : '
@@ -274,18 +273,18 @@ def p_modules(p):
 
 def p_save_fun(p):
     'save_fun : '
-    global actualFunType
+    global actual_funTipo
     global fid
     global tablaFunc
 
     if p[-1] == 'main':
-        actualFunType = 'main'
+        actual_funTipo = 'main'
         fid = p[-1]
-        tablaFunc.addFunction(actualFunType, fid, 0, [],[], 0)
+        tablaFunc.addFunction(actual_funTipo, fid, 0, [],[], 0)
     else:
-        actualFunType = p[-2]
+        actual_funTipo = p[-2]
         fid =p[-1]
-        tablaFunc.addFunction(actualFunType, fid, 0, [],[], 0)
+        tablaFunc.addFunction(actual_funTipo, fid, 0, [],[], 0)
 
 def p_fun(p):
     '''
@@ -328,7 +327,7 @@ def p_operadorReturn(p):
 
 def p_quad_Return(p):
     'quad_return : '
-    global cuadrulpos, stackN, stackT, operadores, actualFunType
+    global cuadrulpos, stackN, stackT, operadores, actual_funTipo
     if operadores.size() > 0:
         if operadores.top() == 'return':
             operadores2 = operadores.pop()
@@ -878,45 +877,36 @@ parser = yacc.yacc()
 
 if __name__ =='__main__':
     try:
-        # Get the current working directory
-        print("Current Working Directory:", os.getcwd())
+        archivo ='ply-3.11\prueba1.txt'
+        arch = open(archivo, 'r')
+        info = arch.read()
+        lexer.input(info)
+        while True:
+            tok = lexer.token()
+            if not tok:
+                break
     
-        archivo = 'ply-3.11/prueba1.txt'
-        print(archivo)
-        # Check if the file exists
-        if os.path.exists(archivo):
-            arc = open(archivo, 'r')
-            info = arc.read()
-            arc.close()
+        if (parser.parse(info, tracking = True) == 'Compilacion completa'):
+            print("Sintaxis correcta")
 
-            lexer.input(info)
-            while True:
-                tok = lexer.token()
-                if not tok:
-                    break
+            f = open('ply-3.11/cuadruplos.txt', 'w')
+            for i in cuadrulpos:
+                f.write(str(i) + '\n')
+            f.close()
 
-            if parser.parse(info, tracking=True) == 'Compilacion completa':
-                print("Sintaxis correcta")
-
-                f = open('cuadruplos.txt', 'w')
-                for i in cuadrulpos:
-                    f.write(str(i) + '\n')
-                f.close()
-
-                c = open("const.txt", 'w')
-                for i in arreglos:
+            c = open("ply-3.11/const.txt", 'w')
+            for i in arreglos:
                     c.write(str(i) + '\n')
-                c.close()
+            c.close()
 
                 # Ponemos a funcionar la maquina virtual
-                mv = MaVi()
-                mv.rebuildCte()
-                q = mv.clear_quad()
-                mv.reading(q)
+            mv = MaVi()
+            mv.rebuildCte()
+            q = mv.clear_quad()
+            mv.reading(q)
         else:
-            print(f"Error: File '{archivo}' not found.")
+            print("Syntax error")
+
 
     except EOFError:
         print("EOFError")
-else:
-    print("Syntax error")

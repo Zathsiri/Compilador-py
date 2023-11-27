@@ -6,7 +6,7 @@ function void imprimeVar();
     int q;
     q = 10;
     write(q); 
-    write("LLAMADA function");
+    write("LLAMADA FUNCION");
 }
 
 function int Hello(int lad, int itc);
