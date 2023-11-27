@@ -209,7 +209,7 @@ class MaVi():
         self.memo.value_to_memory(cuads[3], tempo)
     
     def asignacion(self, cuads):
-        self.memo.value_to_memory(cuads[3], self.memo.value_from_memory(cuads[3]))
+        self.memo.value_to_memory(cuads[3], self.memo.value_from_memory(cuads[1]))
 
 #saltos
 

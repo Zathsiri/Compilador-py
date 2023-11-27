@@ -618,11 +618,12 @@ def genera_cuadruplo():
         resT = cubo.getType(op_it, op_dt,op2)
         if resT != 'ERROR':
             res = dispo_instance.next()
-
+            #aqui se asigna memoria temporal
             tablaFunc.addTempMem(resT, res, fid)
             vartempo = tablaFunc.getTemp_mem(res)
             cuad =(op, op_i, op_d, vartempo)
             cuadrulpos.append(cuad)
+            #y aqui se agrega a la pila la dirrecin, en lugar del nombre
             stackN.push(vartempo)
             stackT.push(resT)
         else:
