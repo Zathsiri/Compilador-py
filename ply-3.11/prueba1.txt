@@ -1,35 +1,11 @@
-program heinz;
+program Demo;
 
-function void imprimeVar();
-{
-    var
-    int q;
-    q = 10;
-    write(q); 
-    write("LLAMADA FUNCION");
-}
-
-function int Hello(int lad, int itc);
-{
-    var 
-    int j, w, g;
-    j = 20;
-    w = 30;
-    g = w * itc;
-    j = w * 23;
-    write("JOLA");
-    write(j);
-    write(g);
-    return j;  
-}
 
 main () {
-  var 
-    int i;
-    i = 17;
-    write(i);
-    Hello(1500, i);
-    imprimeVar();
+ var
+    int i ;
+ i = 1;
+ i = i + i;
 
 }
 end
