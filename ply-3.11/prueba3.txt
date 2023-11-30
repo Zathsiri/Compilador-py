@@ -1,0 +1,18 @@
+program Arr;
+
+main(){
+    var
+    float arr[5], a, b , c, d;
+    
+    arr[0]=1;
+    arr[1]=7;
+    arr[2]=10;
+    arr[3]=5;
+    write(arr[0]);
+    write(arr[0] * arr[3]);
+    write(arr[0] + arr[3]);
+    write(arr[0] / arr[2]);
+    a = arr[2] - arr[3];
+    write(a);
+}
+end

@@ -8,7 +8,7 @@ from maquinaVirtual import *
 from stack import Stack
 from memory import Memo
 import sys 
-import os
+
 
 #Palabras reservadas
 
@@ -123,14 +123,21 @@ def t_error(t):
 lexer = lex.lex()
 
 tablaFunc= tabFunc()   
-actualFunType = ''
+actual_funTipo = ''
 fid = ''
 varId = ''
 paramId = '' 
+#editando
+arrSize = 0
+isArr = False
+arrIndex = 0
+arrFlag = False
+funcFlag = False
 
 # las pilas para los cuadruplos
 stackN= Stack()
 stackT= Stack()
+stackSize = Stack()
 operadores = Stack()
 cuadrulpos = []
 arreglos = []
@@ -232,21 +239,26 @@ def p_var1(p):
     var1 : ID
          | ID COMMA var1 addV
          | ID arr 
-         | ID arr COMMA var1 addV 
+         | ID arr COMMA var1 addV
          | empty 
     '''
     global varId
     varId = p[1]
-
+#editando 
 def p_addV(p):
     'addV :'
     global tablaFunc
     global varId
-    global actual_varTipo
+    global actual_varTipo, arrSize
     if not varId ==None:
 
             if tablaFunc.searchTabFunc(fid):
-                tablaFunc.addVari(fid, actual_varTipo, varId)
+                #print(fid, actual_varTipo, varId, arrSize)
+                if (arrSize > 0 ): 
+                    tablaFunc.addVari(fid, actual_varTipo, varId, arrSize)
+                else :
+                    tablaFunc.addVari(fid, actual_varTipo, varId, 1)
+                arrSize=0
             else:
              SystemExit()
 
@@ -260,9 +272,32 @@ def p_var2(p):
 
 def p_arr(p):
     '''
-    arr : LBRACKET CTEI RBRACKET
-        | LBRACKET exp RBRACKET 
+    arr :  LBRACKET arr_handler const  RBRACKET
     '''
+
+
+def p_arr_handler(p):
+    '''
+    arr_handler : empty
+    '''
+    global arrFlag
+    if arrFlag == False: 
+        arrFlag = True
+
+
+#editando
+def p_const(p):
+    '''
+    const : CTEI
+    '''    
+    global arrSize, arrIndex
+    arrSize= p[1]
+    if arrFlag:
+        arrIndex = arrSize
+    
+
+
+    #print("tamaño->" , arrSize)
 
 def p_modules(p):
     '''
@@ -275,7 +310,7 @@ def p_save_fun(p):
     'save_fun : '
     global actual_funTipo
     global fid
-    global tablaFunc
+    global tablaFunc, funcFlag
 
     if p[-1] == 'main':
         actual_funTipo = 'main'
@@ -285,14 +320,26 @@ def p_save_fun(p):
         actual_funTipo = p[-2]
         fid =p[-1]
         tablaFunc.addFunction(actual_funTipo, fid, 0, [],[], 0)
+        #Agregar una variable en base al tipo de funcion
+        if funcFlag:
+            tablaFunc.addVari("programa", actual_funTipo, fid, 1)
+            funcFlag= False
+
 
 def p_fun(p):
     '''
     fun : FUNCTION VOID fun1
-        | FUNCTION INT fun2
-        | FUNCTION CHAR fun2
-        | FUNCTION FLOAT fun2
+        | FUNCTION function_handler INT fun2
+        | FUNCTION function_handler CHAR fun2
+        | FUNCTION function_handler FLOAT fun2
     '''
+
+def p_function_handler(p):
+    '''
+    function_handler : empty
+    ''' 
+    global funcFlag
+    funcFlag = True
 
 def p_fun1(p):
     '''
@@ -357,15 +404,34 @@ def p_statement1(p):
                 | while
     '''
 
+def p_assig_arreglo(p):
+    '''
+    assig_arreglo : ID saveId2 arr  EQUALS addOperadorName exp np_arr genera_quad_asignacion
+    '''  
+    
+   # print("ESTOY EN ARREGLO", p[1], isArr)
+
+def p_np_arr(p):
+    '''
+    np_arr : empty
+    '''
+    global isArr
+    isArr = True
+
 def p_asignacion(p):
-     '''
+    '''
     asignacion : ID saveId2 EQUALS addOperadorName exp genera_quad_asignacion
-               | ID saveId2 arr EQUALS addOperadorName exp genera_quad_asignacion
-    ''' 
+               | assig_arreglo
+               | llamada
+    '''
+    global isArr
+    isArr = False
+
 
 def p_genera_quad_asignacion(p):
     'genera_quad_asignacion : '
-    global stackT, stackN, operadores, cuadrulpos
+    
+    global stackT, stackN, operadores, cuadrulpos, varId, arrSize, isArr
 
     if operadores.size() >0 :
         op = tablaFunc.get_op_mem(operadores.top())
@@ -375,10 +441,17 @@ def p_genera_quad_asignacion(p):
         op_i = stackN.pop()
         op_it = stackT.pop()
         res = cubo.getType(op_it, op_dt, operadores2)
-        
         if res != 'ERROR':
-            cuad = (op, op_d , None, op_i)
-            cuadrulpos.append(cuad)
+            #Si la variable es una unica  entonces 
+            print("varId----->", varId, isArr, arrSize)
+            if isArr :  
+                print("Estoy asignando un arrelgo ")
+                cuad = (op, op_d , None, op_i+ arrSize)
+                cuadrulpos.append(cuad)
+            #Sino 
+            else : 
+                cuad = (op, op_d , None, op_i)
+                cuadrulpos.append(cuad)
     else:
         print('no hay nada :c')
         sys.exit()
@@ -409,9 +482,9 @@ def p_addParam(p):
     if not paramId == None and paramId is not None:
         if tablaFunc.searchTabFunc(fid):
             tablaFunc.addParametros_tabFunc(fid, actual_varTipo, primerP)
-            tablaFunc.addVari(fid, actual_varTipo, primerP)
+            tablaFunc.addVari(fid, actual_varTipo, primerP, 1)
             tablaFunc.addParametros_tabFunc(fid, actual_varTipo, paramId)
-            tablaFunc.addVari(fid, actual_varTipo, paramId)
+            tablaFunc.addVari(fid, actual_varTipo, paramId,1)
             print(paramId, "esta en -> ", fid)
             print(primerP, "el id del parametro esta en ->", fid)
         else:
@@ -508,7 +581,7 @@ def p_for_op(p):
 def p_for_quad(p):
     'for_quad : '
     global stackN, stackT, cuadrulpos, saltos
-    resT = stackN.pop()
+    resT = stackT.pop()
 
     if resT == 'bool':
         val = stackN.pop()
@@ -606,7 +679,7 @@ def p_exp(p):
     '''
 
 def genera_cuadruplo():
-    global operadores, stackN, stackT, cuadrulpos
+    global operadores, stackN, stackT, cuadrulpos, arrFlag, arrIndex
     if operadores.size() > 0:
         op = tablaFunc.get_op_mem(operadores.top())
         op2 = operadores.pop()
@@ -624,8 +697,11 @@ def genera_cuadruplo():
             cuad =(op, op_i, op_d, vartempo)
             cuadrulpos.append(cuad)
             #y aqui se agrega a la pila la dirrecin, en lugar del nombre
+          #  print("TESTING IT", arrFlag, arrIndex)
             stackN.push(vartempo)
             stackT.push(resT)
+            arrFlag= False
+            arrIndex = 0
         else:
             print('no se pudo generar :c')
     else:
@@ -734,19 +810,31 @@ def p_genera_quad_mul(p):
 
 def p_operadorWrite(p):
     'operadorWrite : '
-    global operadores
+    global operadores, writeFlag
     operadores.push('write')
+    writeFlag = True
 
 def p_operadorWriteQuad(p):
     'operadorWriteQuad : '
-    global operadores
+    global operadores, arrSize, isArr, arrFlag
     if operadores.size() > 0:
         if operadores.top()== 'write':
-            op =tablaFunc.get_op_mem('write')
-            operadorAux = operadores.pop()
-            valor = stackN.pop()
-            cuad = (op, None, None, valor)
-            cuadrulpos.append(cuad)
+           # print("FLAG1", arrFlag, arrSize)
+            if arrFlag:
+              #  print("ESTOY ESCRIBIENDO EN UNA LISTA")
+                op =tablaFunc.get_op_mem('write')
+                operadorAux = operadores.pop()
+                valor = stackN.pop()
+                cuad = (op, None, None, valor + arrSize)
+                cuadrulpos.append(cuad)
+                arrFlag = False
+            else :
+             #   print("NO ESTOY ESCRIBIENDO EN UNA LISTA") 
+                op =tablaFunc.get_op_mem('write')
+                operadorAux = operadores.pop()
+                valor = stackN.pop()
+                cuad = (op, None, None, valor)
+                cuadrulpos.append(cuad)
 
 def p_operatorRead(p):
     'operatorRead : '
@@ -794,13 +882,13 @@ def p_empty(p):
 
 def p_saveId(p):
     '''saveId :'''
-    global varId, tablaFunc, fid, stackN, stackT, pendientes
+    global varId, tablaFunc, fid, stackN, stackT, pendientes, arrIndex, arrFlag
     if not varId == None:
         if tablaFunc.searchVarTabFunc(fid, varId):
             tipos = tablaFunc.getVarTipo(varId, fid)
-            
+            #print("TEST3", arrFlag, arrIndex)
             tablaFunc.addVarMem(tipos, varId, fid)
-            varMemo = tablaFunc.getVarMem(varId)
+            varMemo = tablaFunc.getVarMem(varId, fid)
             print("variable-> ", varId, varMemo)
 
             if paramId == varId:
@@ -809,7 +897,13 @@ def p_saveId(p):
 
             if tipos:
                 stackT.push(tipos)
-                stackN.push(varMemo)
+                if arrFlag:
+                    stackN.push(varMemo + arrSize)
+                else: 
+                    stackN.push(varMemo)
+                arrFlag = False
+                arrIndex = 0
+
                 print("direccion -> ", varId, "->", varMemo)
 
             else:
@@ -819,13 +913,15 @@ def p_saveId2(p):
     '''saveId2 : '''
     global varId, tablaFunc, fid, stackN, stackT
     varId = p[-1]
-
+   # print("GUARDADO2",varId, arrSize)
     if tablaFunc.searchVarTabFunc(fid, varId):
-        tipo =tablaFunc.getVarTipo(varId,fid)
-        memov = tablaFunc.getVarMem(varId)
+        tipo = tablaFunc.getVarTipo(varId,fid)
+        memov = tablaFunc.getVarMem(varId, fid)
+
 
         stackT.push(tipo)
         stackN.push(memov)
+
     else:
         SystemExit()
 
@@ -878,7 +974,7 @@ parser = yacc.yacc()
 
 if __name__ =='__main__':
     try:
-        archivo ='ply-3.11\prueba1.txt'
+        archivo ='ply-3.11\prueba3.txt'
         arch = open(archivo, 'r')
         info = arch.read()
         lexer.input(info)
@@ -900,11 +996,20 @@ if __name__ =='__main__':
                     c.write(str(i) + '\n')
             c.close()
 
-                # Ponemos a funcionar la maquina virtual
+            # Ponemos a funcionar la maquina virtual
+            #d = open("func.txt", 'w')
+            
+
             mv = MaVi()
             mv.rebuildCte()
+        
+            
+            
             q = mv.clear_quad()
             mv.reading(q)
+            for i in tablaFunc.funciones.keys(): 
+                for j in tablaFunc.funciones[i]["vars"].var_list.items():
+                    print (j)
         else:
             print("Syntax error")
 

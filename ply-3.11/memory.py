@@ -5,7 +5,7 @@ class Memo:
         self.constantes = {}
         self.locales    = {}
         self.temporales = {}
-        self.operadores = {
+        self.operadores ={
                 '+' : 1,
                 '-' : 2,
                 '*' : 3,
@@ -188,35 +188,38 @@ class Memo:
                 print("index ouf of range")
 
         #Funciones de asegnacion de memoria 
-    def set_var_direction(self, tipo, id, funId):
+    def set_var_direction(self, tipo, id, funId, size):
         #VARIABLES GLOBALES
+        #print ("variable a guardar", tipo, id, funId, size)
         if funId == 'programa':
+            print("estoy guardando global ")
             if tipo == 'int':
                 if self.gint <3000:
                     address = self.gint
-                    self.gint += 1
+                    self.gint += size
+                    print("rango" , address , self.gint )
                 else:
                     print("index out of range")
                             
             elif tipo == 'float':
                 if self.gfloat < 5000:
                     address = self.gfloat
-                    self.gfloat += 1
-
+                    self.gfloat += size
+    
                 else:
                     print("index out of range")
 
             elif tipo == 'char':
                 if self.gchar < 7000:
                     address = self.gchar
-                    self.gchar += 1
+                    self.gchar += size
                 else:
                     print("index out of range")
 
             else:
                 if self.gbool < 9000:
                     address = self.gbool
-                    self.gbool += 1
+                    self.gbool += size
                 
                 #variables locales
         else:
@@ -224,14 +227,14 @@ class Memo:
 
                 if self.lint <26000:
                     address = self.lint
-                    self.lint += 1
+                    self.lint += size
                 else:
                     print("index out of range")
 
             elif tipo == 'float':
                 if self.lfloat < 29000:
                     address = self.lfloat
-                    self.lfloat += 1
+                    self.lfloat += size
 
                 else:
                     print("index out of range")
@@ -239,7 +242,7 @@ class Memo:
             elif tipo == 'char':
                 if self.lchar < 31000:
                     address = self.lchar
-                    self.lchar += 1
+                    self.lchar += size
                             
                 else:
                     print("index out of range")
@@ -247,8 +250,8 @@ class Memo:
             else:
                 if self.lbool < 33000:
                     address = self.lbool
-                    self.lbool += 1
-        
+                    self.lbool += size
+        print("id2", id, "address", address)
         return address
                         
     def set_temp_direction(self, tipo, id, funId):
@@ -306,17 +309,28 @@ class Memo:
                     self.cteString += 1
         return address 
             
-    def set_var_address(self, tipo, vid, funId):
+    def set_var_address(self, tipo, vid, funId, size):
         if self.get_var_address(vid) == -1:    
-            ad = self.set_var_direction(tipo, vid, funId)
+            ad = self.set_var_direction(tipo, vid, funId, size)
+            print("estoy guardando", vid)
             self.locales[vid] = {
             'address': ad
             }
 
     def get_var_address(self, temp):
         if temp in self.locales.keys():
+            print("esta en locales", temp)
+            for key, value in self.locales.items():
+                print (key, value)
             return self.locales[temp]['address']
         else:
+            return -1
+
+    def get_var_global(self,temp):
+
+        if temp in self.globales.keys():
+            return self.globales[temp]['address']
+        else: 
             return -1
                 
     def set_temp_address(self, tipo, vid, funId):

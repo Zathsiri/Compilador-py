@@ -1,35 +1,39 @@
-program heinz;
+program fibonacci;
 
-function void imprimeVar();
-{
-    var
-    int q;
-    q = 10;
-    write(q); 
-    write("LLAMADA FUNCION");
+unction int fibo(); {
+        var 
+        int t0, t1, t2, nT, n, contador, x;
+        
+        t1 = 0;
+        t2 = 1;
+        nT = 0;
+        n = 0;
+
+        write("dame un valor para calcular los n primeros numeros de fibonacci");
+        read (n);
+            for (from x = 0 to x <= n) {
+            
+            
+                if (x == 1){
+                    write( t2 );
+                }
+                if ( x >= 2) {
+                nT = t1 + t2;
+                t1 = t2;
+                t2 = nT;
+                write(nT);
+                }
+                  x = x + 1;
+        }
+        return x;
 }
 
-function int Hello(int lad, int itc);
-{
-    var 
-    int j, w, g;
-    j = 20;
-    w = 30;
-    g = w * itc;
-    j = w * 23;
-    write("JOLA");
-    write(j);
-    write(g);
-    return j;  
-}
+
 
 main () {
-  var 
-    int i;
-    i = 17;
-    write(i);
-    Hello(1500, i);
-    imprimeVar();
-
-}
+    var int a, b;
+    a = 0;
+    b = 0;
+    fibo();
+    }
 end

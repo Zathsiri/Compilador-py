@@ -184,7 +184,7 @@ class MaVi():
             self.memo.value_to_memory(cuads[3], int(inputMV))
         
         elif inputMV.replace('.','',1).isdigit():
-            self.memo
+            self.memo.value_from_memory(cuads[3], float(inputMV))
 
         else:
             self.memo.value_to_memory(cuads[3], inputMV)
@@ -201,7 +201,7 @@ class MaVi():
         self.memo.value_to_memory(cuads[3], tempo)
 
     def plus(self, cuads):
-        tempo = self.memo.value_from_memory(cuads[1]) * self.memo.value_from_memory(cuads[2])
+        tempo = self.memo.value_from_memory(cuads[1]) + self.memo.value_from_memory(cuads[2])
         self.memo.value_to_memory(cuads[3], tempo)
     
     def minus(self, cuads):

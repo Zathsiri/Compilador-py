@@ -1,0 +1,44 @@
+program fibonacci;
+var 
+int k, l; 
+
+function int fibo(); {
+    var 
+        int t0, t1, t2, nT, n, contador, x;
+        
+        t0 = 12;
+        t1 = 0;
+        t2 = 1;
+        nT = 0;
+        n = 0;
+        l = 1;
+    write(l);
+    write(t2);
+    return t2;
+}
+
+function void fibo2(int a , int s ,int f );{
+    var 
+        int t0, t1, t2, nT, n, contador, x;
+        t1 = 1000;
+        t2 = 1;
+        nT = 0;
+        n = 0;
+        
+    write(t1);
+
+}
+
+
+main () {
+    var int a, b, x;
+    a = 2;
+    b = 1;
+    fibo2();
+    write(a);
+    write(b);
+    fibo();
+    write(a + b);
+    
+    }
+end
