@@ -58,7 +58,7 @@ class tabFunc():
             return self.funciones[fid]['vars'].getTipo(id)
         else:
             return self.funciones["programa"]['vars'].getTipo(id)
-            print('variable->', id, 'no esta presente')
+           
 
 
     #esta funcion agrega una varible
@@ -66,10 +66,10 @@ class tabFunc():
 
         print("NOMBRE FUNCION", fid)
         if (fid == "programa"): 
-            print("estoy en 1")
+           # print("estoy en 1")
                 #si existe como una global, no la agrego
             if self.funciones['programa']['vars'].searchVars(id):
-                print("estoy en 2")
+              #  print("estoy en 2")
                 print('variable->', id, 'ya se encuentra como un programa global')
 
             #si todavia esta no esta, ahora si la agrego
@@ -85,7 +85,7 @@ class tabFunc():
             #si todavia no esta en la memoria local la agrego a esta 
             elif not self.funciones[fid]['vars'].searchVars(id):
                addV = self.mem.set_var_address(tipo, id, fid, size)
-               print("id2", id, "address2", addV)
+             #  print("id2", id, "address2", addV)
                self.funciones[fid]['vars'].addVar(tipo, id, addV, size)
                self.funciones[fid]['nVars'] = self.funciones[fid]['nVars'] + 1
 
@@ -99,11 +99,11 @@ class tabFunc():
     #se obtiene la direccion de memoria de la variable
     def getVarMem(self, var, function):
 
-        print("estoy buscando", var , "en" , function)
+      #  print("estoy buscando", var , "en" , function)
         a = self.mem.get_var_address(var)
-        print("que es esto", a)
+     #   print("que es esto", a)
         if (a == -1):
-            print("estoy buscando", var , "en" , function)
+           # print("estoy buscando", var , "en" , function)
             a = self.funciones["programa"]["vars"].var_list[var]["address"] 
         else:
             self.funciones[function]["vars"].var_list[var]["address"] = a 

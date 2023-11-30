@@ -113,8 +113,12 @@ class MaVi():
                 self.gotomain(cuads[self.instructionPointer])
               
             elif cuads[self.instructionPointer][0] == 'PARAM':
-                print('ENTRO A PARAM en VM', cuads[2])
+                print('ENTRO A PARAM en MaVi', cuads[2])
                 self.param(cuads[self.instructionPointer])
+            
+            elif cuads[self.instructionPointer][0] == 'return':
+                print("ENTRO RETURN")
+                self.returnV(cuads[self.instructionPointer])
             else: 
                 sys.exit()
     
@@ -242,5 +246,4 @@ class MaVi():
         if cuads[2] == None:
             self.memo.value_to_memory(cuads[3], self.memo.value_from_memory(cuads[1]))
             self.instructionPointer +=1
-    
     

@@ -1,4 +1,4 @@
-(1, 45000)
-(7, 45001)
-(10, 45002)
-(5, 45003)
+(0, 45000)
+(1, 45001)
+('"dame un valor para calcular los n primeros numeros de fibonacci"', 48000)
+(2, 45002)

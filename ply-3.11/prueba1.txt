@@ -1,6 +1,6 @@
 program fibonacci;
 
-unction int fibo(); {
+function int fibo( ); {
         var 
         int t0, t1, t2, nT, n, contador, x;
         
@@ -8,6 +8,8 @@ unction int fibo(); {
         t2 = 1;
         nT = 0;
         n = 0;
+       
+       
 
         write("dame un valor para calcular los n primeros numeros de fibonacci");
         read (n);
@@ -35,5 +37,6 @@ main () {
     a = 0;
     b = 0;
     fibo();
+    write(a);
     }
 end

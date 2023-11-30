@@ -974,7 +974,7 @@ parser = yacc.yacc()
 
 if __name__ =='__main__':
     try:
-        archivo ='ply-3.11\prueba3.txt'
+        archivo ='ply-3.11\prueba1.txt'
         arch = open(archivo, 'r')
         info = arch.read()
         lexer.input(info)
@@ -996,8 +996,7 @@ if __name__ =='__main__':
                     c.write(str(i) + '\n')
             c.close()
 
-            # Ponemos a funcionar la maquina virtual
-            #d = open("func.txt", 'w')
+
             
 
             mv = MaVi()
@@ -1007,9 +1006,9 @@ if __name__ =='__main__':
             
             q = mv.clear_quad()
             mv.reading(q)
-            for i in tablaFunc.funciones.keys(): 
-                for j in tablaFunc.funciones[i]["vars"].var_list.items():
-                    print (j)
+           # for i in tablaFunc.funciones.keys(): 
+            #    for j in tablaFunc.funciones[i]["vars"].var_list.items():
+             #       print (j)
         else:
             print("Syntax error")
 
